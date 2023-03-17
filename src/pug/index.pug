@@ -6,28 +6,3 @@ block variables
 
 
 block main
-
-	h2 index.html
-
-	include templates/header.pug
-
-	main
-		h2 BOLT-PUG 2.0
-
-		// картинка
-		img(width="300" src="img/img.jpg" alt="#")
-
-		//- массив для текущей страницы
-		- var svgImages = ["#ava-default", "#cat-logo"]
-
-		//- цикл
-		each svgImage in svgImages
-			br
-			svg(width="300" role="img")
-				use(xlink:href=svgImage)
-
-		//- mixin
-		+my_card("Заголокок", "Купить")
-		+my_card("еще заголовок", "Продать")
-
-	include templates/footer.pug

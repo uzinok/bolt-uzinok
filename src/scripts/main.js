@@ -1,8 +1,12 @@
-console.log('hi!xx');
-const hello = 'hello';
-let bue = 'bue';
-document.write(hello);
-class Buka {
-	constructor(){}
+function setYear() {
+	new Date().getFullYear();
+	const yearElem = document.querySelectorAll('.ryear');
+
+	for (let i = 0; i < yearElem.length; i++) {
+		yearElem[i].innerText = new Date().getFullYear();
+	}
 }
-// alert('hi!!!!!!!!!!!')
+
+window.addEventListener('load', () => {
+	setYear();
+})
