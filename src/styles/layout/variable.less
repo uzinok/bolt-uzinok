@@ -12,3 +12,23 @@
 @min-xl: 1201px;
 
 @min-xxl: 1920px;
+
+:root {
+	--transition-duration: 250ms;
+	--transition-function: ease-in-out;
+
+	--color-text: #ffffff;
+	--color-body: #050818;
+	--color-hover: #0039a6;
+	--color-active: #d52b1e;
+
+	--offset-page: 10px;
+
+	@media (min-width: @md) {
+		--offset-page: 15px;
+	}
+
+	@media (min-width: @lg) {
+		--offset-page: 20px;
+	}
+}
