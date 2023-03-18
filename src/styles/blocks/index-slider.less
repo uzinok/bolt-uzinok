@@ -1,0 +1,127 @@
+.slider {
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	margin: 1em 0;
+	padding-bottom: calc(var(--offset-page) * 2);
+	overflow: hidden;
+}
+
+.slider__list {
+	display: flex;
+	align-items: flex-start;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.slider__item {
+	flex-shrink: 0;
+}
+
+.no-js {
+	& .slider__list {
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		padding-bottom: var(--offset-pageX);
+		scrollbar-color: var(--color-text) transparent;
+
+		&::-webkit-scrollbar {
+			height: calc(var(--offset-pageX));
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: var(--color-text);
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+			box-shadow: 0 0 1px var(--color-text);
+		}
+	}
+
+	.slider__item {
+		display: flex;
+		flex-basis: 100%;
+		scroll-snap-align: center;
+	}
+}
+
+body:not(.no-js) {
+	.slider__list {
+		overflow: hidden;
+	}
+}
+
+body:not(.no-js) {
+	& .slider__item {
+		cursor: grab;
+
+		& .slider__content {
+			display: none;
+		}
+
+		&--current {
+			& .slider__content {
+				display: block;
+			}
+		}
+	}
+
+	& .slider__content {
+
+		& * {
+			user-select: none;
+		}
+	}
+
+	.slider--active {
+
+		& .slider__content {
+			display: block;
+			cursor: grabbing;
+		}
+	}
+
+	& .slider__pagination-wrap {
+		display: flex;
+		width: 100%;
+		margin-top: calc(var(--offset-pageX) * 2);
+		font-size: 0;
+		background-color: var(--color-active);
+	}
+
+	& .slider__pagination {
+		flex-grow: 1;
+		border: 0;
+		appearance: none;
+		background-color: transparent;
+		padding: 0;
+		height: 10px;
+		transition: background-color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
+
+		&:not(:disabled):hover {
+			background-color: var(--color-text);
+			opacity: 0.5;
+		}
+
+		&:not(:disabled):focus {
+			background-color: var(--color-text);
+			opacity: 0.75;
+		}
+
+		&:not(:disabled):focus-visible {
+			outline: none;
+		}
+
+		&:not(:disabled):active {
+			background-color: var(--color-text);
+			opacity: 0.25;
+		}
+
+		&:disabled {
+			background-color: var(--color-text);
+		}
+	}
+}
