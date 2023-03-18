@@ -1,4 +1,16 @@
+.footer {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	& p {
+		margin: 0;
+	}
+}
+
 .footer::after {
+	pointer-events: none;
 	content: '';
 	position: absolute;
 	bottom: 0;
@@ -32,6 +44,6 @@
 
 .footer__container {
 	display: flex;
-	align-items: center;
 	justify-content: space-around;
+	align-items: center;
 }
