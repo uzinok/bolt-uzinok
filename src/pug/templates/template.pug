@@ -11,6 +11,9 @@ html(lang="en")
 		link(rel="stylesheet", href="styles/main.min.css")
 
 	body
+		if idPage == 'index'
+			canvas#bg-canvas.bg-canvas
+
 		include header.pug
 
 		main

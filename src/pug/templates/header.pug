@@ -1,2 +1,21 @@
-header
-	h1 header
+header.header.header--index
+	.header__container.container
+
+		a.header__logo(href="./")
+			svg(width="30", height="30", role="img", aria-label="Логотип Записки верстальщика")
+				use(href="img/sprite.svg#logo-light")
+
+		nav.header__nav
+
+			button(type="button").header__nav-toggle
+				span.visually-hidden показать меню
+
+			ul.header__list
+				li.header__item
+					a.header__link(href="#css") CSS
+				li.header__item
+					a.header__link(href="#js") JS
+				li.header__item
+					a.header__link(href="#svg") SVG
+				li.header__item
+					a.header__link(href="#article") Статьи
