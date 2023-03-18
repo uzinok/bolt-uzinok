@@ -1,11 +1,16 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body {
+	display: grid;
+	grid-template-rows: 1fr auto;
+	min-height: 100vh;
 	margin: 0;
+	font-size: 18px;
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	color: #fff;
 	background-color: #050818;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	min-height: 100vh;
 }
 
 img {
@@ -36,4 +41,10 @@ code,
 input,
 textarea {
 	font-family: 'Roboto Mono', 'Courier New', Courier, monospace;
+}
+
+[class$='container'] {
+	max-width: var(--page-width);
+	margin: 0 auto;
+	padding: var(--offset-pageY) var(--offset-pageX);
 }

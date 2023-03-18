@@ -14,7 +14,7 @@
 @min-xxl: 1920px;
 
 :root {
-	--transition-duration: 250ms;
+	--transition-duration: 150ms;
 	--transition-function: ease-in-out;
 
 	--color-text: #ffffff;
@@ -22,13 +22,26 @@
 	--color-hover: #0039a6;
 	--color-active: #d52b1e;
 
-	--offset-page: 10px;
+	--page-width: 900px;
 
-	@media (min-width: @md) {
-		--offset-page: 15px;
+	--offset-pageX: 14px;
+	--offset-pageY: 14px;
+
+	@media (min-width: @min-sm) {
+		--offset-pageX: 20px;
 	}
 
-	@media (min-width: @lg) {
-		--offset-page: 20px;
+	@media (min-width: @min-md) {
+		--offset-pageX: 26px;
+		--offset-pageY: 20px;
+	}
+
+	@media (min-width: @min-lg) {
+		--offset-pageX: 32px;
+	}
+
+	@media (min-width: @min-xl) {
+		--offset-pageX: 38px;
+		--offset-pageY: 26px;
 	}
 }
