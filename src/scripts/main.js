@@ -54,8 +54,7 @@ function bdCanvas() {
 
 	const Stars = function(w, h) {
 		this.x = Math.random() * w;
-		// this.y = (Math.random() * (h - 210 - 40)) + 40;
-		this.y = Math.random() * h;
+		this.y = (Math.random() * (h - 210));
 		this.color = opts.colors[[Math.round(Math.random() * opts.colors.length)]];
 		this.vector = Math.round(Math.random()) || -1;
 		this.minRadius = opts.minRadius + Math.random() * (opts.maxRadius - opts.minRadius);
