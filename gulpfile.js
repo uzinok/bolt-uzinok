@@ -172,7 +172,7 @@ function html() {
 			})
 		}))
 		.pipe(pug({
-			pretty: true
+			pretty: false
 		}))
 		.pipe(dest(paths.html.dest))
 		.pipe(browserSync.stream());
