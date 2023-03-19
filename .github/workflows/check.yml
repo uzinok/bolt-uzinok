@@ -30,7 +30,6 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.BOLT__UZINOK }}
           folder: ./dest
           branch: gh-pages
           single-commit: true
