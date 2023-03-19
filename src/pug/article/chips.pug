@@ -1,0 +1,15 @@
+extends ../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	- var pageTitle = "Всплывающие подсказки"
+	- var desc = 'Всплывающие подсказки это небольшие окошки информирующие пользователя. Они могут быть разных цветов и сами удаляются через короткий промежуток времени. Цвета...'
+	- var idPage = 'chips'
+	- var group = 'css'
+
+
+block main
+	section.top
+		.top__container
+			h1 Записки верстальщика&ensp;
+				span Собрание демок и фич для верстальщиков

@@ -297,7 +297,8 @@ function slider(slider) {
 
 window.addEventListener('load', () => {
 	setYear();
-	bdCanvas();
+	if (document.querySelector('.bg-canvas'))
+		bdCanvas();
 
 	const arrSliders = document.querySelectorAll('.slider');
 	for (let i = 0; i < arrSliders.length; i++) {

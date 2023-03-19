@@ -162,7 +162,7 @@ function scripts() {
 
 // html
 function html() {
-	return src("src/pug/*.pug")
+	return src(["src/pug/**/*.pug", "src/pug/templates/*.pug"])
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err) {
 				return {
@@ -173,7 +173,7 @@ function html() {
 			})
 		}))
 		.pipe(pug({
-			pretty: false
+			pretty: true
 		}))
 		.pipe(dest(paths.html.dest))
 		.pipe(browserSync.stream());
