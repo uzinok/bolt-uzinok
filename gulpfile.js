@@ -162,7 +162,7 @@ function scripts() {
 
 // html
 function html() {
-	return src(["src/pug/**/*.pug", "src/pug/templates/*.pug"])
+	return src(["src/pug/**/*.pug", "!src/pug/templates/*.pug"])
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err) {
 				return {

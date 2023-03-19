@@ -24,7 +24,7 @@ html(lang="ru")
 			link(rel="stylesheet", href="../styles/main.min.css")
 
 	//- body.index.no-js
-	body(class=idPage == 'index' ? 'no-js index' : 'no-js')
+	body(class=idPage == 'index' ? 'no-js index' : 'no-js', class=group == 'other' ? 'group' : '')
 		if idPage == 'index'
 			canvas#bg-canvas.bg-canvas
 
@@ -32,7 +32,7 @@ html(lang="ru")
 
 		main
 			if idPage != 'index'
-				+mainPage(heading)
+				+mainPage(heading, subHeading)
 
 			block main
 

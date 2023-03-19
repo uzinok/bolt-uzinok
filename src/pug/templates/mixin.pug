@@ -1,9 +1,9 @@
-mixin mainPage(title, subTitle)
+mixin mainPage(heading, subHeading)
 	header.main__header
 		.container
-			h1 #{title}
-			if (subTitle)
-				p #{subTitle}
+			h1 #{heading}
+			if (subHeading)
+				p #{subHeading}
 
 mixin codeBlock(title, code)
 	code.code
@@ -12,3 +12,8 @@ mixin codeBlock(title, code)
 				span.visually-hidden копировать
 		pre
 			| #{code}
+
+mixin articleCard(title, descCard, file)
+	h3 #{title}
+	p #{descCard}
+	a(href=`#{file}`) подробнее
