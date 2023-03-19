@@ -1,5 +1,25 @@
 .header__container {
 	display: flex;
+	align-items: center;
+}
+
+.header__logo {
+	display: block;
+	margin-right: auto;
+	color: var(--page-body);
+	transition: color var(--transition-duration) var(--transition-function);
+
+	&:hover {
+		color: var(--color-hover);
+	}
+
+	&:active {
+		color: var(--color-active);
+	}
+
+	svg {
+		display: block;
+	}
 }
 
 .header__list {
@@ -98,7 +118,6 @@
 		}
 	}
 }
-
 
 @keyframes bg {
 	0% {
