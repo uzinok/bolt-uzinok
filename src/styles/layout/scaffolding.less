@@ -4,8 +4,8 @@ html {
 
 body {
 	display: grid;
-	grid-template-rows: auto 1fr auto;
 	grid-template-columns: 100%;
+	grid-template-rows: auto 1fr auto;
 	min-height: 100vh;
 	margin: 0;
 	font-size: 18px;
@@ -33,6 +33,7 @@ h3,
 h4,
 h5 {
 	font-family: 'Roboto Condensed', 'Trebuchet MS', Helvetica, sans-serif;
+	font-weight: 400;
 }
 
 [type='submit'],
@@ -48,4 +49,44 @@ textarea {
 	max-width: var(--page-width);
 	margin: 0 auto;
 	padding: var(--offset-pageY) var(--offset-pageX);
+}
+
+code {
+	box-sizing: border-box;
+	max-width: 100%;
+	padding: 0 2px;
+	overflow: auto;
+	background-color: #f0f0f1;
+}
+
+pre {
+	white-space: pre-wrap;
+}
+
+
+.code {
+	display: block;
+	padding: calc(var(--offset-pageY) / 3) calc(var(--offset-pageX) / 3);
+	font-size: 14px;
+
+	& pre {
+		margin: 0;
+	}
+}
+
+body:not(.index) {
+	& section {
+		& a {
+			color: inherit;
+			transition: color var(--transition-duration) var(--transition-function);
+
+			&:hover {
+				color: var(--color-hover);
+			}
+
+			&:active {
+				color: var(--color-active);
+			}
+		}
+	}
 }
