@@ -16,6 +16,11 @@ jobs:
         with:
           node-version: 16.x
 
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
       - name: Install dependencies
         run: npm i
 
