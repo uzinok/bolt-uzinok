@@ -1,3 +1,6 @@
+const noJs = document.querySelector('.no-js');
+noJs.classList.remove('no-js');
+
 function setYear() {
 	new Date().getFullYear();
 	const yearElem = document.querySelectorAll('.ryear');
@@ -293,9 +296,6 @@ function slider(slider) {
 }
 
 window.addEventListener('load', () => {
-	const noJs = document.querySelector('.no-js');
-	noJs.classList.remove('no-js');
-
 	setYear();
 	bdCanvas();
 
