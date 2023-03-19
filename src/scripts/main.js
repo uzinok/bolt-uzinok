@@ -295,6 +295,124 @@ function slider(slider) {
 	}
 }
 
+/**!
+ * https://github.com/uzinok/Bolt-Chips
+ * isInit() управляет методами для создания чипса
+ * getChipsWrap() создает/получает врап (this.wrap)
+ * createElem() создает врапер/чипс (this.wrap/this.chips)
+ * monitorClick() отслеживает клик по чипсу, для его закрытия
+ * isClose() удаляет чипс (при необходимости враппер) из DOM, удаляет слушателя событий
+ *
+ * для доступности можно добавить следующие ариа-атрибуты:
+ * role => options.role (alert, status, log, timer, marquee)
+ * aria-live => options.ariaLive (off, polite, assertive)
+ */
+
+class BoltChips {
+	constructor(options) {
+		this.message = options.message || 'no message';
+		this.cssClass = options.cssClass || 'bolt-chips--success';
+		this.delay = options.delay || 5000;
+
+		this.role = options.role || null;
+		this.ariaLive = options.ariaLive || null;
+
+		this.wrap = null;
+		this.chips = null;
+
+		this.isInit();
+	}
+
+	getChipsWrap() {
+
+		if (document.querySelector('.bolt-chips-wrap')) {
+			return this.wrap = document.querySelector('.bolt-chips-wrap');
+		}
+
+		return this.createElem('bolt-chips-wrap');
+	}
+
+	createElem(cssClass) {
+		let elem = document.createElement('div');
+
+		// если передан класс "bolt-chips-wrap", создаем врап
+		if (cssClass == 'bolt-chips-wrap') {
+			elem.classList.add('bolt-chips-wrap');
+			document.body.appendChild(elem);
+			return elem;
+		}
+
+		// либо создаем чипс
+		elem.innerHTML = this.message;
+		elem.classList.add('bolt-chips');
+		elem.classList.add(this.cssClass);
+		elem.setAttribute('tabindex', 0)
+
+		if (this.role)
+			elem.setAttribute('role', this.role)
+		if (this.ariaLive)
+			elem.setAttribute('aria-live', this.ariaLive)
+
+		this.wrap.appendChild(elem);
+		return elem;
+	}
+
+	isInit() {
+		this.wrap = this.getChipsWrap();
+		this.chips = this.createElem(this.cssClass);
+
+		// запуск таймера для удаления чипса через указанный промежуток времени
+		setTimeout(() => {
+			this.isClose();
+		}, this.delay)
+
+		this.monitorClick()
+	}
+
+	isClose() {
+		this.wrap.removeChild(this.chips);
+
+		// удаление слушателя событий
+		this.chips.removeEventListener('click', this.isClose);
+
+		// при необходимости удаляем всрапер из DOM
+		if (!this.wrap.querySelector('.bolt-chips')) {
+			document.body.removeChild(this.wrap);
+		}
+	}
+
+	// метод объявлен ссылкой на функцию для удаления слушателя событий
+	monitorClick = function() {
+		this.chips.addEventListener('click', () => {
+			this.isClose();
+		});
+	}
+}
+
+function code(code) {
+	const btn = code.querySelector('.code__copy');
+	const pre = code.querySelector('pre');
+
+	btn.addEventListener('click', function() {
+		let range = new Range();
+		range.setStart(pre, 0);
+		range.setEnd(pre, 1);
+		document.getSelection().addRange(range);
+		if (document.execCommand("copy")) {
+			const chips = new BoltChips({
+				message: 'Скопировано',
+				cssClass: 'bolt-chips--success'
+			});
+		} else {
+			const chips = new BoltChips({
+				message: 'Ошибка при копировании',
+				cssClass: 'bolt-chips--success'
+			});
+		}
+		document.getSelection().removeAllRanges();
+	});
+}
+
 window.addEventListener('load', () => {
 	setYear();
 	if (document.querySelector('.bg-canvas'))
@@ -303,5 +421,10 @@ window.addEventListener('load', () => {
 	const arrSliders = document.querySelectorAll('.slider');
 	for (let i = 0; i < arrSliders.length; i++) {
 		slider(arrSliders[i]);
+	}
+
+	const arrCode = document.querySelectorAll('.code');
+	for (let i = 0; i < arrCode.length; i++) {
+		code(arrCode[i]);
 	}
 });

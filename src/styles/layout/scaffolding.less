@@ -9,9 +9,9 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	font-size: var(--font-size);
+	line-height: 1.5;
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	color: var(--page-text);
-	line-height: 1.5;
 }
 
 img {
@@ -62,21 +62,6 @@ code {
 
 pre {
 	white-space: pre-wrap;
-}
-
-
-.code {
-	display: block;
-	padding: calc(var(--offset-pageY) / 3) calc(var(--offset-pageX) / 3);
-	font-size: 14px;
-
-	&:not(:last-child) {
-		margin-bottom: var(--font-size);
-	}
-
-	& pre {
-		margin: 0;
-	}
 }
 
 body:not(.index) {

@@ -10,6 +10,10 @@ html(lang="ru")
 		//- /удалить
 		meta(charset="UTF-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		if idPage == 'index'
+			link(rel="shortcut icon", href="favicon.ico", type="image/x-icon")
+		else
+			link(rel="shortcut icon", href="../favicon.ico", type="image/x-icon")
 		meta(http-equiv="X-UA-Compatible", content="ie=edge")
 		title #{pageTitle}
 		meta(name="description", content=`${desc}`)

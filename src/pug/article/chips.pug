@@ -29,13 +29,7 @@ block main
 
 			p Код я написал довольно быстро, не смотря на то что я верстальщик, а не вэб разработчик. Начал с того что приготовил проект на гитхабе. Потом, записывая видео для своего канала на ютубе, сделал разметку на HTML. Сложного в этой разметке нет. Тут нужен контейнер для чипсов, и пару тройку самих чипсов. Получилось что то вроде этого:
 
-			code.code
-				pre
-					| &lt;div class="bolt-chips-wrap"&gt;
-					|     Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!
-					|   &lt;/div&gt;
-					|   &lt;!-- ... --&gt;
-					| &lt;/div&gt;
+			+codeBlock('html', '<div class="bolt-chips-wrap">\n    Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!\n  </div>\n  <!-- ... -->\n</div>')
 
 			p Классы начинаются на ‘bolt-‘ для того что бы не пересекались стили с другими библиотеками или плагинами. Можно было и другую приставку сделать, но я решил именно эту.
 
@@ -47,116 +41,8 @@ block main
 
 			p Со стилями проблем вообще не было. Писал на препроцессоре Less c использованием переменных. Что очень облегчило мне верстку.
 
-			code.code
-				pre
-					| @primary: #007bff;
-					| @secondary: #6c757d;
-					| @success: #28a745;
-					| @danger: #dc3545;
-					| @warning: #ffc107;
-					| @info: #17a2b8;
-					| @light: #f8f9fa;
-					| @dark: #343a40;
-					|
-					| @color: #212529;
-					|
-					|// врапер
-					|.bolt-chips-wrap {
-					|    position: fixed;
-					|
-					|    bottom: 15px;
-					|    left: 15px;
-					|    margin-right: 15px;
-					|
-					|    @media (min-width: 768px) {
-					|        bottom: auto;
-					|        top: 15px;
-					|        left: auto;
-					|        right: 15px;
-					|        margin-left: 15px;
-					|    }
-					|
-					|    // расположение чипсов
-					|    display: flex;
-					|    flex-direction: column;
-					|    align-items: flex-start;
-					|    justify-content: flex-end;
-					|
-					|    @media (min-width: 768px) {
-					|        display: flex;
-					|        flex-direction: column;
-					|        align-items: flex-end;
-					|    }
-					|
-					|    max-width: 300px;
-					|}
-					|
-					|// чипс
-					|.bolt-chips {
-					|    padding: 15px;
-					|    border-radius: 3px;
-					|    margin-top: 15px;
-					|
-					|    @media (min-width: 768px) {
-					|        margin-top: auto;
-					|        margin-bottom: 15px;
-					|    }
-					|
-					|    &:last-child {
-					|        margin-bottom: 0;
-					|    }
-					|
-					|    font-size: 1.2em;
-					|    color: #fff;
-					|    font-family: Arial,
-					|    Helvetica,
-					|    sans-serif;
-					|
-					|    // модификаторы
-					|    &--primary {
-					|        background-color: @primary;
-					|        border: 1px solid @primary;
-					|    }
-					|
-					|    &--secondary {
-					|        background-color: @secondary;
-					|        border: 1px solid @secondary;
-					|    }
-					|
-					|    &--success {
-					|        background-color: @success;
-					|        border: 1px solid @success;
-					|    }
-					|
-					|    &--danger {
-					|        background-color: @danger;
-					|        border: 1px solid @danger;
-					|    }
-					|
-					|    &--warning {
-					|        background-color: @warning;
-					|        border: 1px solid @warning;
-					|
-					|        color: @color;
-					|    }
-					|
-					|    &--info {
-					|        background-color: @info;
-					|        border: 1px solid @info;
-					|    }
-					|
-					|    &--light {
-					|        background-color: @light;
-					|        border: 1px solid @dark;
-					|
-					|        color: @color;
-					|    }
-					|
-					|    &--dark {
-					|        background-color: @dark;
-					|        border: 1px solid @dark;
-					|    }
-					|}
+			//- +codeBlock('less', '<div class="bolt-chips-wrap">\n    Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!\n  </div>\n  <!-- ... -->\n</div>')
+			+codeBlock('less', '@primary: #007bff;\n@secondary: #6c757d;\n@success: #28a745;\n@danger: #dc3545;\n@warning: #ffc107;\n@info: #17a2b8;\n@light: #f8f9fa;\n@dark: #343a40;\n@color: #212529;\n\n// врапер\n.bolt-chips-wrap {\n    position: fixed;\n    bottom: 15px;\n    left: 15px;\n    margin-right: 15px;\n\n    @media (min-width: 768px) {\n        bottom: auto;\n        top: 15px;\n        left: auto;\n        right: 15px;\n        margin-left: 15px;\n    }\n\n    // расположение чипсов\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    justify-content: flex-end;\n\n    @media (min-width: 768px) {\n        display: flex;\n        flex-direction: column;\n        align-items: flex-end;\n    }\n\n    max-width: 300px;\n}\n\n// чипс\n.bolt-chips {\n    padding: 15px;\n    border-radius: 3px;\n    margin-top: 15px;\n\n    @media (min-width: 768px) {\n        margin-top: auto;\n        margin-bottom: 15px;\n    }\n\n    &:last-child {\n        margin-bottom: 0;\n    }\n\n    font-size: 1.2em;\n    color: #fff;\n    font-family: Arial, Helvetica, sans-serif;\n\n    // модификаторы\n    &--primary {\n        background-color: @primary;\n        border: 1px solid @primary;\n    }\n\n    &--secondary {\n        background-color: @secondary;\n        border: 1px solid @secondary;\n    }\n\n    &--success {\n        background-color: @success;\n        border: 1px solid @success;\n    }\n\n    &--danger {\n        background-color: @danger;\n        border: 1px solid @danger;\n    }\n\n    &--warning {\n        background-color: @warning;\n        border: 1px solid @warning;\n        color: @color;\n    }\n\n    &--info {\n        background-color: @info;\n        border: 1px solid @info;\n    }\n\n    &--light {\n        background-color: @light;\n        border: 1px solid @dark;\n        color: @color;\n    }\n\    &--dark {\n        background-color: @dark;\n        border: 1px solid @dark;\n    }\n}')
 			p Тут особо не скажешь ничего по коду, кроме того что уже после записи видео адаптировал чипсы для мобильных устройств.
 	section
 		.container
@@ -164,103 +50,33 @@ block main
 
 			p Всплывающие подсказки можно написать и функционально. Мне то такой код долго не пригодиться))) Но я решил сделать именно плагин, что бы его можно было использовать и переиспользовать в любых проектах. по этому создал класс с конструктором.
 
-			code.code
-				pre
-					|class BoltCips {
-					|    constructor(options) {
-					|        this.message = options.message || 'no message';
-					|        this.cssClass = options.cssClass || 'bolt-chips--success';
-					|        this.delay = options.delay || 5000;
-					|
-					|        this.wrap = null;
-					|        this.chips = null;
-					|    }
-					|}
+			+codeBlock('js', `class BoltCips {\n    constructor(options) {\n        this.message = options.message || 'no message';\n        this.cssClass = options.cssClass || 'bolt-chips--success';\n        this.delay = options.delay || 5000;\n\n        this.wrap = null;\n        this.chips = null;\n    }\n}`)
 
 			p Первые три переменные получаем из опций переданных классу во время создания объекта. У каждого есть значение по умолчанию. Последние две переменные необходимы для удобной работы с методами.
 
 			p Первый метод, который необходимо вызвать в конструкторе выглядит так:
 
-			code.code
-				pre
-					|isInit() {
-					|    this.wrap = this.getChipsWrap();
-					|    this.chips = this.createElem(this.cssClass);
-					|
-					|    // запуск таймера для удаления чипса через указанный промежуток времени
-					|    setTimeout(() => {
-					|        this.isClose();
-					|    }, this.delay)
-					|
-					|    this.monitorClick()
-					|}
+			+codeBlock('js', `isInit() {\n    this.wrap = this.getChipsWrap();\n    this.chips = this.createElem(this.cssClass);\n\n    // запуск таймера для удаления чипса через указанный промежуток времени\n    setTimeout(() => {\n        this.isClose();\n    }, this.delay)\n\n    this.monitorClick()\n}`)
 
 			p Получаем контейнер для чипса, создаем чипс, запускаем таймер для закрытия окна и начинаем слушать клик по чипсу. Про метод <code>this.monitorClick()</code> в конце подробнее расскажу подробнее. Ну а сейчас в очереди <code>this.getChipsWrap()</code>.
 
-			code.code
-				pre
-					|getChipsWrap() {
-					|
-					|    if (document.querySelector('.bolt-chips-wrap')) {
-					|        return this.wrap = document.querySelector('.bolt-chips-wrap');
-					|    }
-					|
-					|    return this.createElem('bolt-chips-wrap');
-					|}
+			+codeBlock('js', `getChipsWrap() {\n\n    if (document.querySelector('.bolt-chips-wrap')) {\n        return this.wrap = document.querySelector('.bolt-chips-wrap');\n    }\n\n    return this.createElem('bolt-chips-wrap');\n}`)
 
 			p На тот случай, если у нас уже есть контейнер, то мы его получаем из DOM. А если нет создаем с помощью следующего метода:
 
-			code.code
-				pre
-					|createElem(cssClass) {
-					|    let elem = document.createElement('div');
-					|
-					|    // если передан класс "bolt-chips-wrap", создаем врап
-					|    if (cssClass == 'bolt-chips-wrap') {
-					|        elem.classList.add('bolt-chips-wrap');
-					|        document.body.appendChild(elem);
-					|        return elem;
-					|    }
-					|
-					|    // либо создаем чипс
-					|    elem.innerHTML = this.message;
-					|    elem.classList.add('bolt-chips');
-					|    elem.classList.add(this.cssClass);
-					|    elem.setAttribute('tabindex', 0)
-					|
-					|    this.wrap.appendChild(elem);
-					|    return elem;
-					|}
+			+codeBlock('js', `createElem(cssClass) {\n    let elem = document.createElement('div');\n\n    // если передан класс "bolt-chips-wrap", создаем врап\n    if (cssClass == 'bolt-chips-wrap') {\n        elem.classList.add('bolt-chips-wrap');\n        document.body.appendChild(elem);\n        return elem;\n    }\n\n    // либо создаем чипс\n    elem.innerHTML = this.message;\n    elem.classList.add('bolt-chips');\n    elem.classList.add(this.cssClass);\n    elem.setAttribute('tabindex', 0)\n\n    this.wrap.appendChild(elem);\n    return elem;\n}`)
 
 			p Данный метод принимает параметр: класс. Если значение этого параметра равно классу контейнера — создаем контейнер, либо чипс. Тут стоит отметить то, что использовал устаревшие методы для поддержки старых браузеров.
 
 			p И еще один момент: для айос и некоторых других ОС необходим атрибут табиндекс со значением «0». Без этого атрибута не сработало бы закрытие подсказки по клику.
 
-			code.code
-				pre
-					|isClose() {
-					|    this.wrap.removeChild(this.chips);
-					|
-					|    // удаление слушателя событий
-					|    this.chips.removeEventListener('click', this.isClose);
-					|
-					|    // при необходимости удаляем всрапер из DOM
-					|    if (!this.wrap.querySelector('.bolt-chips')) {
-					|      document.body.removeChild(this.wrap);
-					|    }
-					|}
+			+codeBlock('js', `isClose() {\n    this.wrap.removeChild(this.chips);\n\n    // удаление слушателя событий\n    this.chips.removeEventListener('click', this.isClose);\n\n    // при необходимости удаляем всрапер из DOM\n    if (!this.wrap.querySelector('.bolt-chips')) {\n      document.body.removeChild(this.wrap);\n    }\n}`)
 
 			p Удаляем чипс, если в контейнере нет других всплывающи подсказок — и его удаляем. <br> Удаляем слушателя событий, это необходимо для очистки памяти устройства.
 
 			p И последний метод, который объявлен «не как все»:
 
-			code.code
-				pre
-					|monitorClick = function () {
-					|    this.chips.addEventListener('click', () => {
-					|        this.isClose();
-					|    });
-					|}
+			+codeBlock('js', `monitorClick = function () {\n    this.chips.addEventListener('click', () => {\n        this.isClose();\n    });\n}`)
 
 			p Данный метод объявлен как ссылка на функцию. Это необходимо для того что бы с помощью <code>removeEventListener</code> можно было удалить слушателя событий.
 
@@ -289,19 +105,11 @@ block main
 
 			p В конструктор добавил следующие строки:
 
-			code.code
-				pre
-					| this.role = options.role || null;
-					| this.ariaLive = options.ariaLive || null;
+			+codeBlock('js', `this.role = options.role || null;\n this.ariaLive = options.ariaLive || null;`)
 
 			p Ну и немного модифицировал метод <code>createElem()</code> добавив два условия при создании самого чипса. При выполнении которых добавляются атрибуты.
 
-			code.code
-				pre
-					| if (this.role)
-					|   elem.setAttribute('role', this.role)
-					| if (this.ariaLive)
-					|   elem.setAttribute('aria-live', this.ariaLive)
+			+codeBlock('js', `if (this.role)\n   elem.setAttribute('role', this.role)\n if (this.ariaLive)\n   elem.setAttribute('aria-live', this.ariaLive)`)
 
 	section
 		.container

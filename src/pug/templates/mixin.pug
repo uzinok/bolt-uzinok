@@ -4,3 +4,11 @@ mixin mainPage(title, subTitle)
 			h1 #{title}
 			if (subTitle)
 				p #{subTitle}
+
+mixin codeBlock(title, code)
+	code.code
+		p.code__header #{title}
+			button.code__copy(type="button")
+				span.visually-hidden копировать
+		pre
+			| #{code}
