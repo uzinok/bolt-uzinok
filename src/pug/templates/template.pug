@@ -27,8 +27,8 @@ html(lang="ru")
 		include header.pug
 
 		main
-
-			+mainPage(heading)
+			if idPage != 'index'
+				+mainPage(heading)
 
 			block main
 
