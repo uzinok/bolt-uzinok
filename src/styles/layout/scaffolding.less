@@ -8,7 +8,7 @@ body {
 	grid-template-rows: auto 1fr auto;
 	min-height: 100vh;
 	margin: 0;
-	font-size: 18px;
+	font-size: var(--font-size);
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	color: var(--page-text);
 }
@@ -32,8 +32,8 @@ h2,
 h3,
 h4,
 h5 {
-	font-family: 'Roboto Condensed', 'Trebuchet MS', Helvetica, sans-serif;
 	font-weight: 400;
+	font-family: 'Roboto Condensed', 'Trebuchet MS', Helvetica, sans-serif;
 }
 
 [type='submit'],
@@ -69,6 +69,10 @@ pre {
 	padding: calc(var(--offset-pageY) / 3) calc(var(--offset-pageX) / 3);
 	font-size: 14px;
 
+	&:not(:last-child) {
+		margin-bottom: var(--font-size);
+	}
+
 	& pre {
 		margin: 0;
 	}
@@ -76,6 +80,45 @@ pre {
 
 body:not(.index) {
 	& section {
+
+		@media (min-width: @min-sm) {
+
+			& .container h2,
+			& .container h3,
+			& .container h4 {
+				font-size: 1.6em;
+			}
+		}
+
+		@media (min-width: @min-md) {
+
+			& .container .container h2,
+			& .container .container h3 {
+				font-size: 1.8;
+			}
+		}
+
+		@media (min-width: @min-lg) {
+			& .container h2 {
+				font-size: 2em;
+			}
+		}
+
+		& figure {
+			display: inline-block;
+			margin: 0 40px;
+			text-align: center;
+
+			&:not(:last-child) {
+				margin-bottom: var(--font-size);
+			}
+		}
+
+		& figcaption {
+			font-size: 0.8em;
+			opacity: 0.9;
+		}
+
 		& a {
 			color: inherit;
 			transition: color var(--transition-duration) var(--transition-function);
@@ -87,6 +130,24 @@ body:not(.index) {
 			&:active {
 				color: var(--color-active);
 			}
+		}
+
+		& p {
+			margin: 0;
+			text-indent: 0.5em;
+
+			&:not(:last-child) {
+				margin-bottom: var(--font-size);
+			}
+		}
+
+		& h2,
+		& h3,
+		& h4,
+		& h5 {
+			margin-top: 0;
+			margin-bottom: var(--font-size);
+			font-size: 1.4em;
 		}
 	}
 }
