@@ -1,5 +1,7 @@
 block variables
 
+include mixin.pug
+
 <!DOCTYPE html>
 html(lang="ru")
 	head
@@ -25,6 +27,9 @@ html(lang="ru")
 		include header.pug
 
 		main
+
+			+mainPage(heading)
+
 			block main
 
 		include footer.pug
