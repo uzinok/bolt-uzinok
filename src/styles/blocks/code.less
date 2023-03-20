@@ -1,7 +1,8 @@
 .code {
 	display: block;
-	padding: calc(var(--offset-pageY) / 3) calc(var(--offset-pageX) / 3);
+	padding: calc(var(--offset-pageY) / 2) calc(var(--offset-pageX) / 2);
 	font-size: 14px;
+	line-height: 20px;
 
 	&:not(:last-child) {
 		margin-bottom: var(--font-size);
@@ -9,6 +10,8 @@
 
 	& pre {
 		margin: 0;
+		background: repeating-linear-gradient(transparent, transparent 19px, #9198e5 19px, transparent 20px);
+		padding-left: calc(var(--offset-pageX) / 2);
 	}
 }
 

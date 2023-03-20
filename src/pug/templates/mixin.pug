@@ -14,6 +14,11 @@ mixin codeBlock(title, code)
 			| #{code}
 
 mixin articleCard(title, descCard, file)
-	h3 #{title}
-	p #{descCard}
-	a(href=`#{file}`) подробнее
+	article.card
+		if idPage == 'index'
+			a.card__link(href=`./${file}`)
+				h3.card__title #{title}
+		else
+			a.card__link(href=`../${file}`)
+				h3.card__title #{title}
+		p.card__desc #{descCard}
