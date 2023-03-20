@@ -6,12 +6,13 @@ mixin mainPage(heading, subHeading)
 				p #{subHeading}
 
 mixin codeBlock(title, code)
-	code.code
+	.code
 		p.code__header #{title}
 			button.code__copy(type="button")
 				span.visually-hidden копировать
-		pre
-			| #{code}
+		code
+			pre
+				| #{code}
 
 mixin articleCard(title, descCard, file)
 	article.card
@@ -20,5 +21,5 @@ mixin articleCard(title, descCard, file)
 				h3.card__title #{title}
 		else
 			a.card__link(href=`../${file}`)
-				h3.card__title #{title}
+				h2.card__title #{title}
 		p.card__desc #{descCard}

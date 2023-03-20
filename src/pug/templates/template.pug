@@ -29,7 +29,7 @@ html(lang="ru")
 
 		include header.pug
 
-		main
+		main(class=idPage == 'index' ? '' : 'main')
 			if idPage != 'index'
 				+mainPage(heading, subHeading)
 
