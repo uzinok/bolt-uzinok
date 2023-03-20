@@ -401,7 +401,7 @@ function code(code) {
 		if (document.execCommand("copy")) {
 			const chips = new BoltChips({
 				message: 'Скопировано',
-				cssClass: 'bolt-chips--success'
+				cssClass: 'bolt-chips--success',
 			});
 		} else {
 			const chips = new BoltChips({

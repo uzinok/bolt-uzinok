@@ -1,14 +1,25 @@
-mixin mainPage(title, subTitle)
+mixin mainPage(heading, subHeading)
 	header.main__header
 		.container
-			h1 #{title}
-			if (subTitle)
-				p #{subTitle}
+			h1 #{heading}
+			if (subHeading)
+				p #{subHeading}
 
 mixin codeBlock(title, code)
-	code.code
+	.code
 		p.code__header #{title}
 			button.code__copy(type="button")
 				span.visually-hidden копировать
-		pre
-			| #{code}
+		code
+			pre
+				| #{code}
+
+mixin articleCard(title, descCard, file)
+	article.card
+		if idPage == 'index'
+			a.card__link(href=`./${file}`)
+				h3.card__title #{title}
+		else
+			a.card__link(href=`../${file}`)
+				h2.card__title #{title}
+		p.card__desc #{descCard}

@@ -45,11 +45,18 @@ textarea {
 	font-family: 'Roboto Mono', 'Courier New', Courier, monospace;
 }
 
-[class$='container'] {
+.container {
 	position: relative;
 	max-width: var(--page-width);
 	margin: 0 auto;
 	padding: var(--offset-pageY) var(--offset-pageX);
+}
+
+.container--group {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+	column-gap: var(--offset-pageX);
+	row-gap: VAR(--offset-pageY);
 }
 
 code {
@@ -57,11 +64,7 @@ code {
 	max-width: 100%;
 	padding: 0 2px;
 	overflow: auto;
-	background-color: #f0f0f1;
-}
-
-pre {
-	white-space: pre-wrap;
+	background-color: var(--bg-code);
 }
 
 body:not(.index) {
@@ -134,5 +137,11 @@ body:not(.index) {
 			margin-bottom: var(--font-size);
 			font-size: 1.4em;
 		}
+	}
+}
+
+.bolt-chips-wrap {
+	@media (min-width: 768px) {
+		right: calc((100vw - var(--page-width)) / 2)!important;
 	}
 }

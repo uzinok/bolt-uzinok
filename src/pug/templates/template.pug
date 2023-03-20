@@ -23,16 +23,15 @@ html(lang="ru")
 		else
 			link(rel="stylesheet", href="../styles/main.min.css")
 
-	//- body.index.no-js
 	body(class=idPage == 'index' ? 'no-js index' : 'no-js')
 		if idPage == 'index'
 			canvas#bg-canvas.bg-canvas
 
 		include header.pug
 
-		main
+		main(class=idPage == 'index' ? '' : 'main')
 			if idPage != 'index'
-				+mainPage(heading)
+				+mainPage(heading, subHeading)
 
 			block main
 
