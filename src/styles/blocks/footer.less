@@ -9,6 +9,13 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+
+	@media (min-width: @min-sm) {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		justify-items: center;
+		column-gap: var(--offset-pageX);
+	}
 }
 
 .index {

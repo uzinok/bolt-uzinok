@@ -1,12 +1,17 @@
-.header__container {
+.header__nav {
 	display: flex;
 	align-items: center;
 }
 
 .header__logo {
-	display: block;
+	display: flex;
+	align-items: center;
 	margin-right: auto;
-	color: var(--page-body);
+	font-size: 20px;
+	line-height: 30px;
+	color: var(--page-text);
+	text-transform: uppercase;
+	text-decoration: none;
 	transition: color var(--transition-duration) var(--transition-function);
 
 	&:hover {
@@ -19,6 +24,17 @@
 
 	svg {
 		display: block;
+		margin-right: 15px;
+		color: var(--page-text);
+	}
+
+	& span {
+		display: block;
+		width: min-content;
+
+		@media (max-width: @max-sm) {
+			display: none;
+		}
 	}
 }
 
@@ -109,6 +125,7 @@
 
 	& .header__nav {
 		margin: 0 auto;
+		width: fit-content;
 	}
 
 	.header__link {
