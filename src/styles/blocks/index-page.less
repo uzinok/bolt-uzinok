@@ -1,7 +1,7 @@
 .index {
+	grid-template-rows: 1fr auto;
 	color: #fff;
 	background-color: var(--color-body);
-	grid-template-rows: 1fr auto;
 
 	&::after {
 		content: '';
@@ -44,7 +44,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		// box-sizing: border-box;
+		box-sizing: border-box;
 		min-height: 100vh;
 		padding: calc(var(--offset-pageY) * 3) var(--offset-pageX) calc(var(--offset-pageY) * 5);
 	}
@@ -101,7 +101,7 @@
 			text-decoration: none;
 			transition: color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
 
-			&:hover {
+			&:hover:not(:active) {
 				opacity: 0.7;
 			}
 
