@@ -18,6 +18,11 @@ function code(code) {
 		copyText();
 	});
 
+	buttonView.addEventListener('click', function() {
+		preView.style.height = `${20 * countCode}px`;
+		code.classList.remove('hide');
+	});
+
 	function limitHeight() {
 		preView.style.height = `${20 * 5}px`;
 		createButtonView();
@@ -46,22 +51,19 @@ function code(code) {
 	}
 
 	function copyText() {
-		let range = new Range();
-		range.setStart(pre, 0);
-		range.setEnd(pre, 1);
-		document.getSelection().addRange(range);
-		if (document.execCommand("copy")) {
+		navigator.clipboard.writeText(textPre)
+		.then(() => {
 			const chips = new BoltChips({
 				message: 'Скопировано',
 				cssClass: 'bolt-chips--success',
 			});
-		} else {
-			const chips = new BoltChips({
-				message: 'Ошибка при копировании',
-				cssClass: 'bolt-chips--danger'
+		})
+		.catch(err => {
+				const chips = new BoltChips({
+					message: err,
+					cssClass: 'bolt-chips--danger'
+				});
 			});
-		}
-		document.getSelection().removeAllRanges();
 	}
 }
 
