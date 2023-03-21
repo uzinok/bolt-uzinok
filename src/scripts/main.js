@@ -5,23 +5,45 @@ function code(code) {
 	const btn = code.querySelector('.code__copy');
 	const pre = code.querySelector('pre');
 	let textPre = pre.innerText;
+	let countCode = '';
+	const preView = document.createElement('code');
+	const buttonView = document.createElement('button');
 
-	const textPreArr = textPre.split('\n');
-	textPre = '';
+	createCodeView();
 
-	for (let i = 0; i < textPreArr.length; i++) {
-		textPre += `<span><span aria-hidden="true">${i + 1}</span> ${textPreArr[i].replace('<', '&lt;').replace('>', '&gt;')}</span>\n`
+	if (countCode > 5)
+		limitHeight();
+
+	btn.addEventListener('click', function() {
+		copyText();
+	});
+
+	function limitHeight() {
+		preView.style.height = `${20 * 5}px`;
+		createButtonView();
+		code.classList.add('hide')
 	}
 
+	function createButtonView() {
+		buttonView.classList.add('button-view');
+		buttonView.setAttribute('aria-label', 'Показать весь код');
+		code.append(buttonView);
+	}
 
-	const preView = document.createElement('code');
-	preView.classList.add('core__pre')
-	preView.innerHTML = textPre;
+	function createCodeView() {
+		const textPreArr = textPre.split('\n');
+		let textCode = '';
 
-	code.append(preView);
+		for (let i = 0; i < textPreArr.length; i++) {
+			textCode += `<span><span aria-hidden="true">${i + 1}</span> ${textPreArr[i].replace('<', '&lt;').replace('>', '&gt;')}</span>\n`;
+		}
 
+		preView.classList.add('code__pre');
+		preView.innerHTML = textCode;
+		code.append(preView);
 
-	console.log(code);
+		return countCode = textPreArr.length, preView;
+	}
 
 	function copyText() {
 		let range = new Range();
@@ -41,10 +63,6 @@ function code(code) {
 		}
 		document.getSelection().removeAllRanges();
 	}
-
-	btn.addEventListener('click', function() {
-		copyText();
-	});
 }
 
 function setYear() {

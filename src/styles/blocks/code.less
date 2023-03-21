@@ -1,10 +1,16 @@
 .code {
+	position: relative;
 	display: block;
 	padding: calc(var(--offset-pageY) / 2) calc(var(--offset-pageX) / 2);
+	overflow: hidden;
 	font-size: 14px;
 	line-height: 20px;
 	background-color: var(--bg-code);
+	border-radius: 2px;
 
+	& code {
+		background-color: transparent;
+	}
 
 	&:not(:last-child) {
 		margin-bottom: var(--font-size);
@@ -12,10 +18,12 @@
 
 	& pre {
 		position: absolute;
+		z-index: -1;
+		height: 0;
+		overflow: hidden;
+		color: transparent;
 		white-space: pre-wrap;
 		word-wrap: break-word;
-		color: transparent;
-		z-index: -1;
 	}
 }
 
@@ -54,9 +62,10 @@
 	}
 }
 
-.core__pre {
+.code__pre {
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	background: repeating-linear-gradient(transparent, transparent 19px, rgba(145, 152, 229, 0.4) 19px, transparent 20px);
@@ -74,8 +83,69 @@
 		display: block;
 		margin-right: 1em;
 		color: var(--color-active);
+		opacity: 0.7;
 		user-select: none;
 		pointer-events: none;
-		opacity: 0.7;
+	}
+}
+
+.button-view {
+	position: absolute;
+	bottom: 4px;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	background-color: transparent;
+	background-image: linear-gradient(to bottom, transparent 5px, #f8f8f8 35px);
+	border: 0;
+	appearance: none;
+
+	&:hover {
+		&::after {
+			background-color: var(--color-hover);
+		}
+
+		&::before {
+			border-color: var(--color-hover);
+		}
+	}
+
+	&:active {
+		&::after {
+			background-color: var(--color-active);
+		}
+
+		&::before {
+			border-color: var(--color-active);
+		}
+	}
+
+	&::after,
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: 1px;
+		left: 50%;
+		display: block;
+		width: 50px;
+		height: 20px;
+		border-radius: 20px 20px 0 0;
+		transform: translateX(-50%);
+	}
+
+	&::before {
+		background-color: #f8f8f8;
+		border: 1px solid var(--page-text);
+		border-bottom: 0;
+	}
+
+	&::after {
+		bottom: 0px;
+		width: 20px;
+		height: 20px;
+		background-color: var(--page-text);
+		mask-image: url(../../img/icon/arrow-down.svg);
+		mask-repeat: no-repeat;
+		mask-position: center;
 	}
 }
