@@ -1,6 +1,52 @@
 const noJs = document.querySelector('.no-js');
 noJs.classList.remove('no-js');
 
+function code(code) {
+	const btn = code.querySelector('.code__copy');
+	const pre = code.querySelector('pre');
+	let textPre = pre.innerText;
+
+	const textPreArr = textPre.split('\n');
+	textPre = '';
+
+	for (let i = 0; i < textPreArr.length; i++) {
+		textPre += `<span><span aria-hidden="true">${i + 1}</span> ${textPreArr[i].replace('<', '&lt;').replace('>', '&gt;')}</span>\n`
+	}
+
+
+	const preView = document.createElement('code');
+	preView.classList.add('core__pre')
+	preView.innerHTML = textPre;
+
+	code.append(preView);
+
+
+	console.log(code);
+
+	function copyText() {
+		let range = new Range();
+		range.setStart(pre, 0);
+		range.setEnd(pre, 1);
+		document.getSelection().addRange(range);
+		if (document.execCommand("copy")) {
+			const chips = new BoltChips({
+				message: 'Скопировано',
+				cssClass: 'bolt-chips--success',
+			});
+		} else {
+			const chips = new BoltChips({
+				message: 'Ошибка при копировании',
+				cssClass: 'bolt-chips--danger'
+			});
+		}
+		document.getSelection().removeAllRanges();
+	}
+
+	btn.addEventListener('click', function() {
+		copyText();
+	});
+}
+
 function setYear() {
 	new Date().getFullYear();
 	const yearElem = document.querySelectorAll('.ryear');
@@ -387,30 +433,6 @@ class BoltChips {
 			this.isClose();
 		});
 	}
-}
-
-function code(code) {
-	const btn = code.querySelector('.code__copy');
-	const pre = code.querySelector('pre');
-
-	btn.addEventListener('click', function() {
-		let range = new Range();
-		range.setStart(pre, 0);
-		range.setEnd(pre, 1);
-		document.getSelection().addRange(range);
-		if (document.execCommand("copy")) {
-			const chips = new BoltChips({
-				message: 'Скопировано',
-				cssClass: 'bolt-chips--success',
-			});
-		} else {
-			const chips = new BoltChips({
-				message: 'Ошибка при копировании',
-				cssClass: 'bolt-chips--success'
-			});
-		}
-		document.getSelection().removeAllRanges();
-	});
 }
 
 window.addEventListener('load', () => {

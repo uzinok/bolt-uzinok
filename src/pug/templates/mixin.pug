@@ -10,8 +10,8 @@ mixin codeBlock(title, code)
 		p.code__header #{title}
 			button.code__copy(type="button")
 				span.visually-hidden копировать
-		code
-			pre
+		pre
+			code
 				| #{code}
 
 mixin articleCard(title, descCard, file)
