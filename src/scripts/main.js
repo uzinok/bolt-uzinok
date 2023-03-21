@@ -1,6 +1,72 @@
 const noJs = document.querySelector('.no-js');
 noJs.classList.remove('no-js');
 
+function code(code) {
+	const btn = code.querySelector('.code__copy');
+	const pre = code.querySelector('pre');
+	let textPre = pre.innerText;
+	let countCode = '';
+	const preView = document.createElement('code');
+	const buttonView = document.createElement('button');
+
+	createCodeView();
+
+	if (countCode > 5)
+		limitHeight();
+
+	btn.addEventListener('click', function() {
+		copyText();
+	});
+
+	buttonView.addEventListener('click', function() {
+		preView.style.height = `${20 * countCode}px`;
+		code.classList.remove('hide');
+	});
+
+	function limitHeight() {
+		preView.style.height = `${20 * 5}px`;
+		createButtonView();
+		code.classList.add('hide')
+	}
+
+	function createButtonView() {
+		buttonView.classList.add('button-view');
+		buttonView.setAttribute('aria-label', 'Показать весь код');
+		code.append(buttonView);
+	}
+
+	function createCodeView() {
+		const textPreArr = textPre.split('\n');
+		let textCode = '';
+
+		for (let i = 0; i < textPreArr.length; i++) {
+			textCode += `<span><span aria-hidden="true">${i + 1}</span> ${textPreArr[i].replace('<', '&lt;').replace('>', '&gt;')}</span>\n`;
+		}
+
+		preView.classList.add('code__pre');
+		preView.innerHTML = textCode;
+		code.append(preView);
+
+		return countCode = textPreArr.length, preView;
+	}
+
+	function copyText() {
+		navigator.clipboard.writeText(textPre)
+		.then(() => {
+			const chips = new BoltChips({
+				message: 'Скопировано',
+				cssClass: 'bolt-chips--success',
+			});
+		})
+		.catch(err => {
+				const chips = new BoltChips({
+					message: err,
+					cssClass: 'bolt-chips--danger'
+				});
+			});
+	}
+}
+
 function setYear() {
 	new Date().getFullYear();
 	const yearElem = document.querySelectorAll('.ryear');
@@ -387,30 +453,6 @@ class BoltChips {
 			this.isClose();
 		});
 	}
-}
-
-function code(code) {
-	const btn = code.querySelector('.code__copy');
-	const pre = code.querySelector('pre');
-
-	btn.addEventListener('click', function() {
-		let range = new Range();
-		range.setStart(pre, 0);
-		range.setEnd(pre, 1);
-		document.getSelection().addRange(range);
-		if (document.execCommand("copy")) {
-			const chips = new BoltChips({
-				message: 'Скопировано',
-				cssClass: 'bolt-chips--success',
-			});
-		} else {
-			const chips = new BoltChips({
-				message: 'Ошибка при копировании',
-				cssClass: 'bolt-chips--success'
-			});
-		}
-		document.getSelection().removeAllRanges();
-	});
 }
 
 window.addEventListener('load', () => {
