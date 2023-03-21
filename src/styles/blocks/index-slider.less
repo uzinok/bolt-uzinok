@@ -4,11 +4,49 @@
 	max-width: 100%;
 	margin: 1em 0;
 	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50px;
+		height: 50px;
+		background-color: #fff;
+		opacity: 0;
+		transition: opacity var(--transition-duration) var(--transition-function);
+		pointer-events: none;
+		mask-image: url(../../img/icon/swipe.svg);
+		mask-repeat: no-repeat;
+		mask-size: 50px 50px;
+	}
+
+	&:hover::before {
+		animation-name: slider-before;
+		animation-duration: 3s;
+	}
+}
+
+@keyframes slider-before {
+	0% {
+		opacity: 0;
+	}
+
+	10% {
+		opacity: 0.25;
+	}
+
+	70% {
+		opacity: 0.25;
+	}
+
+	100% {
+		opacity: 0;
+	}
 }
 
 .slider__list {
 	display: flex;
-	align-items: flex-start;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -20,10 +58,30 @@
 }
 
 .slider__content {
+	height: 100%;
 	padding: var(--offset-pageX);
 	text-align: center;
-	color: var(--color-body);
-	background-color: var(--color-text);
+
+	& .card__link {
+		color: inherit;
+		transition: color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
+
+		&::after {
+			background-color: #fff;
+		}
+
+		&:hover:not(:active) {
+			opacity: 0.7;
+		}
+
+		&:active {
+			color: var(--color-active);
+
+			&::after {
+				background-color: var(--color-active);
+			}
+		}
+	}
 }
 
 .no-js {
@@ -55,6 +113,10 @@
 }
 
 body:not(.no-js) {
+	.slider {
+		padding-bottom: 12px;
+	}
+
 	.slider__list {
 		overflow: hidden;
 	}
@@ -78,6 +140,12 @@ body:not(.no-js) {
 		& * {
 			user-select: none;
 		}
+
+		& a,
+		& a h3 {
+			user-select: auto;
+			user-select: initial;
+		}
 	}
 
 	.slider--active {
@@ -97,13 +165,25 @@ body:not(.no-js) {
 	}
 
 	& .slider__pagination {
+		position: relative;
 		flex-grow: 1;
-		height: 10px;
+		height: 12px;
 		padding: 0;
 		background-color: transparent;
 		border: 0;
 		transition: background-color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
 		appearance: none;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 0;
+			z-index: 1;
+			width: 100%;
+			height: 48px;
+			transform: translateY(-50%);
+		}
 
 		&:not(:disabled):hover {
 			background-color: var(--color-text);

@@ -163,7 +163,7 @@ function slider(slider) {
 	}
 
 	function startSlider(e) {
-		if (e.target.nodeName == 'A') {
+		if (e.target.nodeName == 'H3' || e.target.nodeName == 'A') {
 			return
 		}
 		slider.classList.add('slider--active');
