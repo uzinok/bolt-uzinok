@@ -360,7 +360,7 @@ function slider(slider) {
 		clearTimeout(check);
 
 		check = setTimeout(function() {
-
+			setHeight();
 			InitSlider();
 			sliderList.style.transition = '';
 

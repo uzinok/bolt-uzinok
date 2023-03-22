@@ -161,18 +161,27 @@ body:not(.no-js) {
 		width: 100%;
 		margin-top: var(--offset-pageY);
 		font-size: 0;
-		background-color: var(--color-active);
 	}
 
 	& .slider__pagination {
 		position: relative;
+		display: block;
 		flex-grow: 1;
 		height: 12px;
 		padding: 0;
-		background-color: transparent;
+		background-color: var(--color-active);
 		border: 0;
+		border-radius: 4px;
 		transition: background-color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
 		appearance: none;
+
+		&:not(:first-child) {
+			margin-left: 1px;
+		}
+
+		&:not(:last-child) {
+			margin-right: 1px;
+		}
 
 		&::after {
 			content: '';
