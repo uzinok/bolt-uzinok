@@ -59,6 +59,10 @@ textarea {
 	row-gap: VAR(--offset-pageY);
 }
 
+body:not(.index) section:not(:last-child) .container:last-child {
+	border-bottom: 1px solid #cfcfcf;
+}
+
 code {
 	box-sizing: border-box;
 	max-width: 100%;
@@ -142,6 +146,32 @@ body:not(.index) {
 
 .bolt-chips-wrap {
 	@media (min-width: 768px) {
-		right: calc((100vw - var(--page-width)) / 2)!important;
+		right: calc((100vw - var(--page-width)) / 2) !important;
+	}
+}
+
+.bolt-chips {
+	font-size: 1em !important;
+	text-align: center;
+}
+
+.demo {
+	font-size: 1.5em;
+	font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
+	text-transform: uppercase;
+	text-decoration-color: var(--color-hover);
+}
+
+[target="_blank"] {
+	&::before {
+		content: '';
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		vertical-align: middle;
+		background-color: var(--color-hover);
+		mask-image: url(../../img/icon/link-blank.svg);
+		mask-size: contain;
+		mask-repeat: no-repeat;
 	}
 }

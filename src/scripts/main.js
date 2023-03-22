@@ -21,6 +21,12 @@ function code(code) {
 	buttonView.addEventListener('click', function() {
 		preView.style.height = `${20 * countCode}px`;
 		code.classList.remove('hide');
+
+		const bodyStyles = window.getComputedStyle(document.body);
+		const transitionDuration = 1.5 * bodyStyles.getPropertyValue('--transition-duration').replace("ms", "");
+		window.setTimeout(() => {
+			buttonView.style.display = 'none';
+		}, transitionDuration)
 	});
 
 	function limitHeight() {
@@ -46,19 +52,20 @@ function code(code) {
 		preView.classList.add('code__pre');
 		preView.innerHTML = textCode;
 		code.append(preView);
+		pre.remove();
 
 		return countCode = textPreArr.length, preView;
 	}
 
 	function copyText() {
 		navigator.clipboard.writeText(textPre)
-		.then(() => {
-			const chips = new BoltChips({
-				message: 'Скопировано',
-				cssClass: 'bolt-chips--success',
-			});
-		})
-		.catch(err => {
+			.then(() => {
+				const chips = new BoltChips({
+					message: 'Скопировано',
+					cssClass: 'bolt-chips--success',
+				});
+			})
+			.catch(err => {
 				const chips = new BoltChips({
 					message: err,
 					cssClass: 'bolt-chips--danger'
