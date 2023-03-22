@@ -47,6 +47,7 @@
 
 .slider__list {
 	display: flex;
+	align-items: flex-start;
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -58,8 +59,9 @@
 }
 
 .slider__content {
+	box-sizing: border-box;
 	height: 100%;
-	padding: var(--offset-pageX);
+	padding: var(--offset-pageX) var(--offset-pageX) calc(var(--offset-pageX) / 4);
 	text-align: center;
 
 	& .card__link {
@@ -194,14 +196,9 @@ body:not(.no-js) {
 			transform: translateY(-50%);
 		}
 
-		&:not(:disabled):hover {
+		&:not(:disabled):not(:active):hover {
 			background-color: var(--color-text);
 			opacity: 0.5;
-		}
-
-		&:not(:disabled):focus {
-			background-color: var(--color-text);
-			opacity: 0.75;
 		}
 
 		&:not(:disabled):focus-visible {

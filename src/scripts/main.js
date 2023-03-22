@@ -246,6 +246,7 @@ function slider(slider) {
 	}
 
 	function stopMouseToucth(e) {
+		sliderList.style.transition = `transform ${transitionDuration}ms ${transitionFunction}`;
 		actionSlider(transformX, newTransformX);
 		return sliderActive = false;
 	}
@@ -270,7 +271,6 @@ function slider(slider) {
 	}
 
 	function stopAction() {
-		setHeight();
 		checkAction = window.setTimeout(function() {
 			slider.classList.remove('slider--active');
 			sliderList.style.transition = '';
@@ -307,8 +307,13 @@ function slider(slider) {
 	}
 
 	function setHeight() {
-		sliderList.style.transition = `transform ${transitionDuration}ms ${transitionFunction}, height ${transitionDuration}ms ${transitionFunction}`;
-		sliderList.style.height = `${sliderItems[currentSlide].clientHeight}px`;
+		let maxWidth = 0;
+		for (let i = 0; i < sliderItems.length; i++) {
+			sliderItems[i].querySelector('.slider__content').style.display = 'block';
+			sliderItems[i].querySelector('.slider__content').clientHeight > maxWidth ? maxWidth = sliderItems[i].querySelector('.slider__content').clientHeight : maxWidth;
+			sliderItems[i].querySelector('.slider__content').style.display = '';
+		}
+		sliderList.style.height = `${maxWidth}px`;
 	}
 
 	paginationWrap.addEventListener('click', function(e) {
@@ -360,7 +365,6 @@ function slider(slider) {
 		clearTimeout(check);
 
 		check = setTimeout(function() {
-			setHeight();
 			InitSlider();
 			sliderList.style.transition = '';
 

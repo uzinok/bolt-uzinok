@@ -14,7 +14,7 @@ mixin codeBlock(title, code)
 			code
 				| #{code}
 
-mixin articleCard(title, descCard, file)
+mixin articleCard(title, descCard, file, date)
 	article.card
 		if idPage == 'index'
 			a.card__link(href=`./${file}`)
@@ -23,3 +23,8 @@ mixin articleCard(title, descCard, file)
 			a.card__link(href=`../${file}`)
 				h2.card__title #{title}
 		p.card__desc #{descCard}
+
+
+		if idPage != 'index'
+			if date
+				p.card__meta #{date}
