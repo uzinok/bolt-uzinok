@@ -86,9 +86,9 @@ function copy() {
 			"./src/fonts/*.{woff2,woff}",
 			"./src/*.ico",
 			"./src/img/**/*.{svg,jpg,jpeg,png,webp,avif}",
-			"./src/favicons/*",
-			"./src/*.webmanifest",
-			"./src/.htaccess"
+			"./src/img/favicon/site.webmanifest",
+			"./src/img/favicon/browserconfig.xml",
+			"./src/.htaccess",
 		], {
 			base: paths.src
 		})

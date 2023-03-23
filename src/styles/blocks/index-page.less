@@ -44,9 +44,10 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		box-sizing: border-box;max-width: calc(var(--page-width) + var(--offset-pageX) * 2);
+		box-sizing: border-box;
+		max-width: calc(var(--page-width) + var(--offset-pageX) * 2);
 		min-height: 100vh;
-		padding: calc(var(--offset-pageY) * 3) var(--offset-pageX) calc(var(--offset-pageY) * 5);
+		padding: calc(var(--offset-pageY) * 3) var(--offset-pageX) calc(var(--offset-pageY) * 6);
 	}
 
 	& h1 {
@@ -109,5 +110,9 @@
 				color: var(--color-active);
 			}
 		}
+	}
+
+	.card {
+		padding-bottom: 0;
 	}
 }

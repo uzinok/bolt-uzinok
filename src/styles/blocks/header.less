@@ -46,12 +46,13 @@
 }
 
 .header__item {
-	&:not(:last-child) {
-		margin-right: var(--offset-pageX);
+	&:last-child {
+		margin-right: calc(var(--offset-pageX) / 2 * -1);
 	}
 }
 
 .header__link {
+	padding: 0 calc(var(--offset-pageX) / 2);
 	display: block;
 	font-family: 'Roboto Condensed', 'Trebuchet MS', Helvetica, sans-serif;
 	color: inherit;
