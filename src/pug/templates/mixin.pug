@@ -1,9 +1,21 @@
-mixin mainPage(heading, subHeading)
+mixin mainPage(heading, subHeading, group)
 	header.main__header
-		.container
-			h1 #{heading}
-			if (subHeading)
-				p #{subHeading}
+		.main__header-bg
+			.container
+				h1 #{heading}
+				if (subHeading)
+					p #{subHeading}
+		if group != 'other'
+			.container
+				ol.breadcrumb
+					li
+						a(href="./")
+							span.visually-hidden главная
+					li
+						a(href=`article/${group}/`) #{group}
+					li
+						a(href=`article/${group}/${idPage}.html`, aria-current="page") #{heading}
+
 
 mixin codeBlock(title, code)
 	.code

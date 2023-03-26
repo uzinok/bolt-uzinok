@@ -230,7 +230,7 @@ const ttf2woff = require('gulp-ttf2woff');
 
 // img
 function optiImg() {
-	src(paths.img.src + "/**/*.svg", {
+	src([paths.img.src + "/**/*.svg", "!" + paths.img.src + "/sprite.svg"], {
 			base: paths.src
 		})
 		.pipe(svgmin())
