@@ -1,0 +1,52 @@
+.breadcrumb {
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+
+	& li {
+		display: inline-block;
+
+		&:not(:last-child) {
+
+			&::after {
+				content: '→';
+				padding: 0 10px;
+			}
+		}
+
+		&:first-child a {
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			vertical-align: middle;
+			background-color: var(--page-text);
+			mask-image: url(../../img/sprite.svg#home);
+			mask-repeat: no-repeat;
+			mask-position: center;
+			transition: background-color var(--transition-duration) var(--transition-function);
+
+			&:hover {
+				background-color: var(--color-hover);
+			}
+
+			&:active {
+				background-color: var(--color-active);
+			}
+		}
+	}
+
+	& a {
+		font-size: 16px;
+		color: inherit;
+		transition: color var(--transition-duration) var(--transition-function);
+
+		&:hover {
+			color: var(--color-hover);
+		}
+
+		&:active {
+			color: var(--color-active);
+		}
+	}
+}
