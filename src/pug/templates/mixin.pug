@@ -5,16 +5,20 @@ mixin mainPage(heading, subHeading, group)
 				h1 #{heading}
 				if (subHeading)
 					p #{subHeading}
-		if group != 'other'
-			.container
-				ol.breadcrumb
+		.container
+			ol.breadcrumb
+				li
+					a(href="./")
+						span.visually-hidden главная
+
+				if group == 'other'
 					li
-						a(href="./")
-							span.visually-hidden главная
-					li
-						a(href=`article/${group}/`) #{group}
-					li
-						a(href=`article/${group}/${idPage}.html`, aria-current="page") #{heading}
+						a(href=`article/${idPage}/`, aria-current="page") #{idPage}
+				else
+						li
+							a(href=`article/${group}/`,) #{group}
+						li
+							a(href=`article/${group}/${idPage}.html`, aria-current="page") #{heading}
 
 
 mixin codeBlock(title, code)
