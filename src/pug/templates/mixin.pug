@@ -1,4 +1,4 @@
-mixin mainPage(heading, subHeading, group)
+mixin mainHeader(heading, subHeading, group)
 	header.main__header
 		.main__header-bg
 			.container
@@ -40,3 +40,14 @@ mixin articleCard(title, descCard, file, date)
 		if idPage != 'index'
 			if date
 				p.card__meta #{date}
+
+mixin slider (array)
+	.slider(aria-roledescription="carousel")
+
+		ul.slider__list
+			each val in array
+				li.slider__item(aria-live="off", aria-roledescription="slide")
+					.slider__content
+						+articleCard(val[0], val[1], val[2])
+
+		.slider__pagination-wrap

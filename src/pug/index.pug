@@ -1,4 +1,5 @@
 extends templates/template.pug
+include templates/mixin.pug
 
 block variables
 	//- переменная для template.pug
@@ -12,4 +13,7 @@ block main
 		.top__container.container
 			h1 Записки верстальщика&ensp;
 				span Собрание демок и фич для верстальщиков
-	include templates/index-section.pug
+	include templates/index-css.pug
+	include templates/index-js.pug
+	include templates/index-svg.pug
+	include templates/index-article.pug
