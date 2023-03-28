@@ -18,7 +18,7 @@ mixin mainHeader(heading, subHeading, group)
 						li
 							a(href=`article/${group}/`,) #{group}
 						li
-							a(href=`article/${group}/${idPage}.html`, aria-current="page") #{heading}
+							a(href=`article/${group}/${idPage}/`, aria-current="page") #{heading}
 
 
 mixin codeBlock(title, code)
@@ -30,24 +30,12 @@ mixin codeBlock(title, code)
 			code
 				| #{code}
 
-mixin articleCard(title, descCard, file, date)
+
+mixin articleCard(title, descCard, file, date = 'Дата потерялась')
 	article.card
-		a.card__link(href=`./${file}`)
-			h3.card__title #{title}
+		h3.card__title #{title}
 		p.card__desc #{descCard}
-
-
-		if idPage != 'index'
+		p.card__meta
+			a.card__link(href=`./${file}`) Подробнее
 			if date
-				p.card__meta #{date}
-
-mixin slider (array)
-	.slider(aria-roledescription="carousel")
-
-		ul.slider__list
-			each val in array
-				li.slider__item(aria-live="off", aria-roledescription="slide")
-					.slider__content
-						+articleCard(val[0], val[1], val[2])
-
-		.slider__pagination-wrap
+				span.card__date #{date}

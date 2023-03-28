@@ -162,7 +162,7 @@ function scripts() {
 
 // html
 function html() {
-	return src(["src/pug/**/*.pug", "!src/pug/templates/*.pug"])
+	return src(["src/pug/**/index.pug"])
 		.pipe(plumber({
 			errorHandler: notify.onError(function(err) {
 				return {
@@ -173,7 +173,7 @@ function html() {
 			})
 		}))
 		.pipe(pug({
-			pretty: true
+			pretty: false
 		}))
 		.pipe(dest(paths.html.dest))
 		.pipe(browserSync.stream());
@@ -264,6 +264,20 @@ function createAvif() {
 		.pipe(dest(paths.img.src));
 }
 
+function cgreatePageImg() {
+	return src(paths.img.resource + "/**/*.{jpg,png}")
+		.pipe(squoosh())
+		.pipe(
+			gulpSquoosh({
+				encodeOptions: {
+					webp: {},
+					avif: {}
+				}
+			})
+		)
+		.pipe(dest(paths.img.resource + "/"));
+}
+
 function sprite() {
 	return src(paths.img.resourceSvg + "/*.svg")
 		.pipe(svgSprite({
@@ -286,6 +300,9 @@ function fonts() {
 		.pipe(dest(paths.fonts.src));
 }
 
+
+// cgreatePageImg
+exports.cgreatePageImg = cgreatePageImg;
 // createWebp
 exports.createWebp = createWebp;
 // createAvif

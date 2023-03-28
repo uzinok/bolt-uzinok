@@ -1,0 +1,100 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2 Предисловие
+
+			p Для своего же сайта пишу шаблон, ну и в дальнейшем этот шаблон применю в wordpress. Дошло дело до страницы 404 и надо что то думать… В результате сделал анимированного «Мурзика» следящего за курсором.
+
+			figure
+				.cat(role="img", aria-label='Схематичное изображение морды кота' )
+					.cat__head
+						.ear.ear--left
+						.ear.ear--right
+						.eye.eye--left
+							.eyeball
+						.eye.eye--right
+							.eyeball
+						.nose
+						.moustache.moustache--left
+						.moustache.moustache--right
+						.mouth
+						style
+							| .ear {border: 60px solid transparent;box-shadow: 0 0 0px 3px #000000;border-radius: 190% 0 25% 36%;transform: rotate(140deg);position: absolute;top: -26px;z-index: -1;}.ear--left {left: 17px;transform: rotate(220deg) scale(-1, 1);}.ear--right {right: 17px;}.cat {margin: 0 auto;}.cat__head {position: relative;margin: 90px auto 0;width: 290px;height: 240px;border: 3px solid #000000;background-color: #ffffff;border-radius: 50%;box-sizing: border-box;}.eye {width: 80px;height: 70px;border-radius: 50%;border: 2px solid #000000;position: absolute;top: 60px;overflow: hidden;}.eye--left {left: 50px;}.eye--right {right: 50px;}.eyeball {width: 10px;height: 60px;border-radius: 50%;background-color: #000000;position: absolute;top: 5px;left: 35px;}.moustache {position: absolute;top: 70%;nbackground-color: #000000;width: 6px;height: 6px;border-radius: 50%;}.moustache--left {left: 70px;}.moustache--right {right: 70px;}.moustache::before, .moustache::after {content: "";display: block;background-color: #000000;width: 6px;height: 6px;border-radius: 50%;position: absolute;top: 20px;}.moustache::before {left: 10px;}.moustache::after {right: 10px;}.nose {position: absolute;top: 61%;left: 50%;border: 10px solid transparent;border-top-color: #000;border-left-color: #000;transform: translateX(-50%) rotate(45deg);border-radius: 32% 45% 0% 45%;}.mouth {width: 70px;height: 40px;border: 3px solid transparent;border-bottom: 4px solid #000000 !important;border-radius: 50%;position: absolute;left: 50%;bottom: 5%;transform: translateX(-50%);}@keyframes animate-ear {0% {transform: scale(1, 1) rotate(140deg);}36% {transform: scale(1, 1) rotate(140deg);}38% {transform: scale(1, 0) rotate(140deg);}42% {transform: scale(1, 0) rotate(140deg);}44% {transform: scale(1, 1) rotate(140deg);}100% {transform: scale(1, 1) rotate(140deg);}}@keyframes animate-eye {0% {transform: scale(1, 1);}37% {transform: scale(1, 1);}40% {transform: scale(1, 0.02);}43% {transform: scale(1, 1);}100% {transform: scale(1, 1);}}.ear--right{ animation: animate-ear 4s;animation-iteration-count: infinite;transform-origin: center;}.eye--right{animation: animate-eye 7s;animation-iteration-count: infinite;transform-origin: center;}
+						script
+							| let eyeball=document.getElementsByClassName("eyeball"),y_eyeball=[],x_eyeball=[];for(let e=0;e<2;e++){let l=eyeball[e].getBoundingClientRect();y_eyeball.push(l.top+pageYOffset),x_eyeball.push(l.left+pageXOffset)}function setCoords(e,l,t,a){x=e.pageX,y=e.pageY,x=(x-t)/40,y=(y-a)/40;let s="translate("+x+"px,"+y+"px)";l.style.transform=s}document.addEventListener("mousemove",function(){for(let e=0;e<2;e++)setCoords(event,eyeball[e],x_eyeball[e],y_eyeball[e])});
+				figcaption Пример кота
+
+			p Я как то уже делал котика следящего за курсором, но для страницы 404 хотелось чего нибудь посветлее, по этому нужно было на SVG нарисовать другого котика. На тот момент у меня не было подходящей программы под рукой, но на одном из стримов на youtube.com я случайным образом нарисовал котика на чиcтом HTML и CSS. Вот и появилась возможность сделать Мурзика с анимацией.
+
+			p Запустил стрим, в котором заново нарисовал котика, и… Мне очень жаль, но скрипт не удалось сделать, пошел не тем путем, с математикой тупанул… три часа впустую...
+
+			p Вечером того же дня решил переделать котика и разобраться с JS что бы на следующий день быстро все сделать...
+
+	section
+	.container
+		h2 Как рисовал кота.
+
+		p В общем как нарисовать котика можно посмотреть тут, но я немного переделал уши. B место того что бы задавать цвета для border или фон для всего уха, я добавил тень. Абсолютно позиционированные уши убрал за голову с белым фоном с помощью z-index. Ну в принципе уши готовы:
+
+		+codeBlock('less', '.ear {\n  border: 60px solid transparent;\n  box-shadow: 0 0 0px 3px #000000;\n  border-radius: 190% 0 25% 36%;\n  transform: rotate(140deg);\n  position: absolute;\n  top: -26px;\n  z-index: -1;\n  &--left {\n    left: 17px;\n    transform: rotate(220deg) scale(-1, 1);\n  }\n  &--right {\n    right: 17px;\n  }\n}')
+
+		p А вот и остальной код Мурзика:
+			+codeBlock('less', '.cat {\n  margin: 0 auto;\n}\n.cat__head {\n  position: relative;\n  margin: 90px auto 0;\n  width: 290px;\n  height: 240px;\n  border: 3px solid #000000;\n  background-color: #ffffff;\n  border-radius: 50%;\n  box-sizing: border-box;\n}\n.eye {\n  width: 80px;\n  height: 70px;\n  border-radius: 50%;\n  border: 2px solid #000000;\n  position: absolute;\n  top: 60px;\n  overflow: hidden;\n  &--left {\n    left: 50px;\n  }\n  &--right {\n    right: 50px;\n  }\n}\n.eyeball {\n  width: 10px;\n  height: 60px;\n  border-radius: 50%;\n  background-color: #000000;\n  position: absolute;\n  top: 5px;\n  left: 35px;\n}\n.moustache {\n  position: absolute;\n  top: 70%;n  background-color: #000000;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  &--left {\n    left: 70px;\n  }\n  &--right {\n    right: 70px;\n  }\n  &::before,\n  &::after {\n    content: "";\n    display: block;\n    background-color: #000000;\n    width: 6px;\n    height: 6px;\n    border-radius: 50%;\n    position: absolute;\n    top: 20px;\n  }\n  &::before {\n    left: 10px;  }\n  &::after {\n    right: 10px;\n  }\n}\n.nose {\n  position: absolute;\n  top: 61%;\n  left: 50%;\n  border: 10px solid transparent;\n  border-top-color: #000;\n  border-left-color: #000;\n  transform: translateX(-50%) rotate(45deg);\n  border-radius: 32% 45% 0% 45%;\n}\n.mouth {\n  width: 70px;\n  height: 40px;\n  border: 3px solid transparent;\n  border-bottom: 4px solid #000000 !important;\n  border-radius: 50%;\n  position: absolute;\n  left: 50%;\n  bottom: 5%;\n  transform: translateX(-50%);\n}')
+
+	section
+	.container
+		h2 Ну и конечно же HTML верстка:
+
+		+codeBlock('html', '<div class="cat">\n    <div class="cat__head">\n        <div class="ear ear--left"></div>\n        <div class="ear ear--right"></div>\n        <div class="eye eye--left">\n            <div class="eyeball"></div>\n        </div>\n        <div class="eye eye--right">\n            <div class="eyeball"></div>\n        </div>\n        <div class="nose"></div>\n        <div class="moustache moustache--left"></div>\n        <div class="moustache moustache--right"></div>\n        <div class="mouth"></div>\n    </div>\n</div>')
+
+		p Так-то я пишу с помощью препроцессора pug, но вам даю сгенерированный HTML код.
+
+	section
+	.container
+		h2 Анимация кота:
+
+		p Анимацию для нового кота просто скопировал из котика на SVG и немного поправил для нового кота:
+
+		+codeBlock('less', '@keyframes animate-ear {\n  0% {\n    transform: scale(1, 1) rotate(140deg);\n  }\n  36% {\n    transform: scale(1, 1) rotate(140deg);\n  }\n  38% {\n    transform: scale(1, 0) rotate(140deg);\n  }\n  42% {\n    transform: scale(1, 0) rotate(140deg);\n  }\n  44% {\n    transform: scale(1, 1) rotate(140deg);\n  }\n  100% {\n    transform: scale(1, 1) rotate(140deg);\n  }\n}\n@keyframes animate-eye {\n  0% {\n    transform: scale(1, 1);\n  }\n  37% {\n    transform: scale(1, 1);\n  }\n  40% {\n    transform: scale(1, 0.02);\n  }\n  43% {\n    transform: scale(1, 1);\n  }\n  100% {\n    transform: scale(1, 1);\n  }\n}')
+
+		p Применил эту анимацию к уху:
+
+		+codeBlock('less', 'animation: animate-ear 4s;\nanimation-iteration-count: infinite;\ntransform-origin: center;')
+
+		p И к глазам:
+
+		+codeBlock('less', 'animation: animate-eye 7s;\nanimation-iteration-count: infinite;\ntransform-origin: center;')
+
+		p Теперь кот моргает и шевелит ушком, осталось расшевелить глаза, а точнее зрачки.
+
+	section
+	.container
+		h2 Движение зрачков
+
+		p На второй раз не стал заморачиваться со скриптом, и взял его из того же SVG котика и применил к новому коту. Во время второго стрима я код не оптимизировал. Ночью как то заглянул в этот код и решил его немного подправить в сторону производительности. В итоге вот какой код получился:
+
+		+codeBlock('js', 'let eyeball = document.getElementsByClassName("eyeball"),\n  y_eyeball = [],\n  x_eyeball = [];\nfor (let n = 0; n < 2; n++) {\n  let box = eyeball[n].getBoundingClientRect();\n    y_eyeball.push(box.top + pageYOffset),\n    x_eyeball.push(box.left + pageXOffset);\n}\ndocument.addEventListener("mousemove", function () {\n  for (let n = 0; n < 2; n++) {\n    setCoords(event, eyeball[n], x_eyeball[n], y_eyeball[n])\n  }\n})\nfunction setCoords(event, eyeball, x_eyeball, y_eyeball) {\n  x = event.pageX;\n  y = event.pageY;\n  x = (x - x_eyeball) / 40;\n  y = (y - y_eyeball) / 40;\n  let translate = "translate(" + x + "px," + y + "px)";\n  eyeball.style.transform = translate;\n};')
+
+		p В цикле в массивы добавил координаты глаз. Потом отслеживая движение курсора вызываю функцию для каждого глаза которая и двигает зрачки.
+
+		p В этой функции получаю координаты курсора. В строках
+
+		+codeBlock('js', 'x = (x - x_eyeball) / 40;\ny = (y - y_eyeball) / 40;')
+
+		p Я от координат мыши отнимаю координаты курсора, для того что бы наводя курсор на зрачок глаз смотрел ровно. Потом делю на 40 (получил это число опытным путем) что бы замедлить движение зрачка. Если этого не делать, то зрачки будут всегда возле курсора)) В свойство transform — translate подставляю получившиеся числа и кот начинает следить за курсором как полагается.
+
+	section
+	.container
+		h2 Итог
+
+		p В итоге получил что-что хотел. Но есть один минус, который можно поправить. Дело в том что при изменении размера окна кот будет косить)) Можно, конечно, отслеживать resize, но на данной странице я думаю этого можно и не делать.
+
+			//- +codeBlock('html', '<div class="bolt-chips-wrap">\n    Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!\n  </div>\n  <!-- ... -->\n</div>')
+			//- +codeBlock('html', '<div class="bolt-chips-wrap">\n    Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!\n  </div>\n  <!-- ... -->\n</div>')
+			//- +codeBlock('html', '<div class="bolt-chips-wrap">\n    Экс-граф? Плюш изъят. Бьём чуждый цен хвощ!\n  </div>\n  <!-- ... -->\n</div>')
