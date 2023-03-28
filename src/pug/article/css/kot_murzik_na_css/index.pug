@@ -4,7 +4,6 @@ block variables
 	//- переменная для template.pug
 	include var.pug
 
-
 block main
 	section
 		.container
@@ -13,7 +12,22 @@ block main
 			p Для своего же сайта пишу шаблон, ну и в дальнейшем этот шаблон применю в wordpress. Дошло дело до страницы 404 и надо что то думать… В результате сделал анимированного «Мурзика» следящего за курсором.
 
 			figure
-				img(src="img/article/1.webp", alt="Анимированный кот на CSS")
+				.cat(role="img", aria-label='Схематичное изображение морды кота' )
+					.cat__head
+						.ear.ear--left
+						.ear.ear--right
+						.eye.eye--left
+							.eyeball
+						.eye.eye--right
+							.eyeball
+						.nose
+						.moustache.moustache--left
+						.moustache.moustache--right
+						.mouth
+						style
+							| .ear {border: 60px solid transparent;box-shadow: 0 0 0px 3px #000000;border-radius: 190% 0 25% 36%;transform: rotate(140deg);position: absolute;top: -26px;z-index: -1;}.ear--left {left: 17px;transform: rotate(220deg) scale(-1, 1);}.ear--right {right: 17px;}.cat {margin: 0 auto;}.cat__head {position: relative;margin: 90px auto 0;width: 290px;height: 240px;border: 3px solid #000000;background-color: #ffffff;border-radius: 50%;box-sizing: border-box;}.eye {width: 80px;height: 70px;border-radius: 50%;border: 2px solid #000000;position: absolute;top: 60px;overflow: hidden;}.eye--left {left: 50px;}.eye--right {right: 50px;}.eyeball {width: 10px;height: 60px;border-radius: 50%;background-color: #000000;position: absolute;top: 5px;left: 35px;}.moustache {position: absolute;top: 70%;nbackground-color: #000000;width: 6px;height: 6px;border-radius: 50%;}.moustache--left {left: 70px;}.moustache--right {right: 70px;}.moustache::before, .moustache::after {content: "";display: block;background-color: #000000;width: 6px;height: 6px;border-radius: 50%;position: absolute;top: 20px;}.moustache::before {left: 10px;}.moustache::after {right: 10px;}.nose {position: absolute;top: 61%;left: 50%;border: 10px solid transparent;border-top-color: #000;border-left-color: #000;transform: translateX(-50%) rotate(45deg);border-radius: 32% 45% 0% 45%;}.mouth {width: 70px;height: 40px;border: 3px solid transparent;border-bottom: 4px solid #000000 !important;border-radius: 50%;position: absolute;left: 50%;bottom: 5%;transform: translateX(-50%);}@keyframes animate-ear {0% {transform: scale(1, 1) rotate(140deg);}36% {transform: scale(1, 1) rotate(140deg);}38% {transform: scale(1, 0) rotate(140deg);}42% {transform: scale(1, 0) rotate(140deg);}44% {transform: scale(1, 1) rotate(140deg);}100% {transform: scale(1, 1) rotate(140deg);}}@keyframes animate-eye {0% {transform: scale(1, 1);}37% {transform: scale(1, 1);}40% {transform: scale(1, 0.02);}43% {transform: scale(1, 1);}100% {transform: scale(1, 1);}}.ear--right{ animation: animate-ear 4s;animation-iteration-count: infinite;transform-origin: center;}.eye--right{animation: animate-eye 7s;animation-iteration-count: infinite;transform-origin: center;}
+						script
+							| let eyeball=document.getElementsByClassName("eyeball"),y_eyeball=[],x_eyeball=[];for(let e=0;e<2;e++){let l=eyeball[e].getBoundingClientRect();y_eyeball.push(l.top+pageYOffset),x_eyeball.push(l.left+pageXOffset)}function setCoords(e,l,t,a){x=e.pageX,y=e.pageY,x=(x-t)/40,y=(y-a)/40;let s="translate("+x+"px,"+y+"px)";l.style.transform=s}document.addEventListener("mousemove",function(){for(let e=0;e<2;e++)setCoords(event,eyeball[e],x_eyeball[e],y_eyeball[e])});
 				figcaption Пример кота
 
 			p Я как то уже делал котика следящего за курсором, но для страницы 404 хотелось чего нибудь посветлее, по этому нужно было на SVG нарисовать другого котика. На тот момент у меня не было подходящей программы под рукой, но на одном из стримов на youtube.com я случайным образом нарисовал котика на чиcтом HTML и CSS. Вот и появилась возможность сделать Мурзика с анимацией.
@@ -31,7 +45,7 @@ block main
 		+codeBlock('less', '.ear {\n  border: 60px solid transparent;\n  box-shadow: 0 0 0px 3px #000000;\n  border-radius: 190% 0 25% 36%;\n  transform: rotate(140deg);\n  position: absolute;\n  top: -26px;\n  z-index: -1;\n  &--left {\n    left: 17px;\n    transform: rotate(220deg) scale(-1, 1);\n  }\n  &--right {\n    right: 17px;\n  }\n}')
 
 		p А вот и остальной код Мурзика:
-			+codeBlock('less', '.cat {\n  margin: 0 auto;\n}\n.cat__head {\n  position: relative;\n  margin: 90px auto 0;\n  width: 290px;\n  height: 240px;\n  border: 3px solid #000000;\n  background-color: #ffffff;\n  border-radius: 50%;\n  box-sizing: border-box;\n}\n.eye {\n  width: 80px;\n  height: 70px;\n  border-radius: 50%;\n  border: 2px solid #000000;\n  position: absolute;\n  top: 60px;\n  overflow: hidden;\n  &--left {\n    left: 50px;\n  }\n  &--right {\n    right: 50px;n  }\n}\n.eyeball {\n  width: 10px;\n  height: 60px;\n  border-radius: 50%;\n  background-color: #000000;\n  position: absolute;\n  top: 5px;\n  left: 35px;\n}\n.moustache {\n  position: absolute;\n  top: 70%;n  background-color: #000000;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  &--left {\n    left: 70px;\n  }\n  &--right {\n    right: 70px;\n  }\n  &::before,\n  &::after {\n    content: "";\n    display: block;\n    background-color: #000000;\n    width: 6px;\n    height: 6px;\n    border-radius: 50%;\n    position: absolute;\n    top: 20px;\n  }\n  &::before {\n    left: 10px;  }\n  &::after {\n    right: 10px;\n  }\n}\n.nose {\n  position: absolute;\n  top: 61%;\n  left: 50%;\n  border: 10px solid transparent;\n  border-top-color: #000;\n  border-left-color: #000;\n  transform: translateX(-50%) rotate(45deg);\n  border-radius: 32% 45% 0% 45%;\n}\n.mouth {\n  width: 70px;\n  height: 40px;\n  border: 3px solid transparent;\n  border-bottom: 4px solid #000000 !important;\n  border-radius: 50%;\n  position: absolute;\n  left: 50%;\n  bottom: 5%;\n  transform: translateX(-50%);\n}')
+			+codeBlock('less', '.cat {\n  margin: 0 auto;\n}\n.cat__head {\n  position: relative;\n  margin: 90px auto 0;\n  width: 290px;\n  height: 240px;\n  border: 3px solid #000000;\n  background-color: #ffffff;\n  border-radius: 50%;\n  box-sizing: border-box;\n}\n.eye {\n  width: 80px;\n  height: 70px;\n  border-radius: 50%;\n  border: 2px solid #000000;\n  position: absolute;\n  top: 60px;\n  overflow: hidden;\n  &--left {\n    left: 50px;\n  }\n  &--right {\n    right: 50px;\n  }\n}\n.eyeball {\n  width: 10px;\n  height: 60px;\n  border-radius: 50%;\n  background-color: #000000;\n  position: absolute;\n  top: 5px;\n  left: 35px;\n}\n.moustache {\n  position: absolute;\n  top: 70%;n  background-color: #000000;\n  width: 6px;\n  height: 6px;\n  border-radius: 50%;\n  &--left {\n    left: 70px;\n  }\n  &--right {\n    right: 70px;\n  }\n  &::before,\n  &::after {\n    content: "";\n    display: block;\n    background-color: #000000;\n    width: 6px;\n    height: 6px;\n    border-radius: 50%;\n    position: absolute;\n    top: 20px;\n  }\n  &::before {\n    left: 10px;  }\n  &::after {\n    right: 10px;\n  }\n}\n.nose {\n  position: absolute;\n  top: 61%;\n  left: 50%;\n  border: 10px solid transparent;\n  border-top-color: #000;\n  border-left-color: #000;\n  transform: translateX(-50%) rotate(45deg);\n  border-radius: 32% 45% 0% 45%;\n}\n.mouth {\n  width: 70px;\n  height: 40px;\n  border: 3px solid transparent;\n  border-bottom: 4px solid #000000 !important;\n  border-radius: 50%;\n  position: absolute;\n  left: 50%;\n  bottom: 5%;\n  transform: translateX(-50%);\n}')
 
 	section
 	.container
