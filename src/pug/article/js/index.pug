@@ -1,0 +1,15 @@
+extends ../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	- var pageTitle = "Архивы JS"
+	- var desc = 'Небольшой сборник JS демок. Представленный код в основном работает во всех браузерах. Это не готовый код, но его можно использовать для любых целей.'
+	- var heading = 'Архивы JS'
+	- var subHeading = 'Небольшой сборник JS демок. Представленный код в основном работает во всех браузерах. Это не готовый код, но его можно использовать для любых целей.'
+	- var idPage = 'js'
+	- var group = 'other'
+
+
+block main
+	.container.container--group
+		include chips/card.pug

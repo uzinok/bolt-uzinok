@@ -1,4 +1,12 @@
 section#js
 		.container
 			h2
-				a(href="#") js
+				a(href="article/js/") JS
+			.slider(aria-roledescription="carousel")
+
+				ul.slider__list
+					li.slider__item(aria-live="off", aria-roledescription="slide")
+						.slider__content
+							include ../article/css/kot_murzik_na_css/card.pug
+
+				.slider__pagination-wrap
