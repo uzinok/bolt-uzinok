@@ -481,3 +481,33 @@ window.addEventListener('load', () => {
 		code(arrCode[i]);
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+const request = new XMLHttpRequest();
+
+const url = "https://api-ext.vh.yandex.net/video_meta/ab735478e64198e406809dd65c6e33fa73a3e244c04axZWPx1126x1680135618";
+
+request.open('GET', url);
+
+request.setRequestHeader('Content-Type', 'application/json');
+
+request.addEventListener("readystatechange", () => {
+
+	if (request.readyState === 4 && request.status === 200) {
+		console.log(request.responseText);
+	}
+});
+
+request.send();
+
+// Как получить обложку видео дзен?
+// На странице сайта может быть вставлено несколько видео из дзен, для оптимизации загрузки сайта мне нужно получить обложку видео. Как её получить?
