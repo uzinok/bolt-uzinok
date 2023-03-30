@@ -7,6 +7,7 @@ block variables
 block main
 	section
 		.container
+			h2.visually-hidden Вступление
 			p Данная статья скорее для новичков, но и в то же время может быть шпаргалкой для любого верстальщика. Для новичков она будет полезной, по тому что рассмотрю более редкие селекторы с полным разбором, а возможно и с примерами применений. Это не про псевдоклассы, а про нечто другое. Если вам легче воспринимать информацию визуально, то к каждому CSS селектору будет небольшое видео. А если вам этого будет мало, то есть ещё статья про "селекторы по атрибутам".
 
 			p Приятного прочтения или просмотра! Надеюсь данная статья кому-то поможет))
@@ -95,12 +96,17 @@ block main
 
 			p Далее видео после которого немного расскажу про следующий селектор.
 
-			iframe(loading="lazy", width='480', height='270', src='https://dzen.ru/embed/vmZjEw_ivASo?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=0&tv=0', allow='autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media', frameborder='0', scrolling='no', allowfullscreen='')
+			.media-dzen(data-iframe="https://dzen.ru/embed/vmZjEw_ivASo?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0")
+				a.media-dzen__link(href="https://dzen.ru/video/watch/63b2d2f95ba1321f079740d4", target="_blank", rel="noopener noreferrer")
+					picture.media-dzen__visible
+						source(srcset="./img/article/selector_css/video-1.avif", type="image/avif")
+						source(srcset="./img/article/selector_css/video-1.webp", type="image/webp")
+						img.media-dzen__img(src="./img/article/selector_css/video-1.png", alt="#", width="900", height="507")
 
-			//- https://avatars.dzeninfra.ru/get-zen-vh/5284247/2a00000185728b870731011ccb339be77b69/orig
+				button.media-dzen__play(type="button")
+					span.visually-hidden Воспроизвести видео
 
-			//- https://api-ext.vh.yandex.net/video_meta/vmZjEw_ivASo
-			//- a(href="https://api-ext.vh.yandex.net/video_meta/ab735478e64198e406809dd65c6e33fa73a3e244c04axZWPx1126x1680135618") ccc
+
 
 
 

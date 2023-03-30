@@ -466,6 +466,35 @@ class BoltChips {
 	}
 }
 
+// <iframe width="480" height="270" src="https://dzen.ru/embed/vmZjEw_ivASo?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+
+function mediaDzen(elem) {
+	const link = elem.querySelector('.media-dzen__link');
+	const picture = elem.querySelector('.media-dzen__visible');
+	const play = elem.querySelector('.media-dzen__play');
+
+	link.removeAttribute('href');
+	play.addEventListener('click', function() {
+		const iframe = document.createElement('iframe');
+		iframe.src = elem.dataset.iframe;
+		elem.removeAttribute('data-iframe')
+		iframe.classList.add('media-dzen__visible');
+		iframe.setAttribute('allow', 'autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media');
+		iframe.setAttribute('frameborder', 0);
+		iframe.setAttribute('scrolling', 'no');
+		iframe.setAttribute('allowfullscreen', '');
+
+		elem.append(iframe);
+
+		iframe.addEventListener('load', function() {
+			picture.remove();
+			play.remove();
+		});
+	});
+
+
+}
+
 window.addEventListener('load', () => {
 	setYear();
 	if (document.querySelector('.bg-canvas'))
@@ -480,34 +509,9 @@ window.addEventListener('load', () => {
 	for (let i = 0; i < arrCode.length; i++) {
 		code(arrCode[i]);
 	}
-});
 
-
-
-
-
-
-
-
-
-
-
-const request = new XMLHttpRequest();
-
-const url = "https://api-ext.vh.yandex.net/video_meta/ab735478e64198e406809dd65c6e33fa73a3e244c04axZWPx1126x1680135618";
-
-request.open('GET', url);
-
-request.setRequestHeader('Content-Type', 'application/json');
-
-request.addEventListener("readystatechange", () => {
-
-	if (request.readyState === 4 && request.status === 200) {
-		console.log(request.responseText);
+	const arrMediaDzen = document.querySelectorAll('.media-dzen');
+	for (let i = 0; i < arrMediaDzen.length; i++) {
+		mediaDzen(arrMediaDzen[i]);
 	}
 });
-
-request.send();
-
-// Как получить обложку видео дзен?
-// На странице сайта может быть вставлено несколько видео из дзен, для оптимизации загрузки сайта мне нужно получить обложку видео. Как её получить?
