@@ -1,0 +1,92 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+
+	section
+		.container
+			h2
+				code +
+				| &ensp;плюс, или «соседский селектор»
+
+			p Выбирает соседний селектор. Для примера можно написать верстку как в примере предыдущей статьи про <a href="article/css/fraternal_css_selector/">"Братские селекторы"</a>.
+
+			+codeBlock('html', '<div class="block-2">\n  <span>1</span>\n  <span>2</span>\n  <span>3</span>\n  <span>4</span>\n  <span>5</span>\n</div>')
+
+			p Опять выберу третий <code>span</code> и изменю в нем цвет текста
+
+			+codeBlock('css', '.block-2 span:nth-child(3) {\n  color: blue;\n}')
+
+			figure
+				picture
+					source(srcset="./img/article/css_neighbor_selector/selector_css-1.avif", type="image/avif")
+					source(srcset="./img/article/css_neighbor_selector/selector_css-1.webp", type="image/webp")
+					img(src="./img/article/css_neighbor_selector/selector_css-1.png", alt="пять цифр подряд, у цифры три цвет синий", width="235", height="77")
+				figcaption У третьего <code>span</code> изменен цвет текста.
+
+			p Выбираю соседний селектор и меняю у него цвет текста.
+
+			+codeBlock('css', '.block-2 span:nth-child(3) + span {\n  color: brown;\n}')
+
+			figure
+				picture
+					source(srcset="./img/article/css_neighbor_selector/selector_css-2.avif", type="image/avif")
+					source(srcset="./img/article/css_neighbor_selector/selector_css-2.webp", type="image/webp")
+					img(src="./img/article/css_neighbor_selector/selector_css-2.png", alt="пять цифр подряд, у цифры три цвет синий, у цифры четыре цвет коричневый", width="235", height="77")
+				figcaption Изменён цвет текста у четвертого <code>span</code>.
+
+			p Как видно, изменился только один <code>span</code>, а именно четвертый, который находится по соседству с выбранным третьим.
+
+			p Новички могут подумать что третий span остался синим из-за специфичности. Но это не так:
+
+			+codeBlock('css', '.block-2 span:nth-child(3) + span {\n  color: brown;\n  background-color: burlywood;\n}')
+
+			figure
+				picture
+					source(srcset="./img/article/css_neighbor_selector/selector_css-3.avif", type="image/avif")
+					source(srcset="./img/article/css_neighbor_selector/selector_css-3.webp", type="image/webp")
+					img(src="./img/article/css_neighbor_selector/selector_css-3.png", alt="пять цифр подряд, у цифры три цвет синий, у цифры четыре цвет коричневый и фон берливуд", width="235", height="77")
+				figcaption Фоновый цвет поменялся только у соседнего селектора.
+
+			p А теперь вопрос студентам и новичкам: а может ли этот селектор выбрать другой <code>span</code>? Проверить это просто! Добавлю всем <code>span</code> какой-нибудь фон, а затем, вложу в четвертый еще один <code>span</code> "4.1"
+
+			+codeBlock('html', '<style>\n  .block-2 span {\n    background-color: aqua;\n  }\n  .block-2 span:nth-child(3) {\n    color: blue;\n  }\n  .block-2 span:nth-child(3)+span {\n    color: brown;\n    background-color: burlywood;\n  }\n</style>\n<div class="block-2">\n  <span>1</span>\n  <span>2</span>\n  <span>3</span>\n  <span>4\n    <span>4.1</span>\n  </span>\n  <span>5</span>\n</div>')
+
+			figure
+				picture
+					source(srcset="./img/article/css_neighbor_selector/selector_css-4.avif", type="image/avif")
+					source(srcset="./img/article/css_neighbor_selector/selector_css-4.webp", type="image/webp")
+					img(src="./img/article/css_neighbor_selector/selector_css-4.png", alt="цифры 1, 2, 3, 4, 4.1, 5. все цифры цвета аква, цифра 4 цвета берливуд", width="407", height="77")
+				figcaption Фоновый цвет поменялся только у соседнего селектора, но у вложенного в соседний <code>span</code> фоновый цвет как у других элементов <code>span</code>
+
+			p В результате вложенный <code>span</code> остался с фоном как у всех кроме соседнего, а цвет текста в нем наследовался от родительского, соседнего <code>span</code>.
+
+			p Остался последний вопрос: а что будет, если между третьим и четвертым <code>span</code> добавить любой другой, видимый элемент? Новички могут подумать что наш элемент так же отработает, но, он уже будет не по соседству, а значит селектор не отработает.
+
+			p К этому селектору я приложу видео, а следующий на очереди "дочерний селектор".
+
+
+
+
+
+
+
+
+
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			.media-dzen(data-iframe="https://dzen.ru/embed/v01BpB0R83Bs?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0")
+				a.media-dzen__link(href="https://dzen.ru/video/watch/63b2d2f95ba1321f079740d4", target="_blank", rel="noopener noreferrer")
+					picture.media-dzen__visible
+						source(srcset="./img/article/css_neighbor_selector/video-1.avif", type="image/avif")
+						source(srcset="./img/article/css_neighbor_selector/video-1.webp", type="image/webp")
+						img.media-dzen__img(src="./img/article/css_neighbor_selector/video-1.png", alt="#", width="900", height="507")
+
+				button.media-dzen__play(type="button")
+					span.visually-hidden Воспроизвести видео
