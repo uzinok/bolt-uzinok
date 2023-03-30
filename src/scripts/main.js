@@ -46,7 +46,7 @@ function code(code) {
 		let textCode = '';
 
 		for (let i = 0; i < textPreArr.length; i++) {
-			textCode += `<span><span aria-hidden="true">${i + 1}</span> ${textPreArr[i].replace('<', '&lt;').replace('>', '&gt;')}</span>\n`;
+			textCode += `<codeLine><codenumber aria-hidden="true">${i + 1}</codenumber> ${textPreArr[i].replace('<', '&lt;').replace('</', '&lt;/').replace('>', '&gt;')}</codeLine>\n`;
 		}
 
 		preView.classList.add('code__pre');
