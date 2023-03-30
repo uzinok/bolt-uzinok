@@ -180,6 +180,12 @@ body:not(.index) {
 	}
 }
 
-body:not(.no-js) img {
-	border: 2px solid var(--bg-code);
+body:not(.index) section img {
+	border: 2px solid var(--color-hover);
+}
+
+iframe[src*="dzen.ru"] {
+	aspect-ratio: 480 / 270;
+	width: 100%;
+	height: auto;
 }

@@ -266,7 +266,7 @@ function createAvif() {
 
 function cgreatePageImg() {
 	return src(paths.img.resource + "/**/*.{jpg,png}")
-		.pipe(squoosh())
+		// .pipe(squoosh())
 		.pipe(
 			gulpSquoosh({
 				encodeOptions: {
@@ -275,7 +275,7 @@ function cgreatePageImg() {
 				}
 			})
 		)
-		.pipe(dest(paths.img.resource + "/"));
+		.pipe(dest(paths.img.src + "/article/selector_css/"));
 }
 
 function sprite() {

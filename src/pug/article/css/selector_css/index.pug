@@ -1,0 +1,112 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			p Данная статья скорее для новичков, но и в то же время может быть шпаргалкой для любого верстальщика. Для новичков она будет полезной, по тому что рассмотрю более редкие селекторы с полным разбором, а возможно и с примерами применений. Это не про псевдоклассы, а про нечто другое. Если вам легче воспринимать информацию визуально, то к каждому CSS селектору будет небольшое видео. А если вам этого будет мало, то есть ещё статья про "селекторы по атрибутам".
+
+			p Приятного прочтения или просмотра! Надеюсь данная статья кому-то поможет))
+
+	section
+		.container
+			h2
+				code ~
+				| &ensp;тильда, или «селектор братских элементов»
+
+			p Данный селектор выбирает все элементы после выбранного, внутри родителя. Проще говоря: выбирает все элементы после выбранного.
+
+			p Для того, что бы понять как он работает, пропишу следующий код:
+
+			+codeBlock('html', '<div class="block-1">\n  <span>1</span>\n  <span>2</span>\n  <span>3</span>\n  <span>4</span>\n  <span>5</span>\n</div>')
+
+			p Пять <code>spanо</code>в пронумеровал для видимости. Далее выберу третий из них и изменю в нем цвет текста:
+
+			+codeBlock('css', '.block-1 span:nth-child(3) {\n  color: brown;\n}')
+
+			figure
+				picture
+					source(srcset="./img/article/selector_css/selector_css-1.avif", type="image/avif")
+					source(srcset="./img/article/selector_css/selector_css-1.webp", type="image/webp")
+					img(src="./img/article/selector_css/selector_css-1.png", alt="пять цифр подряд, у цифры три цвет коричневый", width="235", height="77")
+				figcaption У третьего <code>span</code> изменен цвет текста.
+
+			p Теперь выберу «братские элементы» и им так же поменяю цвет текста:
+
+			+codeBlock('html', '.block-1 span:nth-child(3) ~ span {\n  color: chocolate;\n}')
+
+			figure
+				picture
+					source(srcset="./img/article/selector_css/selector_css-2.avif", type="image/avif")
+					source(srcset="./img/article/selector_css/selector_css-2.webp", type="image/webp")
+					img(src="./img/article/selector_css/selector_css-2.png", alt="пять цифр подряд, у цифры три цвет коричневый, у цыфр 4 и 5 шоколадный", width="235", height="77")
+				figcaption Изменён цвет текста у четвертого и пятого <code>span</code>.
+
+			p На данном этапе прекрасно видно, что этот селектор выбирает четвертый и пятый span, но для новичка может быть вопрос, почему третий не шоколадного цвета? Ответ простой: данный селектор его не выбирает. Убедиться в этом может помочь пара действий:
+
+			ul
+				li убрать цвет текста у третьего элемента: в таком случае у него цвет текста будет чёрным
+				li добавить «братским элементам» фоновый цвет
+
+			p Я выберу «фоновый цвет», для того что бы позднее показать еще один момент.
+
+			+codeBlock('html', '.block-1 span:nth-child(3) ~ span {\n  color: chocolate;\n  background-color: antiquewhite;\n}')
+
+			figure
+				picture
+					source(srcset="./img/article/selector_css/selector_css-3.avif", type="image/avif")
+					source(srcset="./img/article/selector_css/selector_css-3.webp", type="image/webp")
+					img(src="./img/article/selector_css/selector_css-3.png", alt="пять цифр подряд, у цифры три цвет коричневый, у цыфр 4 и 5 шоколадный и фоновый цвет античный белый", width="235", height="77")
+				figcaption Четвертый и пятый элемент с фоном.
+
+			p Теперь прекрасно видно, что выбраны именно следующие элементы. Осталось продемонстрировать ещё один момент: будут ли выбраны <code>span</code>ы внутри четвертого и пятого? Для этого, внутрь пятого, я добавлю еще один <code>span</code> внутрь пятого и всем <code>span</code>ам добавлю фоновый цвет:
+
+			+codeBlock('html', ' <div class="block-1">\n  <span>1</span>\n  <span>2</span>\n  <span>3</span>\n  <span>4</span>\n  <span> 5\n    <span>5.1</span>\n  </span>\n</div>\n<style>\n  .block-1 span {\n    background-color: aliceblue;\n  }\n  .block-1 span:nth-child(3) {\n    color: brown;\n  }\n  .block-1 span:nth-child(3)~span {\n    color: chocolate;\n    background-color: antiquewhite;\n  }\n</style>')
+
+			p Ниже уже реальный пример, не скрин: на нем прекрасно видны все мелочи о которые может споткнуться новичок, в том числе видно, что <code>span</code>у внутри пятого не применился фон «братского селектора».
+
+			.block-1
+				span 1
+				span 2
+				span 3
+				span 4
+				span
+					| 5
+					span 5.1
+			style.
+				.block-1 {
+				font-family: Arial, Helvetica, sans-serif;
+				line-height: 1;
+				font-size: 55px;
+				}
+				.block-1 span {
+				background-color: aliceblue;
+				}
+				.block-1 span:nth-child(3) {
+				color: brown;
+				}
+				.block-1 span:nth-child(3)~span {
+				color: chocolate;
+				background-color: antiquewhite;
+				}
+
+			p Далее видео после которого немного расскажу про следующий селектор.
+
+			iframe(loading="lazy", width='480', height='270', src='https://dzen.ru/embed/vmZjEw_ivASo?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=0&tv=0', allow='autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media', frameborder='0', scrolling='no', allowfullscreen='')
+
+			//- https://avatars.dzeninfra.ru/get-zen-vh/5284247/2a00000185728b870731011ccb339be77b69/orig
+
+			//- https://api-ext.vh.yandex.net/video_meta/vmZjEw_ivASo
+			//- a(href="https://api-ext.vh.yandex.net/video_meta/ab735478e64198e406809dd65c6e33fa73a3e244c04axZWPx1126x1680135618") ccc
+
+
+
+
+
+
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
