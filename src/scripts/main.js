@@ -19,7 +19,7 @@ function code(code) {
 	});
 
 	buttonView.addEventListener('click', function() {
-		preView.style.height = `${20 * countCode}px`;
+		preView.style.height = `${20 * countCode + 20}px`;
 		code.classList.remove('hide');
 
 		const bodyStyles = window.getComputedStyle(document.body);
