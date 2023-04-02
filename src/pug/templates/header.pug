@@ -18,4 +18,4 @@ header.header(class=idPage == 'index' ? 'header--index' : '')
 				li.header__item
 					a.header__link(href="#svg") SVG
 				li.header__item
-					a.header__link(href="#article") Статьи
+					a.header__link(href=idPage == 'index' ? '#article' : 'article/article/', aria-current=idPage == 'article' ? 'page' : 'false') Статьи
