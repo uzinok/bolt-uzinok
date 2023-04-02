@@ -190,3 +190,52 @@ iframe[src*="dzen.ru"] {
 	height: auto;
 	aspect-ratio: 480 / 270;
 }
+
+.go-bottom {
+	position: absolute;
+	right: var(--offset-pageX);
+	bottom: var(--offset-pageY);
+	display: block;
+	box-sizing: border-box;
+	width: 27px;
+	height: 27px;
+	border: 1px solid var(--page-text);
+	border-radius: 50%;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 25px;
+		height: 25px;
+		background-color: rgba(255, 255, 255, .5);
+		border-radius: 50%;
+		opacity: .8;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		z-index: 1;
+		top: 50%;
+		left: 50%;
+		width: 18px;
+		height: 18px;
+		background-color: var(--page-text);
+		transform: translate(-50%, -50%);
+		transition: background-color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
+		mask-size: 18px 18px;
+		mask-repeat: no-repeat;
+		mask-position: center center;
+		mask-image: url(../../img/sprite.svg#arrow-down);
+	}
+
+	&:hover::after {
+		background-color: var(--color-hover);
+	}
+
+	&:active::after {
+		background-color: var(--color-active);
+	}
+}
