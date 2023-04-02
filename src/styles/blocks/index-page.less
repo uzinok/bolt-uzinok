@@ -67,19 +67,33 @@
 			font-size: 60px;
 		}
 
-		&::before {
-			content: '';
+		.logo {
 			display: block;
 			width: 100px;
 			height: 100px;
 			margin: 0 auto;
 			margin-bottom: 1em;
-			background-image: url(../../img/sprite.svg#logo-light);
+			color: var(--color-body);
+			transition: color var(--transition-duration) var(--transition-function);
 
 			@media (min-width: @min-sm) {
 				width: 140px;
 				height: 140px;
 				margin-bottom: 0.5em;
+			}
+
+			&:hover {
+				color: var(--color-hover);
+			}
+
+			&:active {
+				color: var(--color-active);
+			}
+
+			& svg {
+				display: block;
+				width: 100%;
+				height: 100%;
 			}
 		}
 
