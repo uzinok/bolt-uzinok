@@ -39,3 +39,14 @@ mixin articleCard(title, descCard, file, date = 'Дата потерялась')
 			a.card__link(href=`./${file}`) Подробнее
 			if date
 				span.card__date #{date}
+
+mixin zen-video(dataIframe, urlVideo, urlImg)
+	.media-dzen(data-iframe=`${dataIframe}`)
+		a.media-dzen__link(href=`${urlVideo}`, target="_blank", rel="noopener noreferrer")
+			picture.media-dzen__visible
+				source(srcset=`${urlImg}.avif`, type="image/avif")
+				source(srcset=`${urlImg}.webp`, type="image/webp")
+				img.media-dzen__img(src=`${urlImg}.jpg`, alt="#", width="900", height="507")
+
+		button.media-dzen__play(type="button")
+			span.visually-hidden Воспроизвести видео
