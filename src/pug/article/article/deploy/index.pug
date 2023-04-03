@@ -8,27 +8,21 @@ block main
 	section
 		.container
 			h2 Вступление.
-
 			p Всем привет! Относительно недавно я захотел один из проектов выложить на GitHub Pages. Сначала пошел на ютуб, потом несколько статей прочел, не найдя нужного начал изучать сам гитхаб. Нашел два способа для реализации этого желания.
 			p Первый способ – быстрый, но с одним минусом: в репозитории остаётся сама сборка. Но она имеет место быть в том случае если простая верстка без сборщика: то есть в самом репозитории есть готовый html, css и прочие файлы.
 			p Второй способ подходит если у вас какой-то сборщик, в моём случае будет галп. Найдя второй способ, не стал сразу записывать видео так как не был уверен что всё ок. Но недавно у коллеги увидел статью с этим способом и решил вам показать его.
-
 	section
 		.container
 			h2 Начну с более простого/быстрого способа.
-
 			p Сейчас не буду описывать как создать новый репозиторий "test-deploy" (есть в <a href="#video">видео</a>), но создавая его обязательно проследите что-бы он был публичным.
 			p Когда в репозитории есть готовая вёрстка - можно приступать к работе для этого необходимо зайти в настройки и выбрать вкладку <i>page</i>. В <i>source</i> выбираем <i>GitHub Actions</i>. Далее Static HTML, комитим новый файл и всё. <small>(Далее поясню)</small>
-
 			figure
 				picture
 					source(srcset="img/article/deploy/deploy-1.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-1.webp", type="image/webp")
 					img(src="img/article/deploy/deploy-1.png", alt="скрин со страници настроек репозитория github с подсказками")
 				figcaption Скрин с подсказками
-
 			p Если перейдем во вкладку екшен то увидим процесс деплоя, а вернувшись в настройки гитхаб пагес, увидим ссылку на наш проект. Правда иногда нужно немного подождать, буквально пару минут до появления этой ссылки.
-
 			figure
 				picture
 					source(srcset="img/article/deploy/deploy-2.avif", type="image/avif")
@@ -39,26 +33,19 @@ block main
 					source(srcset="img/article/deploy/deploy-3.webp", type="image/webp")
 					img(src="img/article/deploy/deploy-3.png", alt="скриншот расположения ссылки на опубликованный сайт")
 				figcaption Деплой и расположение ссылки на опубликованный сайт
-
 			p В интерфейсе кода проекта есть шестерёнка, которая позволит сделать кое-что интересное: закрепить ссылку на сборку. При этом даже не нужно её копировать отметив галочку <i>Use your GitHub Pages website</i> Сохранив настройки под этой шестерёнкой появится ссылка на опубликованный сайт.
-
 			figure
 				picture
 					source(srcset="img/article/deploy/deploy-4.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-4.webp", type="image/webp")
 					img(src="img/article/deploy/deploy-4.png", alt="скрин со страници настроек репозитория github с подсказками")
 				figcaption Скрин с подсказками
-
 			p Теперь у нас всё работает и при каждом пуше с изменениями будет происходить деплй и сайт будет обновляться.
-
 	section
 		.container
 			h2 Как это работает?
-
 			p Прежде чем приступить к следующему пункту, стоит сказать пару слов по файлу <i>static.yml</i> так как похожий файл будем использовать далее.
-
 			+codeBlock('YML', "# Simple workflow for deploying static content to GitHub Pages\nname: Deploy static content to Pages\n\non:\n  # Runs on pushes targeting the default branch\n  push:\n    branches: [\"main\"]\n\n  # Allows you to run this workflow manually from the Actions tab\n  workflow_dispatch:\n\n# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\n# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.\n# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.\nconcurrency:\n  group: \"pages\"\n  cancel-in-progress: false\n\njobs:\n  # Single deploy job since we're just deploying\n  deploy:\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v3\n      - name: Setup Pages\n        uses: actions/configure-pages@v3\n      - name: Upload artifact\n        uses: actions/upload-pages-artifact@v1\n        with:\n          # Upload entire repository\n          path: '.'\n      - name: Deploy to GitHub Pages\n        id: deployment\n        uses: actions/deploy-pages@v2")
-
 			p Не буду вдаваться в подробности, но вкратце это работает так:
 			ul
 				li 2я строка - название экшена
@@ -68,14 +55,84 @@ block main
 				li на 24ой строке начинается работа, а на 25ой название работы
 				li 27я-30я строки это настройки
 				li с 31ой строки начинаются действия выполнения работы
-
 			p На строке 40 есть интересная настройка: <code>path: '.'</code>. На тот случай если в репозитории несколько папок, можно указать ту из которой необходимо получить файлы для деплоя.
-
-
 	section
 		.container
 			h2 Деплой сборки.
+			p Прежде чем создавать экшен для сборки, лучше проследить что-бы не было процессов занимающих большое количество времени, так как гитхаб ограничивает время работы в 2000 минут
+			p Я создам новый репозиторий на основе шаблона, в котором нет даже html файла. Опять не забываем что должен быть публичный репозиторий.
+			p Тут я пойду другим путём и возьму уже готовый файлик из <a href="https://telegra.ph/Deploy-on-GitHub-Pages-12-23" target="_blank" rel="noopener noreferrer">статьи</a> коллеги
+			p Прямо в интерфейсе репозитория создам файл:
+			ol
+				li Add file
+				li Create new file
+			figure
+				picture
+					//- source(srcset="img/article/deploy/deploy-5.avif", type="image/avif")
+					//- source(srcset="img/article/deploy/deploy-5.webp", type="image/webp")
+					img(src="img/article/deploy/deploy-5.jpg", alt="скрин со страници репозиторя с подсказкой как добавить новый файл")
+				figcaption Как добавить новый файл
+			p В появившемся окошке добавляю название папок и файла <code>.github/workflows/gh-pages.yml</code>
+			figure
+				picture
+					//- source(srcset="img/article/deploy/deploy-6.avif", type="image/avif")
+					//- source(srcset="img/article/deploy/deploy-6.webp", type="image/webp")
+					img(src="img/article/deploy/deploy-6.jpg", alt="скрин со страници репозиторя с подсказкой добавления папок и названия файла")
+				figcaption Как создать новый файл
+			p Вставлю код из статьи:
+			+codeBlock('YML', 'name: Deploy to GitHub-Pages\n\non:\n  push:\n    branches:\n      - master\n\njobs:\n  deploy:\n    name: Deploy\n    runs-on: ubuntu-latest\n\n    steps:\n      - name: Setup Node\n        uses: actions/setup-node@v3\n        with:\n          node-version: 16.x\n\n      - name: Checkout\n        uses: actions/checkout@v3\n        with:\n          persist-credentials: false\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Run checks\n        run: npm run lint\n\n      - name: Build project\n        run: npm run build\n\n      - name: Deploy\n        uses: JamesIves/github-pages-deploy-action@v4\n        with:\n          token: ${{ secrets.GITHUB_TOKEN }}\n          folder: ./build\n          branch: gh-pages\n          single-commit: true')
+			p В действиях работы этого экшена стоит отметить следующее: <i>Setup Node</i> это настройка версии <i>node.js</i>. Если у вас последняя версия – можно удалить этот пункт или указать действующую. Так же есть возможность устанавливать несколько версий ноды
+			p Так же в моём репозитории нет линтеров – по этому я удалю <i>Run checks</i>.
+			p Установка зависимостей <i>Install dependencies</i>. Так как у меня нет <i>package-lock.json</i>, я вместо <code>npm ci</code> добавлю <code>npm i</code>.
+			p Далее сборка установки <i>Build project</i>. Для работы подобных задач необходимо проверить <i>package.json</i>: в разделе <code>scripts</code> должна быть строка <code>"build": "gulp build"</code>. <small>(Замените на ваши команды.)</small>
+			p Ну и последний шаг работы: <i>Deploy</i>
+			ul
+				li <code>token: ${{ secrets.GITHUB_TOKEN }}</code> это секретный ключ который можете использовать если вам нужны дополнительные разрешения для таких вещей, как развертывание в другом репозитории
+				li <code>folder: ./build</code> указываем папку в которую собирается сборка
+				li <code>branch: gh-pages</code> указываем ветку в которой будет сборка
+			p Сохраняем файл и ждем выполнения экшена.
+			p Если у вас ошибка как у меня: Если у вас ошибка как у меня - <code>код 128</code>, то решить этот вопрос просто:
+			p Заходим в настройки, <i>Actions</i>, <i>General</i>, и где <i>Workflow permissions</i> ставим точку <i>Read and write permissions</i>
+			figure
+				picture
+					//- source(srcset="img/article/deploy/deploy-7.avif", type="image/avif")
+					//- source(srcset="img/article/deploy/deploy-7.webp", type="image/webp")
+					img(src="img/article/deploy/deploy-7.jpg", alt="скрин со страници настроек репозитория")
+				img(src="img/article/deploy/deploy-8.jpg", alt="скрин со страници настроек репозитория")
+				figcaption Порядок действий
+			p На текущий момент у нас создаётся новая ветка в которой готовая сборка, осталось содержимое ветки опубликовать.
+			p Настройки, <i>Pages</i>, выбераем ветку <i>gh-pages</i>, папка должна быть <i>/(root)</i>, сохраняем папку и всё готово.
+			figure
+				picture
+					//- source(srcset="img/article/deploy/deploy-9.avif", type="image/avif")
+					//- source(srcset="img/article/deploy/deploy-9.webp", type="image/webp")
+					img(src="img/article/deploy/deploy-9.jpg", alt="скрин со страници настроек репозитория")
+				figcaption Порядок действий
+			p Так же ждем появления ссылки, как и в первом варианте, и можем радоваться))
+			p После выполнения текущего экшена и последующих - сайт будет обновляться.
+	section
+		.container
+			h2 Итоги.
+			p Создав один файлик можно легко опубликовать свою работу и поделиться с друзьями или коллегами, сохранив кучу времени на копирование и отправку файлов.
+			.media-dzen(data-iframe="https://dzen.ru/embed/v7qTAnVTgDAY?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0")
+				a.media-dzen__link(href="https://dzen.ru/video/watch/6427fdb7e1fa7f2864702b4c", target="_blank", rel="noopener noreferrer")
+					picture.media-dzen__visible
+						source(srcset="./img/article/css_neighbor_selector/video-1.avif", type="image/avif")
+						source(srcset="./img/article/css_neighbor_selector/video-1.webp", type="image/webp")
+						img.media-dzen__img(src="./img/article/css_neighbor_selector/video-1.png", alt="#", width="900", height="507")
+
+				button.media-dzen__play(type="button")
+					span.visually-hidden Воспроизвести видео
 
 
 
+
+
+
+
+
+
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
 			//- +codeBlock('', '')
