@@ -66,23 +66,6 @@ block main
 
 			p Остался последний вопрос: а что будет, если между третьим и четвертым <code>span</code> добавить любой другой, видимый элемент? Новички могут подумать что наш элемент так же отработает, но, он уже будет не по соседству, а значит селектор не отработает.
 
-			.media-dzen(data-iframe="https://dzen.ru/embed/v01BpB0R83Bs?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0")
-				a.media-dzen__link(href="https://dzen.ru/video/watch/63b2d2f95ba1321f079740d4", target="_blank", rel="noopener noreferrer")
-					picture.media-dzen__visible
-						source(srcset="./img/article/css_neighbor_selector/video-1.avif", type="image/avif")
-						source(srcset="./img/article/css_neighbor_selector/video-1.webp", type="image/webp")
-						img.media-dzen__img(src="./img/article/css_neighbor_selector/video-1.png", alt="#", width="900", height="507")
-
-				button.media-dzen__play(type="button")
-					span.visually-hidden Воспроизвести видео
-
-
-
-
-
-
-
-
-
+			+zen-video("https://dzen.ru/embed/v01BpB0R83Bs?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63b2d3a123064044f35a5680", "img/article/css_neighbor_selector/video-1")
 
 			//- +codeBlock('', '')

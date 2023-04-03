@@ -13,20 +13,20 @@
 .social-link {
 	position: relative;
 	display: block;
+	box-sizing: border-box;
 	width: 27px;
 	height: 27px;
-	border: 1px solid var(--page-text);
 	border-radius: 50%;
-	box-sizing: border-box;
 
 	&::before {
 		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 25px;
-		height: 25px;
+		width: 27px;
+		height: 27px;
 		background-color: rgba(255, 255, 255, 0.5);
+		border: 1px solid var(--page-text);
 		border-radius: 50%;
 		opacity: 0.8;
 	}
@@ -34,16 +34,15 @@
 	&::after {
 		content: '';
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 18px;
-		height: 18px;
+		top: 0;
+		left: 0;
+		width: 29px;
+		height: 29px;
 		background-color: var(--page-text);
-		transform: translate(-50%, -50%);
 		transition:
 			background-color var(--transition-duration) var(--transition-function),
 			opacity var(--transition-duration) var(--transition-function);
-		mask-size: 18px 18px;
+		mask-size: 29px 29px;
 		mask-repeat: no-repeat;
 		mask-position: center center;
 	}

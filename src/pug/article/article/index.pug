@@ -1,0 +1,14 @@
+extends ../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	- var pageTitle = 'Архивы "Статьи"'
+	- var desc = 'Тут можно найти статьи на разные темы.'
+	- var heading = 'Статьи.'
+	- var idPage = 'article'
+	- var group = 'other'
+	- var nameGroup = 'Статьи';
+
+block main
+	.container.container--group
+		include deploy/card.pug

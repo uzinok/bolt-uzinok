@@ -10,11 +10,11 @@
 
 			&::after {
 				content: '';
-				margin: 0 5px;
 				display: inline-block;
-				vertical-align: middle;
 				width: 20px;
 				height: 20px;
+				margin: 0 5px;
+				vertical-align: text-bottom;
 				background-color: var(--page-text);
 				opacity: 0.95;
 				mask-image: url(../../img/sprite.svg#right-arrow);
@@ -26,21 +26,29 @@
 
 		&:first-child a {
 			display: inline-block;
-			width: 24px;
-			height: 24px;
+			width: 19px;
+			height: 19px;
 			vertical-align: middle;
-			background-color: var(--page-text);
-			mask-image: url(../../img/sprite.svg#home);
-			mask-repeat: no-repeat;
-			mask-position: center;
-			mask-size: 24px 24px;
-			transition: background-color var(--transition-duration) var(--transition-function);
 
-			&:hover {
+			&::before {
+				content: '';
+				display: inline-block;
+				width: 19px;
+				height: 19px;
+				vertical-align: middle;
+				background-color: var(--page-text);
+				transition: background-color var(--transition-duration) var(--transition-function);
+				mask-image: url(../../img/sprite.svg#home);
+				mask-repeat: no-repeat;
+				mask-position: center;
+				mask-size: 19px 19px;
+			}
+
+			&:hover::before {
 				background-color: var(--color-hover);
 			}
 
-			&:active {
+			&:active::before {
 				background-color: var(--color-active);
 			}
 		}

@@ -9,6 +9,7 @@
 	border-radius: 2px;
 
 	& code {
+		overflow-x: auto;
 		background-color: transparent;
 	}
 
@@ -20,6 +21,10 @@
 		white-space: pre-wrap;
 		word-wrap: break-word;
 	}
+}
+
+.code.hide code {
+	overflow: hidden;
 }
 
 .code__header {
@@ -74,7 +79,7 @@
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	white-space: pre-wrap;
+	white-space: pre;
 	word-wrap: break-word;
 	background: repeating-linear-gradient(transparent, transparent 19px, rgba(145, 152, 229, 0.4) 19px, transparent 20px);
 	transition: height var(--transition-duration) var(--transition-function);
@@ -89,8 +94,8 @@
 	}
 
 	& codenumber {
-		min-width: 40px;
 		display: block;
+		min-width: 40px;
 		margin-right: 5px;
 		color: var(--color-active);
 		opacity: 0.7;
@@ -99,7 +104,7 @@
 	}
 }
 
-.code:not(.hide) .button-view{
+.code:not(.hide) .button-view {
 	opacity: 0;
 	pointer-events: none;
 }

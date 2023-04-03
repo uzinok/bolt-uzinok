@@ -1,4 +1,12 @@
 section#article
 		.container
 			h2
-				a(href="#") статьи
+				a(href="article/article/") Статьи
+			.slider(aria-roledescription="carousel")
+
+				ul.slider__list
+					li.slider__item(aria-live="off", aria-roledescription="slide")
+						.slider__content
+							include ../article/article/deploy/card.pug
+
+				.slider__pagination-wrap
