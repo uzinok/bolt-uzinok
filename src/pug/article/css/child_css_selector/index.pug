@@ -1,0 +1,50 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+
+	section
+		.container
+			h2
+				code >
+				| &ensp;«дочерние селекторы»
+			p Тут все просто: в текущем блоке с помощью знака <code>></code> выбираем дочерний элемент.
+			p Рассмотрим на примере как это работает:
+			+codeBlock('html', '<style>\n  .block-3 span {\n    background-color: aqua;\n  }\n</style>\n<div class="block-3">\n  <span>1</span>\n  <span>2</span>\n  <span>3</span>\n  <span>4\n    <span>4.1</span>\n  </span>\n  <span>5</span>\n</div>')
+			figure
+				picture
+					source(srcset="./img/article/child_css_selector/selector_css-1.avif", type="image/avif")
+					source(srcset="./img/article/child_css_selector/selector_css-1.webp", type="image/webp")
+					img(src="./img/article/child_css_selector/selector_css-1.png", alt="цифры 1, 2, 3, 4, 4.1, 5. все цифры с фоновым цветом аква", width="408", height="93")
+				figcaption Фоновый цвет применился ко всем элеентам внутри блока <code>.block-3</code>
+			p Сейчас в блоке «3» всем <code>span</code> добавлен фоновый цвет. Если дочерним элементам добавить другой фон, то мы увидим следующее:
+			+codeBlock('html', '.block-3 > span {\n  background-color: transparent;\n}')
+			figure
+				picture
+					source(srcset="./img/article/child_css_selector/selector_css-2.avif", type="image/avif")
+					source(srcset="./img/article/child_css_selector/selector_css-2.webp", type="image/webp")
+					img(src="./img/article/child_css_selector/selector_css-2.png", alt="цифры 1, 2, 3, 4, 4.1, 5. все цифры без фонового цвета, а фон у 4.1 окрашен цветом аква", width="408", height="93")
+				figcaption Фоновый цвет применился только к <code>span</code> с числом <i>4.1</i>
+			p У всех дочерних элементов пропал фоновый цвет.
+			p А какие из них дочерние? Дочерние именно те элементы, которые находятся непосредственно в нашем блоке. То есть <code>span</code> с пометкой «4.1» уже является «внуком». По этому у него остался фон с цветом «aqua».
+			figure
+				picture
+					source(srcset="./img/article/child_css_selector/selector_css-3.avif", type="image/avif")
+					source(srcset="./img/article/child_css_selector/selector_css-3.webp", type="image/webp")
+					img(src="./img/article/child_css_selector/selector_css-3.png", alt="скриншет кода блока с классом block-3 и его элементов, спан с числом 4.1 подчеркнут", width="392", height="369")
+				figcaption <code>span</code> с пометкой <i>«4.1»</i> не являющийся дочерним в блоке <i>«3»</i>
+			p Это все о работе селектора. В видео ниже, немного затронул тему специфичности этого, и рассмотренных ранее селекторов <a href="article/css/fraternal_css_selector/">братских</a> и <a href="article/css/css_neighbor_selector/">соседских</a> селекторов.
+
+
+			+zen-video("https://dzen.ru/embed/vH1Bg7E8TgRk?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63b2d43151ee5b461f05603f", "img/article/child_css_selector/video-1")
+
+
+
+
+
+
+
+			//- +codeBlock('html', '')
