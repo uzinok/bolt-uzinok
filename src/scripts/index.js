@@ -11,7 +11,7 @@ function setYear() {
 }
 
 // Звёздный фон
-function bdCanvas() {
+function bdCanvas(canvas) {
 	document
 
 	const opts = {
@@ -24,7 +24,7 @@ function bdCanvas() {
 		intervalRadius: 2.5,
 	}
 
-	let canvas = document.querySelector("#bg-canvas");
+	// let canvas = document.querySelector("#bg-canvas");
 	let ctx = canvas.getContext("2d");
 	let w;
 	let h;
@@ -301,12 +301,12 @@ function slider(slider) {
 
 window.addEventListener('load', () => {
 	setYear();
-	if (document.querySelector('.bg-canvas'))
-		bdCanvas();
+
+	if (document.querySelector('#bg-canvas'))
+		bdCanvas(document.querySelector('#bg-canvas'));
 
 	const arrSliders = document.querySelectorAll('.slider');
 	for (let i = 0; i < arrSliders.length; i++) {
 		slider(arrSliders[i]);
 	}
-
 });
