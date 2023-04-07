@@ -46,7 +46,7 @@ mixin zen-video(dataIframe, urlVideo, urlImg)
 			picture.media-dzen__visible
 				source(srcset=`${urlImg}.avif`, type="image/avif")
 				source(srcset=`${urlImg}.webp`, type="image/webp")
-				img.media-dzen__img(src=`${urlImg}.jpg`, alt="#", width="900", height="507")
+				img.media-dzen__img(src=`${urlImg}.jpg`, alt="#", width="900", height="507", loading="lazy")
 
 		button.media-dzen__play(type="button")
 			span.visually-hidden Воспроизвести видео

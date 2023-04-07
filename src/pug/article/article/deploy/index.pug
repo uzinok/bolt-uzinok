@@ -20,25 +20,25 @@ block main
 				picture
 					source(srcset="img/article/deploy/deploy-1.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-1.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-1.jpg", alt="скрин со страници настроек репозитория github с подсказками", width="820", height="418")
+					img(src="img/article/deploy/deploy-1.jpg", alt="скрин со страници настроек репозитория github с подсказками", width="820", height="418", loading="lazy")
 				figcaption Скрин с подсказками
 			p Если перейдем во вкладку екшен то увидим процесс деплоя, а вернувшись в настройки гитхаб пагес, увидим ссылку на наш проект. Правда иногда нужно немного подождать, буквально пару минут до появления этой ссылки.
 			figure
 				picture
 					source(srcset="img/article/deploy/deploy-2.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-2.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-2.jpg", alt="скриншот процесса деплойя", width="820", height="322")
+					img(src="img/article/deploy/deploy-2.jpg", alt="скриншот процесса деплойя", width="820", height="322", loading="lazy")
 				picture
 					source(srcset="img/article/deploy/deploy-3.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-3.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-3.jpg", alt="скриншот расположения ссылки на опубликованный сайт", width="820", height="346")
+					img(src="img/article/deploy/deploy-3.jpg", alt="скриншот расположения ссылки на опубликованный сайт", width="820", height="346", loading="lazy")
 				figcaption Деплой и расположение ссылки на опубликованный сайт
 			p В интерфейсе кода проекта есть шестерёнка, которая позволит сделать кое-что интересное: закрепить ссылку на сборку. При этом даже не нужно её копировать отметив галочку <i>Use your GitHub Pages website</i> Сохранив настройки под этой шестерёнкой появится ссылка на опубликованный сайт.
 			figure
 				picture
 					source(srcset="img/article/deploy/deploy-4.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-4.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-4.jpg", alt="скрин со страници настроек репозитория github с подсказками", width="820", height="345")
+					img(src="img/article/deploy/deploy-4.jpg", alt="скрин со страници настроек репозитория github с подсказками", width="820", height="345", loading="lazy")
 				figcaption Скрин с подсказками
 			p Теперь у нас всё работает и при каждом пуше с изменениями будет происходить деплй и сайт будет обновляться.
 	section
@@ -70,14 +70,14 @@ block main
 				picture
 					source(srcset="img/article/deploy/deploy-5.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-5.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-5.jpg", alt="скрин со страници репозиторя с подсказкой как добавить новый файл", width="342", height="172")
+					img(src="img/article/deploy/deploy-5.jpg", alt="скрин со страници репозиторя с подсказкой как добавить новый файл", width="342", height="172", loading="lazy")
 				figcaption Как добавить новый файл
 			p В появившемся окошке добавляю название папок и файла <code>.github/workflows/gh-pages.yml</code>
 			figure
 				picture
 					source(srcset="img/article/deploy/deploy-6.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-6.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-6.jpg", alt="скрин со страници репозиторя с подсказкой добавления папок и названия файла", width="532", height="84")
+					img(src="img/article/deploy/deploy-6.jpg", alt="скрин со страници репозиторя с подсказкой добавления папок и названия файла", width="532", height="84", loading="lazy")
 				figcaption Как создать новый файл
 			p Вставлю код из статьи:
 			+codeBlock('YML', 'name: Deploy to GitHub-Pages\n\non:\n  push:\n    branches:\n      - master\n\njobs:\n  deploy:\n    name: Deploy\n    runs-on: ubuntu-latest\n\n    steps:\n      - name: Setup Node\n        uses: actions/setup-node@v3\n        with:\n          node-version: 16.x\n\n      - name: Checkout\n        uses: actions/checkout@v3\n        with:\n          persist-credentials: false\n\n      - name: Install dependencies\n        run: npm ci\n\n      - name: Run checks\n        run: npm run lint\n\n      - name: Build project\n        run: npm run build\n\n      - name: Deploy\n        uses: JamesIves/github-pages-deploy-action@v4\n        with:\n          token: ${{ secrets.GITHUB_TOKEN }}\n          folder: ./build\n          branch: gh-pages\n          single-commit: true')
@@ -97,11 +97,11 @@ block main
 				picture
 					source(srcset="img/article/deploy/deploy-7.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-7.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-7.jpg", alt="скрин со страници настроек репозитория", width="680", height="466")
+					img(src="img/article/deploy/deploy-7.jpg", alt="скрин со страници настроек репозитория", width="680", height="466", loading="lazy")
 				picture
 					source(srcset="img/article/deploy/deploy-8.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-8.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-8.jpg", alt="скрин со страници настроек репозитория", width="663", height="300")
+					img(src="img/article/deploy/deploy-8.jpg", alt="скрин со страници настроек репозитория", width="663", height="300", loading="lazy")
 				figcaption Порядок действий
 			p На текущий момент у нас создаётся новая ветка в которой готовая сборка, осталось содержимое ветки опубликовать.
 			p Настройки, <i>Pages</i>, выбераем ветку <i>gh-pages</i>, папка должна быть <i>/(root)</i>, сохраняем папку и всё готово.
@@ -109,7 +109,7 @@ block main
 				picture
 					source(srcset="img/article/deploy/deploy-9.avif", type="image/avif")
 					source(srcset="img/article/deploy/deploy-9.webp", type="image/webp")
-					img(src="img/article/deploy/deploy-9.jpg", alt="скрин со страници настроек репозитория", width="820", height="441")
+					img(src="img/article/deploy/deploy-9.jpg", alt="скрин со страници настроек репозитория", width="820", height="441", loading="lazy")
 				figcaption Порядок действий
 			p Так же ждем появления ссылки, как и в первом варианте, и можем радоваться))
 			p После выполнения текущего экшена и последующих - сайт будет обновляться.
@@ -118,6 +118,8 @@ block main
 			h2 Итоги.
 			p Создав один файлик можно легко опубликовать свою работу и поделиться с друзьями или коллегами, сохранив кучу времени на копирование и отправку файлов.
 
+	section.container
+		h2.visually-hidden видео
 			+zen-video("https://dzen.ru/embed/v7qTAnVTgDAY?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/6427fdb7e1fa7f2864702b4c", "img/article/deploy/video-1")
 
 
