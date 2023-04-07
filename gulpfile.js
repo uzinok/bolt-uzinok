@@ -264,8 +264,9 @@ function createAvif() {
 }
 
 function cgreatePageImg() {
+	src(paths.img.resource + "/**/*.{jpg,png}")
+	.pipe(squoosh())
 	return src(paths.img.resource + "/**/*.{jpg,png}")
-		// .pipe(squoosh())
 		.pipe(
 			gulpSquoosh({
 				encodeOptions: {

@@ -16,14 +16,160 @@ block main
 			p Это самый простой селектор. Для примера я возьму блок с дата-атрибутом надуманного плагина анимации появления элементов. Добавлю два элемента div в html разметку добавлю им стили для видимости:
 			+codeBlock('html', '<div class="block">первый</div>\n<div class="block">второй</div>')
 			+codeBlock('CSS', '.block {\n  width: 100px;\n  height: 100px;\n  margin: 5px;\n  background-color: tomato;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-family: Arial, Helvetica, sans-serif;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-1.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-1.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-1.png", alt='Два квадратных блока цвета "томат", в них написано "первый" и "второй" черным цветом', width="269", height="131", loading="lazy")
+				figcaption Внешний вид блоков по-умолчанию
+			p Первому блоку добавлю атрибут data-animation-type
+			+codeBlock('html', '<div class="block" data-animation-type>первый</div>\n<div class="block">второй</div>')
+			p Этому блоку будет добавлена анимация. Для того, что-бы получить именно этот блок, нужно прописать следующий селектор:
+			+codeBlock('css', '[data-animation-type] {}')
+			p Для видимости того, что работает этот селектор, я поменяю цвет текста на белый:
+			+codeBlock('css', '[data-animation-type] {\n  color: white;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-2.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-2.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-2.png", alt='Два квадратных блока цвета "томат", на первом, с атрибутом, цвет текста "первый" белый, на втором цвет текста "второй" черный', width="267", height="130", loading="lazy")
+				figcaption У первого блока, с атрибутом, цвет текста белый
+			p Но для анимации, конечно, будут другие стили, например время анимации
+	section
+		.container
+			h2 Селектор по наличию атрибута с точным значением <code>[attr=value]</code>
+			p Допустим, у нас есть при блока с анимацией, и каждому из них нужно добавить разную анимацию: первый что-бы слева появился, второй сверху, ну а третий справа.
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-3.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-3.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-3.png", alt='Три квадратных блока цвета томат с надписями: первый, второй, третий; у каждого стрелка с направлением анимации', width="405", height="130", loading="lazy")
+				figcaption Три блока по умолчанию
+			p Для каждого элемента нужно добавить определённую анимацию. Можно добавить новый класс, а можно нашему атрибуту задать значение и по нему задать необходимое название анимации.
+			+codeBlock('html', '<div class="block" data-animation-type="left-toright">Первый</div>\n<div class="block" data-animation-type="top-to-bottom">Второй</div>\n<div class="block" data-animation-type>Третий</div>')
+			p Что-бы визуально было видно работу этого селектора, я второму блоку сделаю фоновый цвет немного темнее.
+			+codeBlock('css', '[data-animation-type="top-to-bottom"] {\n  background-color: brown;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-4.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-4.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-4.png", alt='Три квадратных блока цвета томат с надписями: первый, второй, третий. Второй блок более темного фона', width="403", height="128", loading="lazy")
+				figcaption Второй блок стал более тёмного цвета
+	section
+		.container
+			h2 Селектор с одним из значений атрибута <code>[attr~=value]</code>
+			p Следующий пример хорошим назвать трудно, но не получилось придумать что-то хорошее, так как в основном у классов может быть несколько значений, а у других атрибутов по одному. Но скажем так: атрибут <code>data-animation-type</code> можно немного сократить и положить в него несколько значений, первые значения оставлю как есть, но добавлю в него второе. Пусть по второму значению будет добавляться задержка анимации.
+			+codeBlock('html', '<div class="block" data-animation-type="left-toright 2">Первый</div>\n<div class="block" data-animation-type="top-to-bottom 1">Второй</div>\n<div class="block" data-animation-type="3">Третий</div>')
+			p Добавив второе значение, один из селекторов у нас перестал работать, а именно по точному значению атрибута:
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-5.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-5.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-5.png", alt='Слева три блока томатного цвета с белыми надписями "один", "два", "три". Справа девтулз в котором видно css стили применившиеся ко второму блоку', width="820", height="641" loading="lazy")
+				figcaption Тут видно что селектор не работает
+			p Но это можно поправить изменив селектор следующим образом:
+			+codeBlock('css', '[data-animation-type~="top-to-bottom"] {\n  background-color: brown;\n}')
+			p И наш второй блок вновь потемнел:
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-4.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-4.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-4.png", alt='Три квадратных блока цвета томат с надписями: первый, второй, третий. Второй блок более темного фона', width="403", height="128", loading="lazy")
+				figcaption Второй блок стал более тёмного цвета
+			p Второй блок вновь потемнел
+	section
+		.container
+			h2 <code>[attr|=value]</code> Обозначает элемент с именем атрибута <code>attr</code>.
+			p Его значение при этом может быть или в точности равно <code>value</code> или может начинаться с <code>value</code> со сразу же следующим «-» (U+002D). Это может быть использовано когда язык описывается с подходом.
+			p Где можно применить такой селектор? Например есть у нас лендинг с кучей разделов.
+			+codeBlock('html', '<section class="section block">Первый</section>\n<section class="section-two block">Второй</section>\n<section class="section_three block">Третий</section>\n<section class="block section-four">Четвёртый</section>')
+			p У каждого раздела есть свой фоновый цвет, но есть и одинаковые правила.
+			+codeBlock('css', 'section {\n  width: 100px;\n  height: 100px;\n  margin: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-family: Arial, Helvetica, sans-serif;\n}\n\n.section {\n  background-color: white;\n}\n\n.section-two {\n  background-color: bisque;\n}\n\n.section_three {\n  background-color: aquamarine;\n}\n\n.four-section {\n  background-color: cadetblue;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-6.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-6.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-6.png", alt='Четыре квадратных блока с разным фоном', width="548", height="131" loading="lazy")
+				figcaption Четыре блока
+			p Можно не плодить классы для каждого раздела или не писать одинаковые свойства для каждого раздела, так же не нужен и глобальный селектор, а просто выбрать все классы, которые начинаются, к примеру, на section- или равны section и добавить нужные правила:
+			+codeBlock('html', '<section class="section">Первый</section>\n<section class="section-two">Второй</section>\n<section class="section_three">Третий</section>\n<section class="four-section">Четвёртый</section>')
+			+codeBlock('css', '.section {\n  background-color: white;\n}\n\n.section-two {\n  background-color: bisque;\n}\n\n.section_three {\n  background-color: aquamarine;\n}\n\n.four-section {\n  background-color: cadetblue;\n}\n\n[class|="section"] {\n  width: 100px;\n  height: 100px;\n  margin: 5px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  font-family: Arial, Helvetica, sans-serif;\n}')
+			p Но тут не стоит забывать, какие именно классы будут работать:
+			ul
+				li <code>section_three</code> не будет работать, так как после <code>section</code> вместо дефиса(-) нижнее подчеркивание(_)
+				li <code>four-section</code> так же не будет работать: так как начинается класс совсем по-другому
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-7.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-7.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-7.png", alt='Четыре блока с разным фоном, первые два квадратные', width="437", height="129" loading="lazy")
+				figcaption Видно что у третьего и четвёртого блока не работают селекторы
+			p А остальные селекторы работают отлично!
+	section
+		.container
+			h2 <code>[attr^=value]</code> Обозначает элемент с именем атрибута <code>attr</code> значение которого начинается с <code>value</code>
+			p Возьму два класса, которые будут стилизовать кнопку. У них будет много общих стилей, но что-то будет различаться:
+			+codeBlock('css', '.button-button {\n  background-color: aliceblue;\n}\n\n.button-submit {\n  background-color:burlywood;\n}')
+			+codeBlock('html', '<button class="button-button">button</button>\n<button class="button-submit">submit</button>')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-8.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-8.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-8.png", alt='Две стандартные кнопки с разным фоновым цветом', width="343", height="72" loading="lazy")
+				figcaption Вид двух кнопок с разным фоновым цветом
+			p Для того, что бы прописать одинаковые стили нам потребуется вот такой селектор с правилами:
+			+codeBlock('css', '[class^="button"] {\n  font-weight: 700;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 20px;\n  text-transform: uppercase;\n  margin: 5px;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-9.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-9.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-9.png", alt='две кнопки с изменённым шрифтом и отступами', width="477", height="72" loading="lazy")
+				figcaption Двум кнопкам применились стили
+	section
+		.container
+			h2 <code>[attr$=value]</code> Обозначает элемент с именем атрибута <code>attr</code> чьё значение заканчивается на <code>value</code>.
+			p Такой селектор использую на лендингах. Вот к примеру есть несколько заголовков в разных разделах. У всех есть много общих стилей, но и есть те, которые различаются. Ну, к примеру цвет текста.
+			+codeBlock('html', '<h2 class="block-1-heading">1-heading</h2>\n<h2 class="block-2-heading">2-heading</h2>\n<h2 class="block-3-heading">3-heading</h2>')
+			+codeBlock('css', '.block-1-heading {\n  color: tomato;\n}\n\n.block-2-heading {\n  color: brown;\n}\n\n.block-3-heading {\n  color: chocolate;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-10.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-10.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-10.png", alt='Три стандартных заголовка одного уровня с разным цветом текста', width="188", height="252" loading="lazy")
+				figcaption Три заголовка с разным цветом
+			p Теперь, воспользовавшись, этим селектором можно прописать одинаковые стили для всех заголовков:
+			+codeBlock('css', '[class$="heading"] {\n  margin: 0 0 1em;\n  font-family: Arial, Helvetica, sans-serif;\n  text-transform: uppercase;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-11.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-11.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-11.png", alt='Три заголовка с разным цветом текста и изменённым шрифтом и отступами', width="210", height="199" loading="lazy")
+				figcaption Ко всем заголовкам применились стили
+	section
+		.container
+			h2 <code>[attr*=value]</code> Обозначает элемент с именем атрибута <code>attr</code> чьё значение содержит по крайней мере одно вхождение строки <code>value</code> как подстроки.
+			p Ну к этому тоже можно было что-то лучшее найти из практики, но приходится опять придумывать... Возьму три таких заголовка:
+			+codeBlock('html', '<h2 class="block-green-heading">green-heading</h2>\n<h2 class="block-red-heading">red-heading</h2>\n<h2 class="block-blue-heading">blue-heading</h2>')
+			p Возьму уже готовые стили:
+			+codeBlock('css', '[class$="heading"] {\n  margin: 0 0 1em;\n  font-family: Arial, Helvetica, sans-serif;\n  text-transform: uppercase;\n}')
+			p Теперь можно поменять цвета заголовкам:
+			+codeBlock('css', '[class*="green"] {\n  color: green;\n}\n\n[class*="red"] {\n  color: red;\n}\n\n[class*="blue"] {\n  color: blue;\n}')
+			figure
+				picture
+					source(srcset="img/article/css_attribute_selectors/img-12.avif", type="image/avif")
+					source(srcset="img/article/css_attribute_selectors/img-12.webp", type="image/webp")
+					img(src="img/article/css_attribute_selectors/img-12.png", alt='три заголовка с разным цветом текста', width="288", height="186" loading="lazy")
+				figcaption Все заголовки поменяли цвет текста
+	section
+		.container
+			h2 Специфичнось
+			p По специфичности все селекторы по атрибутам равнозначны, то есть работать будет тот селектор, который ниже в вашем файле стилей)), а относительно других селекторов имеют такую же силу как и селекторы по классу.
+	section
+		.container
+			h2 Итог
+			p Вообще <code>css</code> это огромное количество разновидностей селекторов, но и селекторы по атрибутам уже могут облегчить и разнообразить работу над проектом, сократить количество кода, да и просто сделать работу интереснее.
 
-
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
+	section.container
+		h2.visually-hidden видео
+		+zen-video("https://dzen.ru/embed/vakLeekHw1TA?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63b2d5097fc57c5d5d8b7548", "img/article/css_attribute_selectors/orig")
 			//- +codeBlock('', '')
