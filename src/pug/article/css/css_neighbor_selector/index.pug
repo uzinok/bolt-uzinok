@@ -24,7 +24,7 @@ block main
 				picture
 					source(srcset="./img/article/css_neighbor_selector/selector_css-1.avif", type="image/avif")
 					source(srcset="./img/article/css_neighbor_selector/selector_css-1.webp", type="image/webp")
-					img(src="./img/article/css_neighbor_selector/selector_css-1.png", alt="пять цифр подряд, у цифры три цвет синий", width="235", height="77")
+					img(src="./img/article/css_neighbor_selector/selector_css-1.png", alt="пять цифр подряд, у цифры три цвет синий", width="235", height="77", loading="lazy")
 				figcaption У третьего <code>span</code> изменен цвет текста.
 
 			p Выбираю соседний селектор и меняю у него цвет текста.
@@ -35,7 +35,7 @@ block main
 				picture
 					source(srcset="./img/article/css_neighbor_selector/selector_css-2.avif", type="image/avif")
 					source(srcset="./img/article/css_neighbor_selector/selector_css-2.webp", type="image/webp")
-					img(src="./img/article/css_neighbor_selector/selector_css-2.png", alt="пять цифр подряд, у цифры три цвет синий, у цифры четыре цвет коричневый", width="235", height="77")
+					img(src="./img/article/css_neighbor_selector/selector_css-2.png", alt="пять цифр подряд, у цифры три цвет синий, у цифры четыре цвет коричневый", width="235", height="77", loading="lazy")
 				figcaption Изменён цвет текста у четвертого <code>span</code>.
 
 			p Как видно, изменился только один <code>span</code>, а именно четвертый, который находится по соседству с выбранным третьим.
@@ -48,7 +48,7 @@ block main
 				picture
 					source(srcset="./img/article/css_neighbor_selector/selector_css-3.avif", type="image/avif")
 					source(srcset="./img/article/css_neighbor_selector/selector_css-3.webp", type="image/webp")
-					img(src="./img/article/css_neighbor_selector/selector_css-3.png", alt="пять цифр подряд, у цифры три цвет синий, у цифры четыре цвет коричневый и фон берливуд", width="235", height="77")
+					img(src="./img/article/css_neighbor_selector/selector_css-3.png", alt="пять цифр подряд, у цифры три цвет синий, у цифры четыре цвет коричневый и фон берливуд", width="235", height="77", loading="lazy")
 				figcaption Фоновый цвет поменялся только у соседнего селектора.
 
 			p А теперь вопрос студентам и новичкам: а может ли этот селектор выбрать другой <code>span</code>? Проверить это просто! Добавлю всем <code>span</code> какой-нибудь фон, а затем, вложу в четвертый еще один <code>span</code> "4.1"
@@ -59,7 +59,7 @@ block main
 				picture
 					source(srcset="./img/article/css_neighbor_selector/selector_css-4.avif", type="image/avif")
 					source(srcset="./img/article/css_neighbor_selector/selector_css-4.webp", type="image/webp")
-					img(src="./img/article/css_neighbor_selector/selector_css-4.png", alt="цифры 1, 2, 3, 4, 4.1, 5. все цифры цвета аква, цифра 4 цвета берливуд", width="407", height="77")
+					img(src="./img/article/css_neighbor_selector/selector_css-4.png", alt="цифры 1, 2, 3, 4, 4.1, 5. все цифры цвета аква, цифра 4 цвета берливуд", width="407", height="77", loading="lazy")
 				figcaption Фоновый цвет поменялся только у соседнего селектора, но у вложенного в соседний <code>span</code> фоновый цвет как у других элементов <code>span</code>
 
 			p В результате вложенный <code>span</code> остался с фоном как у всех кроме соседнего, а цвет текста в нем наследовался от родительского, соседнего <code>span</code>.

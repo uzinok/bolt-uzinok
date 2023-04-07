@@ -39,7 +39,7 @@ html(lang="ru")
 		title #{pageTitle}
 		meta(name="description", content=`${desc}`)
 
-		link(rel="stylesheet", href="styles/main.min.css")
+		link(rel="stylesheet", href=idPage == 'index' ? 'styles/index.min.css' : 'styles/main.min.css')
 
 	body(class=idPage == 'index' ? 'no-js index' : 'no-js')
 		noindex(style="display: grid;grid-template-columns: 100%;grid-template-rows: auto 1fr auto;min-width: 320px;min-height: 100vh;")
@@ -56,4 +56,4 @@ html(lang="ru")
 
 			include footer.pug
 
-			script(src="scripts/main.js")
+			script(src=idPage == 'index' ? 'scripts/index.min.js' : 'scripts/main.min.js')
