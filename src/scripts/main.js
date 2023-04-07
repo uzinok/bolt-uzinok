@@ -19,7 +19,7 @@ function code(code) {
 	});
 
 	buttonView.addEventListener('click', function() {
-		preView.style.height = `${20 * countCode + 20}px`;
+		preView.style.height = `${20 * (countCode + 1)}px`;
 		code.classList.remove('hide');
 
 		const bodyStyles = window.getComputedStyle(document.body);
@@ -48,6 +48,8 @@ function code(code) {
 		for (let i = 0; i < textPreArr.length; i++) {
 			textCode += `<codeLine><codenumber aria-hidden="true">${i + 1}</codenumber> ${textPreArr[i].replace('<', '&lt;').replace('</', '&lt;/').replace('>', '&gt;')}</codeLine>\n`;
 		}
+
+		textCode += `<codeLine><codenumber aria-hidden="true">${textPreArr.length + 1}</codenumber></codeLine>\n`;
 
 		preView.classList.add('code__pre');
 		preView.innerHTML = textCode;
