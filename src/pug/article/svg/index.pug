@@ -1,0 +1,16 @@
+extends ../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	- var pageTitle = "Архивы SVG"
+	- var desc = 'Всякие плюшки приколюшки на SVG. Практически все демки должны работать во всех браузерах.'
+	- var heading = 'Архивы SVG'
+	- var subHeading = 'Всякие плюшки приколюшки на SVG. Практически все демки должны работать во всех браузерах.'
+	- var idPage = 'svg'
+	- var group = 'other'
+	- var nameGroup = 'SVG';
+
+
+block main
+	.container.container--group
+		include gradient_text/card.pug

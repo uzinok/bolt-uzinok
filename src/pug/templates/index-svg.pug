@@ -1,7 +1,15 @@
 section#svg
 		.container
 			h2
-				a(href="#") svg
+				a(href="article/svg/") SVG
+			.slider(aria-roledescription="carousel")
 
-		a.go-bottom(href="#article")
+				ul.slider__list
+					li.slider__item(aria-live="off", aria-roledescription="slide")
+						.slider__content
+							include ../article/svg/gradient_text/card.pug
+
+				.slider__pagination-wrap
+
+		a.go-bottom(href="#svg")
 			.visually-hidden вниз

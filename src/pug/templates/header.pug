@@ -16,6 +16,6 @@ header.header(class=idPage == 'index' ? 'header--index' : '')
 				li.header__item
 					a.header__link(href=idPage == 'index' ? '#js' : 'article/js/', aria-current=idPage == 'js' ? 'page' : 'false') JS
 				li.header__item
-					a.header__link(href="#svg") SVG
+					a.header__link(href=idPage == 'index' ? '#svg' : 'article/svg/', aria-current=idPage == 'svg' ? 'page' : 'false') SVG
 				li.header__item
 					a.header__link(href=idPage == 'index' ? '#article' : 'article/article/', aria-current=idPage == 'article' ? 'page' : 'false') Статьи
