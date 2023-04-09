@@ -1,0 +1,97 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2.visually-hidden Вступление
+			p На днях мне пришлось верстать креатив в котором есть текст градиентом. Мне не часто приходится сталкиваться с такими вещами, по этому пришлось воспользоваться поисковиком. в результате я нашел следующий способ:
+			+codeBlock('html', '<p class="gradient-text">Градиентный текст</p>')
+			+codeBlock('css', '@import url(https://fonts.googleapis.com/css?family=Rubik+One&subset=latin,cyrillic);\n.gradient-text {\n  background: linear-gradient(45deg, #0B2349 33%, #0D61BC 66%, #8AA9D6);\n  font-family: "Rubik One", sans-serif;\n  font-size: 50px;\n  text-transform: uppercase;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: #0B2349;\n  display: table;\n  margin: 20px auto;\n}')
+			p На момент написания этой статьи мне необходима нужна была поддержка IE. На вэбките и на мозиле все было ок, но наш любимый IE выдал такую штуку:
+			figure
+				picture
+					source(srcset="img/article/gradient_text/img-1.avif", type="image/avif")
+					source(srcset="img/article/gradient_text/img-1.webp", type="image/webp")
+					img(src="img/article/gradient_text/img-1.jpg", alt="текст тёмного цвета залитый градиентным фоном", width="584", height="91", loading="lazy")
+				figcaption Пример из браузера IE
+			p Для моей задачи это не приемлемо. К тому же есть еще важный моменты над которыми стоит подумать перед использованием — спецификация данного свойства. На MDN на момент написания статьи было следующее:
+			figure
+				picture
+					source(srcset="img/article/gradient_text/img-2.avif", type="image/avif")
+					source(srcset="img/article/gradient_text/img-2.webp", type="image/webp")
+					img(src="img/article/gradient_text/img-2.jpg", alt="спецификации свойств в MDN", width="820", height="321", loading="lazy")
+				figcaption
+					a(href="https://developer.mozilla.org/ru/docs/Web/CSS/background-clip", target="_blank", rel="noopener noreferrer") спецификации
+			p Вроде бы уже кандидат в рекомендации, но изменения в работе данного свойства могут быть, причем не известно в какую сторону.
+			p Честно говоря я был удивлен когда увидел что данные свойства с префиксом <code>-webkit-</code> работают в мозиле. Раннее когда я интересовался этим вопросом в мозиле все было печально.
+			p Стоит ли делать текст градиентом или нет покажет вам пример ниже:
+			p.gradient-text Градиентный текст
+			style @import url(https://fonts.googleapis.com/css?family=Rubik+One&subset=latin,cyrillic);.gradient-text {background: linear-gradient(45deg, #0B2349 33%, #0D61BC 66%, #8AA9D6);    font-family: 'Rubik One', sans-serif;    font-size: 32px;    text-transform: uppercase;    -webkit-background-clip: text;    -webkit-text-fill-color: transparent;    color: #0B2349;    display: table;    margin: 20px auto;}
+	section
+		.container
+			h2 Градиентный текст через SVG
+			p Текст градиентом можно было бы оставить и так, но есть как браузер IE, так и некоторые пользователи, ради которых иногда приходиться потрудиться ради требуемого результата. По этой причине я подумал о SVG. Решение довольно простое:
+			+codeBlock('html', '<svg width="635" viewBox="0 0 635 75" xmlns="http://www.w3.org/2000/svg">\n    <defs>\n      <linearGradient id="Gradient1">\n        <stop class="stop1" offset="33%"/>\n        <stop class="stop2" offset="66%"/>\n        <stop class="stop3" offset="100%"/>\n      </linearGradient>\n      <style type="text/css">\n        #rect1 { fill: url(#Gradient1); }\n        .stop1 { stop-color: #0B2349; }\n        .stop2 { stop-color: #0D61BC; }\n        .stop3 { stop-color: #8AA9D6; }\n      </style>\n    </defs>\n    <text id="rect1" x="0" y="45">Градиентный текст</text>\n</svg>')
+			p Причем данный код можно еще и немного <a href="https://developer.mozilla.org/ru/docs/Web/SVG/Tutorial/Gradients" target="_blank" rel="noopener noreferrer">сократить</a>))) но он работает:
+
+			svg(viewbox='0 0 635 75' xmlns='http://www.w3.org/2000/svg')
+				defs
+					lineargradient#Gradient1
+						stop.stop1(offset='33%')
+						stop.stop2(offset='66%')
+						stop.stop3(offset='100%')
+					style(type='text/css').
+						#rect1 { fill: url(#Gradient1); font-family: 'Rubik One', sans-serif; font-size: 50px; text-transform: uppercase;}
+						.stop1 { stop-color: #0B2349; }
+						.stop2 { stop-color: #0D61BC; }
+						.stop3 { stop-color: #8AA9D6; }
+				text#rect1(x='0' y='45') &Gcy;&rcy;&acy;&dcy;&icy;&iecy;&ncy;&tcy;&ncy;&ycy;&jcy; &tcy;&iecy;&kcy;&scy;&tcy;
+	section
+		.container
+			h2 Тень в SVG
+			p Но по неволе появляется вопрос: как быть с тенью этого текста? В голову приходит CSS свойство text-shadow. Но не все так просто: В мозиле тень у текста появляется только при выделении этого же текста курсором, а в IE тени вообще нет. А если вернуться к первому способу — то тень остается поверх текста, что вообще ломает смысл как макета, так и смысла тени.
+			p Первое что нашел на MDN:
+			+codeBlock('html', '<filter id="shadow">\n  <feDropShadow dx="0.2" dy="0.4" stdDeviation="0.2"/>\n</filter>')
+			p Для текста остается добавить <code>style="filter:url(#shadow);"</code>. Но тут опять старые браузеры не хотят делать ожидаемую работу. В IE SVG вообще сломался. Но SVG не так уж и плох: его элементам можно задать стили через обычный CSS.
+			p И еще: если тень обрезается границей SVG то достаточно немного поправить <code>viewBox</code>. Его необходимо немного увеличить в тех направлениях в которых обрезается тень.
+			+codeBlock('css', 'svg {\n  text-shadow: none;\n  filter: drop-shadow(10px 20px 3px #0B2349);\n}')
+	section
+		.container
+			h2 Итог
+			svg(width='635', viewBox='0 0 635 75', xmlns='http://www.w3.org/2000/svg', style='filter: drop-shadow(4px 8px 3px #0B2349)')
+				defs
+					linearGradient#Gradient1
+						stop.stop1(offset='33%')
+						stop.stop2(offset='66%')
+						stop.stop3(offset='100%')
+					style(type='text/css').
+
+						#rect1 { fill: url(#Gradient1); }
+										.stop1 { stop-color: #0B2349; }
+										.stop2 { stop-color: #0D61BC; }
+										.stop3 { stop-color: #8AA9D6; }
+
+				text#rect1(x='0', y='45') Градиентный текст
+			p Теперь на современных браузерах мы имеем кроссбраузерный текст с градиентом и тенью. В старых браузерах у нас тоже текст с градиентом, но без тени. Так как тень задается через CSS то SVG у нас не ломается, а просто игнорируется неподдерживаемое свойство.
+
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
