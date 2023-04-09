@@ -89,6 +89,7 @@ function copy() {
 			"./src/img/favicon/site.webmanifest",
 			"./src/img/favicon/browserconfig.xml",
 			"./src/.htaccess",
+			"./src/static/**/*.{css,js}",
 		], {
 			base: paths.src
 		})
