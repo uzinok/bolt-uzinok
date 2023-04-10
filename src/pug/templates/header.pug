@@ -12,10 +12,10 @@ header.header(class=idPage == 'index' ? 'header--index' : '')
 
 			ul.header__list
 				li.header__item
-					a.header__link(href=idPage == 'index' ? '#css' : 'article/css/', aria-current=idPage == 'css' ? 'page' : 'false') CSS
+					+navLink('css', 'CSS')
 				li.header__item
-					a.header__link(href=idPage == 'index' ? '#js' : 'article/js/', aria-current=idPage == 'js' ? 'page' : 'false') JS
+					+navLink('js', 'JS')
 				li.header__item
-					a.header__link(href=idPage == 'index' ? '#svg' : 'article/svg/', aria-current=idPage == 'svg' ? 'page' : 'false') SVG
+					+navLink('svg', 'SVG')
 				li.header__item
-					a.header__link(href=idPage == 'index' ? '#article' : 'article/article/', aria-current=idPage == 'article' ? 'page' : 'false') Статьи
+					+navLink('article', 'Статьи')
