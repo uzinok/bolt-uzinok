@@ -1,0 +1,40 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2.visually-hidden Вступление
+			p Мой первый рисунок на SVG. Он конечно очень простой, но это первый рисунок который я сам нарисовал на SVG и анимировал с помощью CSS, а в дальнейшем и с помощью JS. Но анимация этого кота на JS будет в соответствующем разделе
+			.cat-svg-demo__parent
+				svg(viewBox='0 0 14 13')
+					path.cat(fill='#303030', d='M12.9 6.9c0 2.5-2.6 4.7-5.7 4.7S1.4 9.4 1.4 6.9c0-1 .3-1.9 1-2.7.6-.7 1.5-1.3 2.5-1.6.7-.2 1.5-.3 2.3-.3 3.1-.1 5.7 2 5.7 4.6z')
+					path.ear1(fill='#303030', d='M11.6,0.8c0.4,1.1,0.3,2.3,0,3.4L9.1,2.8C10.2,1.7,11.1,0.9,11.6,0.8z')
+					path.ear(fill='#303030', d='M2.5,1c0.9,0.4,1.7,1.1,2.4,1.9L2.5,4.4C2,3.2,1.9,2,2.5,1L2.5,1z')
+					ellipse.eye(fill='#FFF', cx='9.2', cy='6.6', rx='1.1', ry='.8')
+					ellipse.eye(fill='#FFF', cx='4.8', cy='6.6', rx='1.1', ry='.8')
+					ellipse.pupils(fill='#303030', cx='4.8', cy='6.8', rx='.2', ry='.5')
+					ellipse.pupils(fill='#303030', cx='9.2', cy='6.8', rx='.2', ry='.5')
+					path.moustache(stroke='#303030', stroke-width='.25', stroke-miterlimit='10', d='M13.8 8.1l-1.1-.2m1.2 2l-1.8-.8m1.1 2.5L11 10.1M.3 8.1l1.3-.2M.1 9.8l2-.8M.9 11.5l2.3-1.4')
+				style .cat-svg-demo__parent{width:260px;margin:0 auto}.eye{animation:eye 4s;animation-iteration-count:infinite;transform-origin:center}@keyframes eye{0%{transform:scale(1,1)}36%{transform:scale(1,1)}38%{transform:scale(1,0)}42%{transform:scale(1,0)}44%{transform:scale(1,1)}100%{transform:scale(1,1)}}.ear{animation:ear 7s;animation-iteration-count:infinite;transform-origin:center}.ear1{animation:ear 7s;animation-delay:.3s;animation-iteration-count:infinite;transform-origin:center}@keyframes ear{0%{transform:scale(1,1)}37%{transform:scale(1,1)}40%{transform:scale(1,0)}43%{transform:scale(1,1)}100%{transform:scale(1,1)}}
+			p Как то раз захотел просто научиться хоть немного рисовать на SVG и у меня получился такой котик)) Вначале он конечно был статичным, но потом моча в голову ударила и я котика немного оживил.
+			p Вот относительно небольшой код HTML и CSS:
+			+codeBlock('html', '<div class="cat-svg-demo__parent">\n  <svg viewBox="0 0 14 13">\n    <path class="cat" fill="#303030" d="M12.9 6.9c0 2.5-2.6 4.7-5.7 4.7S1.4 9.4 1.4 6.9c0-1 .3-1.9 1-2.7.6-.7 1.5-1.3 2.5-1.6.7-.2 1.5-.3 2.3-.3 3.1-.1 5.7 2 5.7 4.6z" />\n    <path class="ear1" fill="#303030" d="M11.6,0.8c0.4,1.1,0.3,2.3,0,3.4L9.1,2.8C10.2,1.7,11.1,0.9,11.6,0.8z" />\n    <path class="ear" fill="#303030" d="M2.5,1c0.9,0.4,1.7,1.1,2.4,1.9L2.5,4.4C2,3.2,1.9,2,2.5,1L2.5,1z" />\n    <ellipse class="eye" fill="#FFF" cx="9.2" cy="6.6" rx="1.1" ry=".8" />\n    <ellipse class="eye" fill="#FFF" cx="4.8" cy="6.6" rx="1.1" ry=".8" />\n    <ellipse class="pupils" fill="#303030" cx="4.8" cy="6.8" rx=".2" ry=".5" />\n    <ellipse class="pupils" fill="#303030" cx="9.2" cy="6.8" rx=".2" ry=".5" />\n    <path class="moustache" stroke="#303030" stroke-width=".25" stroke-miterlimit="10" d="M13.8 8.1l-1.1-.2m1.2 2l-1.8-.8m1.1 2.5L11 10.1M.3 8.1l1.3-.2M.1 9.8l2-.8M.9 11.5l2.3-1.4" />\n  </svg>\n</div>')
+			+codeBlock('css', '.cat-svg-demo__parent {\n  width: 260px;\n  margin: 0 auto;\n}\n.eye {\n  animation: eye 4s;\n  animation-iteration-count: infinite;\n  transform-origin: center;\n}\n@keyframes eye {\n  0% {\n    transform: scale(1, 1);\n  }\n  36% {\n    transform: scale(1, 1);\n  }\n  38% {\n    transform: scale(1, 0);\n  }\n  42% {\n    transform: scale(1, 0);\n  }\n  44% {\n    transform: scale(1, 1);\n  }\n  100% {\n    transform: scale(1, 1);\n  }\n}\n.ear {\n  animation: ear 7s;\n  animation-iteration-count: infinite;\n  transform-origin: center;\n}\n.ear1 {\n  animation: ear 7s;\n  animation-delay: 300ms;\n  animation-iteration-count: infinite;\n  transform-origin: center;\n}\n@keyframes ear {\n  0% {\n    transform: scale(1, 1);\n  }\n  37% {\n    transform: scale(1, 1);\n  }\n  40% {\n    transform: scale(1, 0);\n  }\n  43% {\n    transform: scale(1, 1);\n  }\n  100% {\n    transform: scale(1, 1);\n  }\n}')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
