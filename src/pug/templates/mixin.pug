@@ -50,3 +50,9 @@ mixin zen-video(dataIframe, urlVideo, urlImg)
 
 		button.media-dzen__play(type="button")
 			span.visually-hidden Воспроизвести видео
+
+mixin navLink(idCurrentPage, nameLink)
+	if idPage == idCurrentPage
+		a.header__link(href=idPage == 'index' ? '#${idCurrentPage}' : `article/${idCurrentPage}/`, aria-current="page") #{nameLink}
+	else
+		a.header__link(href=idPage == 'index' ? `#${idCurrentPage}` : `article/${idCurrentPage}/`) #{nameLink}
