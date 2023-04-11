@@ -18,28 +18,101 @@ block main
 		.container
 			h2 Обязательные атрибуты.
 			p У картинки есть обязательные атрибуты, без которых картинка либо вообще не отобразится, либо приведёт к не очень хорошим последствиям.
+		section
+			.container
+				h3 Самый обязательный атрибут: #[code src]
+				p Итак, для того чтобы добавить картинку на страницу, необходимо в html прописать тег #[code img] и добавить атрибут #[code src] как правильно прописать путь до картинки можете посмотреть #[a(href="https://dzen.ru/video/watch/63b2e50e7fc57c5d5d99ae89", target="_blank", rel="noopener noreferrer") тут]. И если правильно всё сделать — мы увидим картинку
+				figure
+					picture
+						source(srcset="img/article/img_and_attributes/img.avif", type="image/avif")
+						source(srcset="img/article/img_and_attributes/img.webp", type="image/webp")
+						img(src="img/article/img_and_attributes/img.jpg", alt="Слева как выглядит картинка в браузере, справа html код картинки", width="820", height="303", loading="lazy")
+					figcaption Самый простой пример вывода картинки
+		section
+			.container
+				h3 Доступная графика: альтернативный текст #[code alt]
+				p Но что услышит пользователь скрин-ридера?
+				figure
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-1.webp", width="820", height="461")
+						source(src="video/img_and_attributes/video-1.webm", type="video/webm")
+						source(src="video/img_and_attributes/video-1.mp4", type="video/mp4")
+					figcaption Скрин-ридер «NVDA» не видит картинку без описания
+				p Чтобы графика была доступна всем, нужно добавить атрибут #[code alt] с #[b описанием] картинки. Я не буду подробно рассказывать как его правильно заполнять, но расскажу одну фишку работы этого атрибута: если не загрузилась картинка (отвалился интернет или неправильно добавили путь к картинке), то вместо изображения будет текст из атрибута #[code alt], что и зрячему поможет узнать что же изображено на картинке.
+				figure
+					img(src="img", alt="а тут картинки нет")
+					figcaption Пример вывода альтернативного текста изображения
+		section
+			.container
+				h3 Графика и размеры
+				p Ширина и высота картинки тоже очень важны у изображения. Бывают случаи когда картинки долго загружается, такое часто на хабре замечал, при этом при загрузке очередной картинки вся страница резко дергается и пользователь просто-напросто теряет то место куда смотрел. Это сильно раздражает пользователя и он просто может пропустить важную информацию, а заказчик будет терять доход.
+				p Ещё стоит отметить что при добавлении размеров через эти атрибуты не нужно указывать единицу измерения если это px. История этих атрибутов настолько давняя, что во всех браузерах по умолчанию используются пиксели.
+				figure
+					img(src="img", alt="а тут картинки нет", width="820", height="150")
+					figcaption Вид картинки с размерами, которая не загрузилась
 	section
 		.container
-			h2 Самый обязательный атрибут: #[code src]
-			p Итак, для того чтобы добавить картинку на страницу, необходимо в html прописать тег #[code img] и добавить атрибут #[code src] как правильно прописать путь до картинки можете посмотреть #[a(href="https://dzen.ru/video/watch/63b2e50e7fc57c5d5d99ae89", target="_blank", rel="noopener noreferrer") тут]. И если правильно всё сделать — мы увидим картинку
-			figure
-				picture
-					source(srcset="img/article/img_and_attributes/img.avif", type="image/avif")
-					source(srcset="img/article/img_and_attributes/img.webp", type="image/webp")
-					img(src="img/article/img_and_attributes/img.jpg", alt="Слева как выглядит картинка в браузере, справа html код картинки", width="820", height="303", loading="lazy")
-				figcaption Самый простой пример вывода картинки
+			h2 Другие атрибуты
+			p Но есть и другие атрибуты у тега #[code img], они не всегда используются на сайтах, но значительно сокращают время разработки сайта.
+		section
+			.container
+				h3 Атрибут который я использую для ритины: #[code srcset]
+				p Всё чаще и больше становятся доступными мониторы и другие устройства с дисплеями с повышенной плотностью пикселей. Для таких устройств обычно добавляют картинки по размеру вдвое больше. Так как это необходимо, грубо говоря, чтобы и у картинок была плотность пикселей выше. Благодаря чему графика на ритине будет выглядеть лучшего качества.
+				p А как добавить такую картинку? Ещё один тег #[code img] и через js пытаться скрыть ненужную? Или поправлять пути? Нет, всё гораздо проще: есть атрибут [code srcset]. Необходимо в значении атрибута прописать путь до обычной картинки и указать: #[i 1x] (картинка для обычных дисплеев), а потом через запятую указать путь до картинки более высокой плотностью. Например, для картинки с двойной плотностью указать можно так: #[i 2x], для тройной: #[i 3x].
+				p В итоге получится что-то вроде такой записи:
+				+codeBlock('html', '<img\n  src="img/colobok@1x.png" \n  srcset="img/colobok@1x.png 1x, img/colobok@2x.png 2x"\n  alt="Весёлый колобок с веткой земляники сидит на пеньке" \n  width="300" \n  height="300">')
+				p При этом для старых браузеров нужно оставлять #[code src] что бы в любом случае хоть какая картинка загрузилась. А на современном ПО будет загружаться именно нужная картинка.
+				p Ещё атрибут #[code srcset] может менять картинки в зависимости от ширины экрана, то есть показывать на маленьком экране маленькую картинку, а на большом экране — большую. Для этого нужно через запятую прописать путь к картинке и ширину вьюпорта в пикселях.
+				p Выглядеть это будет примерно так:
+				+codeBlock('html', '<img \n  src="img/colobok@1x.png" \n  srcset="img/colobok@1x.png 300w, img/colobok@2x.png 500w" \n  alt="Весёлый колобок с веткой земляники сидит на пеньке" \n  width="300" \n  height="300">')
+				figure
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-2.webp", width="820", height="461")
+						source(src="video/img_and_attributes/video-2.webm", type="video/webm")
+						source(src="video/img_and_attributes/video-2.mp4", type="video/mp4")
+					figcaption При увеличении ширины окна браузера меняется картинка
+				p Этот вариант вывода картинок мне не очень нравится.
+				p Обычно использую для этих целей picture в сочетании с source, но об этом чуть позже.
+		section
+			.container
+				h3 Есть еще атрибут #[code sizes].
+				p Но я его практически не использую: так как он не работает без атрибута #[code srcset], который так же у тега #[code img] использую редко. Но тут так же всё довольно просто: для использования этого атрибута необходимо добавить #[code srcset] с медиа выражениями, ну и добавить #[code sizes] примерно так:
+				+codeBlock('html', '<img\n  src="img/colobok@1x.png"\n  srcset="img/colobok@1x.png 300w, img/colobok@2x.png 500w, img/colobok@3x.png 900w"\n  sizes="(max-width: 300px) 100px, (max-width: 500px) 200px, 900px"\n  alt="Весёлый колобок с веткой земляники сидит на пеньке">')
+				figure
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-3.webp", width="820", height="461")
+						source(src="video/img_and_attributes/video-3.webm", type="video/webm")
+						source(src="video/img_and_attributes/video-3.mp4", type="video/mp4")
+					figcaption Изменяются размеры картинки при изменении размера окна браузера
+		section
+			.container
+				h3 #[code loading] ленивая загрузка графики.
+				p Чем быстрее загрузится страница у пользователя, тем больше вероятности что пользователь закажет товар или получит нужную информацию. А что делать если на сайте очень много графики? Подключать JavaScript? Спешу порадовать: есть еще один атрибут, который всё за вас сделает. Помимо того что расскажу, советую почитать статью по этому атрибуту. С помощью этого атрибута не только загрузку графики можно оптимизировать.
+				p Ну тут рассказывать особо нечего: пока графика где-то там, внизу и не нужна, браузер её не загружает, а когда пользователь прокручивает страницу ближе к картинке, то начинается загрузка.
+				p Для такого эффекта нужно добавить атрибут loading со значением #[code lazy]:
+				+codeBlock('html', '<img\n  src="img/colobok@1x.png"\n  loading="lazy"\n  alt="Весёлый колобок с веткой земляники сидит на пеньке"\n  width="300"\n  height="300">')
+				figure
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-4.webp", width="820", height="461")
+						source(src="video/img_and_attributes/video-4.webm", type="video/webm")
+						source(src="video/img_and_attributes/video-4.mp4", type="video/mp4")
+					figcaption После добавления атрибута, третья картинка загрузилась не сразу
+				p И, конечно, есть #[a(href="https://github.com/mfranzke/loading-attribute-polyfill", target="_blank", rel="noopener noreferrer") полифил] для этого атрибута.
+		section
+			.container
+				h3 Оптимизация загрузки — #[code decoding]
+				p #[a(href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding", target="_blank", rel="noopener noreferrer") decoding], честно говоря, я заметил совсем недавно, даже не успел опробовать)) просто не было ещё проектов, что бы была видна работа этого атрибута. Но суть заключается в управлении декодирования.
+				p У этого атрибута есть несколько значений:
+				ul
+					li sync: декодировать изображение синхронно для отображения одновременно с другим содержимым.
+					li async: декодировать содержимое асинхронно для уменьшения задержки в отображении другого содержимого.
+					li auto: режим по умолчанию, который не отдаёт предпочтения ни одному режиму декодирования, предоставляя браузеру решать, какой режим для пользователя оптимальное.
+				p Не думаю что стоит этот атрибут добавлять куда попало, лучше тестировать точечно.
 	section
 		.container
-			h2 Доступная графика: альтернативный текст #[code alt]
-			p Но что услышит пользователь скрин-ридера?
-			video(playsinline, controls, poster="img/article/img_and_attributes/poster-1.webp", width="900", height="506")
-				source(src="video/img_and_attributes/video-1.webm", type="video/webm")
-				source(src="video/img_and_attributes/video-1.mp4", type="video/mp4")
+			h2 Итог.
+			p Когда изучал верстку, и не думал что так много нужно знать про обычную графику. Простой, важный элемент, который имеет кучу важных мелочей. Тут, конечно, я не всё рассказал (и не так подробно). Еще можно было бы добавить, например, про псевдоэлемент у картинок, но и статья растянется, и этим лучше не пользоваться (нет смысла). Этих базовых знаний будет достаточно большинству новичков в этой профессии.
 
 	section
 		.container
-			h2.visually-hidden видео
-				+zen-video("https://dzen.ru/embed/v7qTAnVTgDAY?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/6427fdb7e1fa7f2864702b4c", "img/article/deploy/video-1")
+			h2.visually-hidden Видео
+			+zen-video("https://dzen.ru/embed/v1ZHf3iJNPDA?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63b2cc13838a4c4c05d38a94", "img/article/img_and_attributes/video-1")
 
 
 
