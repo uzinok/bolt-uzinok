@@ -86,6 +86,7 @@ function copy() {
 			"./src/fonts/*.{woff2,woff}",
 			"./src/*.ico",
 			"./src/img/**/*.{svg,jpg,jpeg,png,webp,avif}",
+			"./src/video/**/*.{mp4,webm}",
 			"./src/img/favicon/site.webmanifest",
 			"./src/img/favicon/browserconfig.xml",
 			"./src/.htaccess",
