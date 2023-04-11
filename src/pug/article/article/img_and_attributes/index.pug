@@ -1,0 +1,56 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2.visually-hidden Вступление.
+			p Тег #[code img] это довольно простой, и в то же самое время сложный элемент. В верстке играет важную роль. Вся важная графика (например фото товара, аватарки, логотипы) это тег #[code img].
+	section
+		.container
+			h2 Доступность.
+			p Причём часто встречаю, где тег #[code img] используют не по назначению. То есть декоративную графику добавляют как контентную. А почему не стоит декоративную графику добавлять в html разметку? Одна из причин — доступность. Пользователю скрин-ридера не стоит тратить время на картинку, которая не несёт в себе никакой смысловой нагрузки. Декоративных картинок на странице может быть очень много, и, если зрячему человеку достаточно быстрого взгляда за доли секунды, то скрин-ридер может читать их значительно дольше.
+			p Так же встречаю случаи когда контентная графика размещена на странице с помощью css. Это приводит к тому, что пользователь, который не видит экран, может упустить важную информацию. Например: при покупке ПК не узнает, где кнопка включения. Тогда он купит этот ПК? Да нет конечно, а продавец потеряет клиента.
+	section
+		.container
+			h2 Обязательные атрибуты.
+			p У картинки есть обязательные атрибуты, без которых картинка либо вообще не отобразится, либо приведёт к не очень хорошим последствиям.
+	section
+		.container
+			h2 Самый обязательный атрибут: #[code src]
+			p Итак, для того чтобы добавить картинку на страницу, необходимо в html прописать тег #[code img] и добавить атрибут #[code src] как правильно прописать путь до картинки можете посмотреть #[a(href="https://dzen.ru/video/watch/63b2e50e7fc57c5d5d99ae89", target="_blank", rel="noopener noreferrer") тут]. И если правильно всё сделать — мы увидим картинку
+			figure
+				picture
+					source(srcset="img/article/img_and_attributes/img.avif", type="image/avif")
+					source(srcset="img/article/img_and_attributes/img.webp", type="image/webp")
+					img(src="img/article/img_and_attributes/img.jpg", alt="Слева как выглядит картинка в браузере, справа html код картинки", width="820", height="303", loading="lazy")
+				figcaption Самый простой пример вывода картинки
+	section
+		.container
+			h2 Доступная графика: альтернативный текст #[code alt]
+			p Но что услышит пользователь скрин-ридера?
+			video(playsinline, controls, poster="img/article/img_and_attributes/poster-1.webp", width="900", height="506")
+				source(src="video/img_and_attributes/video-1.webm", type="video/webm")
+				source(src="video/img_and_attributes/video-1.mp4", type="video/mp4")
+
+	section
+		.container
+			h2.visually-hidden видео
+				+zen-video("https://dzen.ru/embed/v7qTAnVTgDAY?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/6427fdb7e1fa7f2864702b4c", "img/article/deploy/video-1")
+
+
+
+
+
+
+
+
+
+
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
