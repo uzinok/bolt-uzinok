@@ -88,10 +88,10 @@
 	&::before {
 		content: '';
 		position: absolute;
-		left: 33px;
 		top: 0;
-		height: 100%;
+		left: 33px;
 		width: 2px;
+		height: 100%;
 		background-color: var(--color-hover);
 		background-image: linear-gradient(to left, var(--color-hover), var(--color-active));
 		opacity: 0.5;
@@ -124,13 +124,12 @@
 
 .button-view {
 	position: absolute;
-	right: calc(var(--offset-pageX)/2);
 	bottom: 6px;
-	left: calc(var(--offset-pageX)/2);
-	width: calc(100% - var(--offset-pageX));
+	left: 0;
+	width: 100%;
 	height: 40px;
 	background-color: transparent;
-	background-image: linear-gradient(to bottom, transparent 5px, #f8f8f8 35px);
+	background-image: linear-gradient(to bottom, transparent 5px, var(--bg-code) 35px);
 	border: 0;
 	border-bottom: 1px solid var(--page-text);
 	transition: border var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
@@ -174,7 +173,7 @@
 	}
 
 	&::before {
-		background-color: #f8f8f8;
+		background-color: var(--bg-code);
 		border: 1px solid var(--page-text);
 		border-bottom: 0;
 		border-radius: 15px 15px 0 0;

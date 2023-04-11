@@ -5,7 +5,7 @@ mixin mainHeader(heading, subHeading, group)
 				h1 #{heading}
 				if (subHeading)
 					p #{subHeading}
-		.container
+		.main__header-container.container
 			ol.breadcrumb
 				li
 					a(href="./")
@@ -19,6 +19,10 @@ mixin mainHeader(heading, subHeading, group)
 							a(href=`article/${group}/`,) #{nameGroup}
 						li
 							a(href=`article/${group}/${idPage}/`, aria-current="page") #{heading}
+			.breadcrumb__toggle-theme.toggle-theme
+				input#toggle-theme.toggle-theme__input.visually-hidden(type="checkbox", checked)
+				label.toggle-theme__view(for="toggle-theme")
+					span.visually-hidden Включить тёмную тему
 
 
 mixin codeBlock(title, code)
@@ -29,7 +33,6 @@ mixin codeBlock(title, code)
 		pre
 			code
 				| #{code}
-
 
 mixin articleCard(title, descCard, file, date = 'Дата потерялась')
 	article.card
