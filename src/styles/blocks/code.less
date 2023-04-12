@@ -85,6 +85,23 @@
 	background: repeating-linear-gradient(transparent, transparent 19px, rgba(145, 152, 229, 0.4) 19px, transparent 20px);
 	transition: height var(--transition-duration) var(--transition-function);
 
+	scrollbar-color: rgba(0, 57, 166, 0.4) transparent;
+	scrollbar-width: thin;
+	color-scheme: rgba(0, 57, 166, 0.4);
+
+	&::-webkit-scrollbar {
+		height: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: rgba(0, 57, 166, 0.4);
+		border-radius: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
 	&::before {
 		content: '';
 		position: absolute;

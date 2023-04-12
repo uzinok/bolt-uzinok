@@ -10,8 +10,6 @@ const {
 const del = require('del');
 // rename
 const rename = require('gulp-rename');
-// sourcemaps
-const sourcemaps = require('gulp-sourcemaps');
 // browserSync
 const browserSync = require('browser-sync').create();
 // error
@@ -27,7 +25,7 @@ const postImport = require('postcss-import');
 const postUrl = require('postcss-url');
 const postMediaMinMax = require('postcss-media-minmax');
 const csso = require('postcss-csso');
-
+const gcmq = require('gulp-group-css-media-queries');
 
 // scripts
 const babel = require('gulp-babel');
@@ -121,6 +119,7 @@ function styles() {
 			errorHandler: onError
 		}))
 		.pipe(less())
+		.pipe(gcmq())
 		.pipe(postcss([
 			postMediaMinMax(),
 			csso(),
