@@ -1,49 +1,3 @@
-function toggleTheme() {
-	const toggleTheme = document.querySelector('.toggle-theme');
-	const checkbox = document.querySelector('.toggle-theme__input');
-	const night = document.querySelector('.toggle-theme__night');
-
-	const bodyStyles = window.getComputedStyle(document.body);
-	const pageText = bodyStyles.getPropertyValue('--page-text');
-	const pageBody = bodyStyles.getPropertyValue('--page-body');
-
-	// const colorHover = bodyStyles.getPropertyValue('--color-hover');
-	// const colorActive = bodyStyles.getPropertyValue('--color-active');
-	// const bgCode = bodyStyles.getPropertyValue('--bg-code');
-
-	const dark = '#050818';
-	const light = '#ffffff';
-	const codeDark = 'rgb(248, 248, 248, 0.15)';
-	const codeLight = '#f8f8f8';
-	// --bg-code: rgb(248, 248, 248, 1.5);
-	// --color-hover: #0039a6;
-	// --color-active: #d52b1e;
-
-	function setDay() {
-		document.body.style.setProperty("--page-text", `${dark}`);
-		document.body.style.setProperty("--page-body", `${light}`);
-		document.body.style.setProperty("--bg-code", `${codeLight}`);
-	}
-
-	function setNight() {
-		document.body.style.setProperty("--page-text", `${light}`);
-		document.body.style.setProperty("--page-body", `${dark}`);
-		document.body.style.setProperty("--bg-code", `${codeDark}`);
-	}
-
-	toggleTheme.addEventListener('click', function(e) {
-		if (e.target.nodeName == 'LABEL') {
-			if (checkbox.checked == true) {
-				setNight();
-			} else {
-				setDay();
-			}
-		}
-	});
-
-
-}
-
 const noJs = document.querySelector('.no-js');
 noJs.classList.remove('no-js');
 
@@ -253,7 +207,6 @@ function mediaDzen(elem) {
 }
 
 window.addEventListener('load', () => {
-	toggleTheme();
 	setYear();
 	if (document.querySelector('.bg-canvas'))
 		bdCanvas();
