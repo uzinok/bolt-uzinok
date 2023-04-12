@@ -1,0 +1,81 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2.visually-hidden Вступление.
+			p Тег #[code picture] достаточно интересная технология позволяющая упростить работу над проектом и оптимизировать сайт во время вёрстки не прибегая к другим, более сложным технологиям.
+			p Чем он полезен? Да всем)) Может подгружать картинки в более новых форматах в современных браузерах, менять картинки в зависимости от ширины экрана. Есть ещё один плюс: #[code picture] может работать как контейнер для картинки, то есть не нужно добавлять лишний #[code div])))
+			p Сегодня я не буду рассказывать о ритине: про это говорил в одной из прошлых [a(href="article/article/img_and_attributes/") статей], рассказывая о атрибуте #[code srcset]. Этот атрибут сегодня так же будем использовать, а это означает что ритину можно делать используя и тег #[code picture]. Сам по себе этот тег ничего не делает, без стилей и тега #[coed source] работает так же как и #[code span]. Но вся магия начинается после того как добавится тег #[code source].
+	section
+		.container
+			h2 Частая ошибка новичков: добавить #[code picture] без тега #[code img]
+			p #[coed img] работает как обычная картинка. То есть подключает картинку и даёт описание картинке. Теги #[coed source] как бы подменяют у #[code img] значение атрибута #[code src], но не подключают их.
+	section
+		.container
+			h2 Магия начинается с #[code source]
+		section
+			.container
+				h3 Атрибут #[coed media]
+				p По сути дела #[code cource], как вы уже поняли, делает всю магию. Первый пример магии в #[code picture] будет подмена картинки в зависимости от ширины экрана. На подобие #[code srcset] с медиа запросом, но гораздо проще!
+				p Для чего это нужно? У нас же есть #[code object-fit], который обрежет картинку и, как бы, всё в порядке. Но нет: вот пример двух картинок:
+				figure
+					picture
+						source(srcset="img/article/picture/img-1.avif", type="image/avif")
+						source(srcset="img/article/picture/img-1.webp", type="image/webp")
+						img(src="img/article/picture/img-1.jpg", alt="две картинки и окна со свойствами этих картинок", width="753", height="670", loading="lazy")
+					figcaption Картинка для мобильной версии 27.8KB, а для десктопа 42.9KB.
+				p Если таких картинок несколько, то может набраться немало килобайтов, а то и мегабайты (такое встречал). Даже сейчас не везде хорошо работает мобильный интернет, а чем быстрее загрузится сайт, тем больше вероятности что пользователь получит нужную информацию.
+				p Добавим тег #[code picture] и в него картинку. Далее добавим source с атрибутом srcset, в нём укажем путь до большой картинки:
+				+codeBlock('html', '<picture>\n  <source srcset="./img/img-big.jpg">\n  <img src="./img/img-small.jpg" alt="#">\n</picture>')
+				p И у нас что произойдёт? Будет работать картинка из #[code source] всегда. Для магии нужно добавить ещё один атрибут #[code media] и в значении его прописать условие, например #[code (min-width: 600px)]. И в таком виде:
+				+codeBlock('html', '<picture>\n  <source media="(min-width: 800px)" srcset="./img/img-big.jpg">\n  <img src="./img/img-small.jpg" alt="#">\n</picture>')
+				p Начинается магия: если вьюпорт меньше 600px – мы видим маленькую картинку, больше 600px — большую. Ещё не стоит забывать что большое значение имеет порядок расположения source с медиа выражением, так как первым будет выполняться то которое вначале кода и соответствует условиям.
+		section
+			.container
+				h3 Атрибут #[coed type]
+				p Итак, сейчас можем менять картинки в зависимости от ширины окна, в предыдущей статье я показал как добавить картинки для ритины, но остался ещё один вопрос: как можно ускорить загрузку картинки? Сжать картинку... Но разные форматы графики по разному сжимаются. Например, как видно на скрине:
+				figure
+					picture
+						source(srcset="img/article/picture/img-2.avif", type="image/avif")
+						source(srcset="img/article/picture/img-2.webp", type="image/webp")
+						img(src="img/article/picture/img-2.jpg", alt="три одинаковые картинки в разных форматах с окнами свойства", width="820", height="509", loading="lazy")
+					figcaption Одна и та же картинка имеет следующие размеры в разных форматах: .jpg — 42.9, .webp — 33.3, .avif — 23.3
+				p Можно выбрать #[code .avif] и радоваться, но не тут то было: не все браузеры умеют показывать этот формат, так как он относительно новый. И тут на выручку приходит ещё один #[code source] с атрибутом #[code type]:
+				+codeBlock('html', '<picture>\n  <source type="image/avif" media="(min-width: 800px)" srcset="./img/img-big.avif">\n  <source type="image/webp" media="(min-width: 800px)" srcset="./img/img-big.webp">\n  <source media="(min-width: 800px)" srcset="./img/img-big.jpg">\n\n  <source type="image/avif" srcset="./img/img-small.avif">\n  <source type="image/webp" srcset="./img/img-small.webp">\n\n  <img src="./img/img-small.jpg" alt="#">\n</picture>')
+				p Тут так же стоит заметить что важно соблюдать порядок форматов. Если первым будет более тяжелая картинка в #[code picture], то она и применится.
+		section
+			.container
+				h3 Размеры картинок в #[coed picture]
+				p А как же быть с размерами картинок? Ведь не секрет что на маленьких устройствах маленькие картинки, а на больших – большие. Так вот с недавних пор тегу picture можно добавлять атрибуты #[code width] и #[code height]. Такая возможность появилась недавно, и работает не везде. Например в Firefox пока что не работает. Но с учетом количества пользователей этого браузера, с учетом того что эти размеры в любом случае нужно дублировать в css. Таким способом можно спокойно на всех размерах в html добавлять размеры картинкам.
+				figure
+					picture
+						source(srcset="img/article/picture/img-3.avif", type="image/avif")
+						source(srcset="img/article/picture/img-3.webp", type="image/webp")
+						img(src="img/article/picture/img-3.jpg", alt="скриншот девтулз, вкладка elements с тегом picture", width="820", height="509", loading="lazy")
+					figcaption Видно что применился размер к картинки из атрибута #[code width] в #[code source]
+	section
+		.container
+			h2 Итоги.
+			p Таким образом можно сделать хорошо оптимизированную графику на сайте без тяжелого по весу и работе javaSript кода. Этим повысить скорость загрузки страницы и сохранить ресурсы пользователя, тем самым увеличив стоимость своей работы)))
+
+	section
+		.container
+			h2 Ну и как же без видео к этой статье?
+			+zen-video("https://dzen.ru/embed/vN6ee4RSIYlw?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63b61c269bd13619e28ed043", "img/article/picture/video-1")
+
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
