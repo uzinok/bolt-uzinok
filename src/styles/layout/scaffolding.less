@@ -71,16 +71,22 @@ body:not(.index) section:not(:last-child) .container:last-child::after {
 	border-bottom: 1px solid #cfcfcf;
 }
 
-code {
-	box-sizing: border-box;
-	max-width: 100%;
-	padding: 0 2px;
-	overflow: auto;
-	background-color: var(--bg-code);
-}
-
 body:not(.index) {
 	& section {
+
+		[target="_blank"]:not(.media-dzen a) {
+			&::before {
+				content: '';
+				display: inline-block;
+				width: 1em;
+				height: 1em;
+				vertical-align: middle;
+				background-color: var(--color-hover);
+				mask-image: url(../../img/sprite.svg#link-blank);
+				mask-size: contain;
+				mask-repeat: no-repeat;
+			}
+		}
 
 		@media (min-width: @min-sm) {
 
@@ -158,6 +164,21 @@ body:not(.index) {
 			font-size: 1.4em;
 		}
 	}
+
+	code {
+		box-sizing: border-box;
+		max-width: 100%;
+		padding: 0 2px;
+		overflow: auto;
+		background-color: var(--bg-code);
+	}
+
+	.demo {
+		font-size: 1.5em;
+		font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
+		text-transform: uppercase;
+		text-decoration-color: var(--color-hover);
+	}
 }
 
 .bolt-chips-wrap {
@@ -169,27 +190,6 @@ body:not(.index) {
 .bolt-chips {
 	font-size: 1em !important;
 	text-align: center;
-}
-
-.demo {
-	font-size: 1.5em;
-	font-family: "Roboto Condensed", "Trebuchet MS", Helvetica, sans-serif;
-	text-transform: uppercase;
-	text-decoration-color: var(--color-hover);
-}
-
-[target="_blank"]:not(.media-dzen a) {
-	&::before {
-		content: '';
-		display: inline-block;
-		width: 1em;
-		height: 1em;
-		vertical-align: middle;
-		background-color: var(--color-hover);
-		mask-image: url(../../img/sprite.svg#link-blank);
-		mask-size: contain;
-		mask-repeat: no-repeat;
-	}
 }
 
 body:not(.index) section img {
