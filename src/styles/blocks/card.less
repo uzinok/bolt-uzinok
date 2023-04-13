@@ -1,13 +1,8 @@
 .card {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	position: relative;
-	padding-bottom: var(--offset-pageY);
-
-	@media (max-width: @max-xl) {
-		padding-bottom: calc(var(--offset-pageY) * 2);
-	}
 }
 
 .card__title {
@@ -54,9 +49,9 @@
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0;
+	padding-right: 1em;
 	font-size: 14px;
 	opacity: 0.8;
-	padding-right: 1em;
 }
 
 .card__date {

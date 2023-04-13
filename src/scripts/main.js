@@ -36,7 +36,7 @@ function code(code) {
 	}
 
 	function createButtonView() {
-		buttonView.classList.add('button-view');
+		buttonView.classList.add('code__button-view');
 		buttonView.setAttribute('aria-label', 'Показать весь код');
 		code.append(buttonView);
 	}
