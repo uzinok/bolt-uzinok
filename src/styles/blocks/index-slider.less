@@ -25,6 +25,14 @@
 		animation-name: slider-before;
 		animation-duration: 3s;
 	}
+
+	& .card {
+		padding-bottom: var(--offset-pageY);
+
+		@media (max-width: 1200px) {
+			padding-bottom: calc(var(--offset-pageY)*2);
+		}
+	}
 }
 
 @keyframes slider-before {
@@ -56,6 +64,7 @@
 
 .slider__item {
 	flex-shrink: 0;
+	outline-offset: -2px !important;
 }
 
 .slider__content {
@@ -170,20 +179,13 @@ body:not(.no-js) {
 		display: block;
 		flex-grow: 1;
 		height: 12px;
+		margin: 0 2px;
 		padding: 0;
 		background-color: var(--color-active);
 		border: 0;
 		border-radius: 4px;
 		transition: background-color var(--transition-duration) var(--transition-function), opacity var(--transition-duration) var(--transition-function);
 		appearance: none;
-
-		&:not(:first-child) {
-			margin-left: 1px;
-		}
-
-		&:not(:last-child) {
-			margin-right: 1px;
-		}
 
 		&::after {
 			content: '';
@@ -199,10 +201,6 @@ body:not(.no-js) {
 		&:not(:disabled):not(:active):hover {
 			background-color: var(--color-text);
 			opacity: 0.5;
-		}
-
-		&:not(:disabled):focus-visible {
-			outline: none;
 		}
 
 		&:not(:disabled):active {

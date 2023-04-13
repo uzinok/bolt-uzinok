@@ -36,5 +36,29 @@
 .main__header-container {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
+}
+
+
+
+.main__header-correct {
+	display: block;
+
+	&::before {
+		content: '';
+		display: block;
+		width: 19px;
+		height: 19px;
+		background-color: var(--page-text);
+		transition: background-color var(--transition-duration) var(--transition-function);
+		mask-image: url(../../img/sprite.svg#correct);
+	}
+
+	&:hover::before {
+		background-color: var(--color-hover);
+	}
+
+	&:active::before {
+		background-color: var(--color-active);
+	}
 }

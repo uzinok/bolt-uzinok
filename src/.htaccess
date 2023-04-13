@@ -7,20 +7,20 @@ AddCharset utf-8 *
 </IfModule>
 
 # переход на собственный файл ошибки "error 404"
-ErrorDocument 404 /bolt-uzinok/404/
+ErrorDocument 404 /404/
 
 Options +FollowSymLinks
 RewriteEngine On
 RewriteBase /
 
 RewriteCond %{REQUEST_URI} ^/404/$
-RewriteRule ^(.*)$ /bolt-uzinok/404/ [L]
+RewriteRule ^(.*)$ /404/ [L]
 
 RewriteCond %{REQUEST_URI} ^/500/$
-RewriteRule ^(.*)$ /bolt-uzinok/404/ [L]
+RewriteRule ^(.*)$ /404/ [L]
 
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 
 RewriteCond %{HTTP_HOST} ^[^www\.].*$ [NC]
-RewriteRule ^/?([a-z0-9\-/]+)/?$ /index.php?s=$1&p=$2 [L]
+RewriteRule ^/?([a-z0-9\-/]+)/?$ /index.html?s=$1&p=$2 [L]

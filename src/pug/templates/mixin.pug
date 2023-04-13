@@ -8,7 +8,7 @@ mixin mainHeader(heading, subHeading, group)
 		.main__header-container.container
 			ol.breadcrumb
 				li
-					a(href="./")
+					a(href="./", title="Главная" )
 						span.visually-hidden главная
 
 				if group == 'other'
@@ -20,10 +20,15 @@ mixin mainHeader(heading, subHeading, group)
 						li
 							a(href=`article/${group}/${idPage}/`, aria-current="page") #{heading}
 
+			if idPage != 'index'
+				if group != 'other'
+					a.main__header-correct(href=`mailto:uzinok@yandex.ru?subject=правка на странице '${idPage}'`, title="Сообщить об ошибке")
+						span.visually-hidden Сообщить об ошибке
+
 mixin codeBlock(title, code)
 	.code
 		p.code__header #{title}
-			button.code__copy(type="button")
+			button.code__copy(type="button", title="Копировать код")
 				span.visually-hidden копировать
 		pre
 			code
