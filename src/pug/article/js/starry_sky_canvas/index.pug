@@ -1,0 +1,29 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2.visually-hidden Вступление
+			p Нет на свете мук, есть задачи и решения. Решил сделать для себя сайт. подготовил шаблон и почти начал его верстать… Почему почти? Да просто на фоне звездное небо… Картинка должна получиться очень большая, и я решил немного углубиться в объекты в js и на #[code canvas] нарисовал звезды.
+
+			figure
+				canvas#canvas.canvas(width="100%", height="100px") нет поддержки canvas в вашем браузере
+				figcaption пример получившегося кода.
+				style .canvas{width:100%;height:100px;background-color:#050818;background-image:radial-gradient(at bottom,#090f2d,#050818)}
+				script
+					//- include ../../../../scripts/canvas.js
+				script(src="scripts/canvas.js")
+
+
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
