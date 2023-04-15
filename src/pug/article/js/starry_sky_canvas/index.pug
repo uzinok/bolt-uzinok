@@ -1,0 +1,51 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2.visually-hidden Вступление
+			p Нет на свете проблем, есть задачи и вопросы. Решил сделать для себя сайт, а на главной нужно было сделать звёздное небо. Как-то скучно было брать из макета картинку, по тому решил добавить немного динамики: сделать звёзды мерцающими. Этот код я написал давно, и он немного изменился: поправлял некоторые ошибки. По этому решил переписать статью и сразу же продемонстрировать резульат работы скрипта.
+
+			figure
+				canvas#canvas.canvas(width="100%", height="100px") нет поддержки canvas в вашем браузере
+				figcaption пример получившегося кода.
+				style .canvas{width:212px;height:100px;background-color:#050818;background-image:radial-gradient(at bottom,#090f2d,#050818);margin: 0 auto}
+				script "use strict";var w,h,check,animations,opts={minRadius:.5,maxRadius:1.5,colors:["rgba(255, 255, 255, 0.5)","rgba(252, 244, 201, 0.5)","rgba(201, 252, 201, 0.5)","rgba(201, 236, 252, 0.5)","rgba(229, 201, 252, 0.5)","rgba(252, 201, 201, 0.5)","rgba(252, 201, 241, 0.5)","rgba(252, 201, 201, 0.5)"],delay:100,step:.05,trangles:4,intervalRadius:2.5},canvas=document.querySelector("#canvas"),ctx=canvas.getContext("2d"),arrStars=[];function sizeCanvas(){return w=canvas.width=212,h=canvas.height=100}function windowResize(){arrStars.length=0,clearTimeout(check),check=setTimeout(function(){clearInterval(animations),sizeCanvas(),setup()},100)}sizeCanvas(),window.addEventListener("resize",function(){windowResize()});var Stars=function(t,a){this.x=Math.random()*t,this.y=Math.random()*a,this.color=opts.colors[[Math.round(Math.random()*opts.colors.length)]],this.vector=Math.round(Math.random())||-1,this.minRadius=opts.minRadius+Math.random()*(opts.maxRadius-opts.minRadius),this.maxRadius=this.minRadius+opts.intervalRadius,this.draw=function(){ctx.beginPath(),ctx.moveTo(this.x,this.y+this.minRadius);for(var t=0;t<2*opts.trangles+1;t++){var a=t%2==0?this.minRadius:this.maxRadius,s=Math.PI*t/opts.trangles+45*Math.PI/180;ctx.lineTo(this.x+a*Math.sin(s),this.y+a*Math.cos(s))}ctx.closePath(),ctx.fillStyle=this.color,ctx.fill()},this.update=function(){this.check(),this.minRadius+=opts.step*this.vector,this.maxRadius+=opts.step*this.vector},this.check=function(){(this.minRadius>opts.maxRadius||this.minRadius<opts.minRadius)&&(this.vector*=-1)}};function setup(){for(var t=0;t<w/50*(h/50);t++)arrStars.push(new Stars(w,h)),arrStars[t].draw();loop()}function loop(){animations=setInterval(function(){ctx.clearRect(0,0,w,h);for(var t=0;t<arrStars.length;t++)arrStars[t].update(),arrStars[t].draw()},opts.delay)}setup();
+	section
+		.container
+			h2 Подготовка
+			p Поскольку скрипт давно написан, я просто покажу из чего он состоит и для чего нужет тот или иной кусок кода))
+			p Конечно всё начинается с HTML и CSS:
+			+codeBlock('html', '<canvas class="canvas" id="canvas" width="100%" height="100px">нет поддержки canvas в вашем браузере</canvas>')
+			+codeBlock('css', '.canvas {\n  width: 100%;\n  height: 100px;\n  background-color: #050818;\n  background-image: radial-gradient(at bottom,#090f2d,#050818);\n}')
+			p В примере не видно этот градиент, но на главной странице этого сайта градиент делает рисунок более реалистичным.
+			p Следующий шаг — это объявить и вызвать функцию для создания нашего звездного неба на #[code canvas].
+			+codeBlock('js', 'window.addEventListener("load", () => {\n  canvas();\n});\n\nfunction canvas() {\n  //\n}')
+	section
+		.container
+			h2 Сам код:
+			+codeBlock('js', 'const opts = {\n  minRadius: 0.5,\n  maxRadius: 1.5,\n  colors: ["rgba(255, 255, 255, 0.5)", "rgba(252, 244, 201, 0.5)", "rgba(201, 252, 201, 0.5)", "rgba(201, 236, 252, 0.5)", "rgba(229, 201, 252, 0.5)", "rgba(252, 201, 201, 0.5)", "rgba(252, 201, 241, 0.5)", "rgba(252, 201, 201, 0.5)"],\n  delay: 100,\n  step: 0.05,\n  trangles: 4,\n  intervalRadius: 2.5,\n}\n\nlet canvas = document.querySelector("#canvas");\nlet ctx = canvas.getContext("2d");\nlet w;\nlet h;\nconst arrStars = [];\nlet check;\nlet animations;\n\nsizeCanvas();\n\nfunction sizeCanvas() {\n  w = canvas.width = window.innerWidth;\n  h = canvas.height = window.innerHeight;\n  return w, h;\n}\n\nwindow.addEventListener("resize", function() {\n  windowResize();\n});\n\nfunction windowResize() {\n  arrStars.length = 0;\n  clearTimeout(check);\n  check = setTimeout(function() {\n    clearInterval(animations);\n    sizeCanvas();\n    setup();\n  }, 100);\n}\n\nconst Stars = function(w, h) {\n  this.x = Math.random() * w;\n  this.y = Math.random() * h;\n  this.color = opts.colors[[Math.round(Math.random() * opts.colors.length)]];\n  this.vector = Math.round(Math.random()) || -1;\n  this.minRadius = opts.minRadius + Math.random() * (opts.maxRadius - opts.minRadius);\n  this.maxRadius = this.minRadius + opts.intervalRadius;\n\n  this.draw = function() {\n\n    ctx.beginPath();\n\n    ctx.moveTo(this.x, this.y + this.minRadius);\n\n    for (var i = 0; i < 2 * opts.trangles + 1; i++) {\n      var r = (i % 2 == 0) ? this.minRadius : this.maxRadius;\n      var a = (Math.PI * i / opts.trangles) + 45 * Math.PI / 180;\n      ctx.lineTo(this.x + r * Math.sin(a), this.y + r * Math.cos(a));\n    };\n\n    ctx.closePath();\n    ctx.fillStyle = this.color;\n    ctx.fill();\n\n  }\n\n  this.update = function() {\n    this.check();\n    this.minRadius += opts.step * this.vector;\n    this.maxRadius += opts.step * this.vector;\n  }\n\n  this.check = function() {\n    if (this.minRadius > opts.maxRadius || this.minRadius < opts.minRadius) {\n      this.vector *= -1;\n    }\n  }\n\n}\n\nfunction setup() {\n  for (let i = 0; i < (w / 150) * (h / 150); i++) {\n    arrStars.push(new Stars(w, h));\n    arrStars[i].draw();\n  }\n  loop();\n}\n\nsetup();\n\nfunction loop() {\n  animations = setInterval(function() {\n    ctx.clearRect(0, 0, w, h);\n    for (let i = 0; i < arrStars.length; i++) {\n      arrStars[i].update();\n      arrStars[i].draw();\n    }\n  }, opts.delay);\n}')
+			ul
+				li #[code  opts = {}] опции которые позволяют настроить цвета, размеры, скорость мерцания звёзд, ну и количество лучей.
+				li 11-17 строки это необходимые дополнительные переменные, если у вас не строгий режим - практически всё можно удалить))
+				li 19-39 строки - следят за размером холста, и при изменении размеров страницы перерисовывает точки используя "безопасный" ресайз
+				li 41-79 функция которая создаёт звезду
+					ul
+						li 42-47 рандомно выбераем расположение, цвет и размеры звезды
+						li 49-65 рисуем звезду, точка превращается в звезду на строках 55-59
+						li 67-71 тут звезда изменяет свои размеры
+						li 73-77 проходит проверка: если звезда меньше или больше нужного - то изменение размера меняется на противоположное
+				li 81-89 расчитываем количество звёзд и рисуем их
+				li ну и последняя функция #[code loop()] по сути анимирует звёзды.
+	section
+		.container
+			h2 По итогу:
+			p Код получился не очень большой. Я не js разработчик, но судя по шуму ноутбука, если не увекаться количеством звёзд, то страница требует меньше ресурсов чем youtube на главной странице, не воспроизводящий видео)). Осталось только украсить облаками и морским берегом для красивой онимированной картинки звездного неба: что можете посмотреть на главной странице.
+
+
+			//- +codeBlock('html', '')
+			//- +codeBlock('html', '')
