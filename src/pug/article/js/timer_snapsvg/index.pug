@@ -7,8 +7,6 @@ block variables
 block main
 	section
 		.container
-			script(src="static/snap.svg-min.js")
-			script(src="static/timer.min.js")
 			script document.addEventListener("DOMContentLoaded", function () {var myBlockTimer = document.querySelector(".timer-js"),hh = 111,mm = "12",ss = 13;svgTimer(myBlockTimer, hh, mm, ss);});
 			style .timer{padding:20px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:247px;margin:15px auto;background-color:#e1e8ea;border:1px solid #097097}.timer svg{display: inline-block;width:21px;height:42px;margin:0 5px;fill:#097097;}
 			.timer.timer-js
@@ -72,3 +70,6 @@ block main
 		//- +codeBlock('html', '')
 		//- +codeBlock('html', '')
 		//- +codeBlock('html', '')
+block footer-scripts
+	script(src="static/snap.svg-min.js")
+	script(src="static/timer.min.js")
