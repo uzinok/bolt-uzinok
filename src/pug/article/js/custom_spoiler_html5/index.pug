@@ -1,0 +1,82 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2 Спойлер.
+			p Кастонмый спойлер что это? Спойлер (с англ. — «to spoil», «портить») — преждевременно раскрытая важная сюжетная информация, которая разрушает задуманную авторами интригу, не даёт её пережить самостоятельно и, следовательно, лишает читателя/зрителя/игрока некоторой части удовольствия от этого сюжета, чем портит впечатление от него. (#[a(href="https://ru.wikipedia.org/wiki/Спойлер_(художественные_произведения)", target="_blank", rel="noreferrer noopener") wikipedia])
+			p Спойлер на сайте — практически то же самое: позволяет скрыть контент, который при необходимости пользователь может открыть.
+			p Причин для создания спойлера может быть несколько: контент 18+, дополнительная информация… А вот html верстка должна быть только как в примере ниже:
+			+codeBlock('html', '<details>\n  скрытое содержимое\n</details>\n<!-- или -->\n<details>\n  <summary>заголовок</summary>\n  скрытое содержимое\n</details>')
+	section
+		.container
+			h2 Поддержка.
+			p Поддержка браузерами достаточно хорошая, но в нашей стране (и не только) до сих пор используются IE и Opera Mini. Только у меня есть пару знакомых у которых windows xp и браузеры не обновляются… Критичного тут ничего нет, просто сайты немного «покосившиеся» встречаются иногда.
+			figure
+				picture
+					source(srcset="img/article/custom_spoiler_html5/img-1.avif", type="image/avif")
+					source(srcset="img/article/custom_spoiler_html5/img-1.webp", type="image/webp")
+					img(src="img/article/custom_spoiler_html5/img-1.png", alt="скриншот поддержки тега с сайта caniuse.com", width="811", height="283", loading="lazy")
+				figcaption Поддержка браузерами достаточно хорошая
+			p Если вы уверены что ваша верстка будет попадать только на современные клиенты — то можно не задумываясь использовать этот тег и не читать статью дальше. Но сначала маленький лайфхак: у details есть свои маркеры от которых часто необходимо избавиться.
+			+codeBlock('css', 'details summary::-webkit-details-marker {\n  display: none;\n}\n\ndetails summary {\n  list-style: none;\n}')
+	section
+		.container
+			h2 Почему я написал кастомный спойлер?
+			p Одна из причин по которой я написал скрипт для #[code detais] — отсутствие анимации при открытии/закрытии спойлера. Другая причина — для работы мне необходимо использовать семантические тэги и необходима поддержка старых браузеров.
+	section
+		.container
+			h2 Код кастомного спойлера на HTML-5
+		section
+			.container
+				h3 Разметка
+				p Весь код я разделил на две части — html верстка и js. Верстка для анимации немного отличается от примера выше. Это связанно с производительностью. Можно выбрать все элементы кроме #[code summary] и их анимировать:
+				+codeBlock('css', 'details *:not(summry) {\n  /* код */\n}')
+				p Но тут есть один момент: анимация множества элементов требует много больше ресурсов чем анимация одного! По этой причине контент спойлера я поместил в контейнер:
+				+codeBlock('html', '<details open>\n  <summary class="one two">summary</summary>\n  <div class="details_hide">\n    <p>This is text.</p>\n  </div>\n</details>\n\n<details>\n  <div class="details_hide">\n    <p>This is text.</p>\n  </div>\n</details>')
+				p Два класса я не случайно прописал у #[code summary]. Код я сделал таким образом что бы в старых браузерах элемент summary менялся на кнопку и был доступен с клавиатуры.
+		section
+			.container
+				h3 Стили
+				p Первым делом стили я писал по привычке в своем сборщике:
+				+codeBlock('css', '.details_hide {\n  /* скрываем контент для анимации */\n  overflow: hidden;\n  opacity: 0;\n  max-height: 0;\n  /* указываем что анимировать */\n  transition: max-height 200ms, opacity 200ms;\n}\n\n.details-visible .details_hide {\n  /* показываем контент с анимацией */\n  overflow: auto;\n  opacity: 1;\n  max-height: 190px;\n}\n\n.details_h .details_hide {\n  /* для старых браузеров скрываем от доступа с клавиатуры к интерактивным элементам */\n  display: none;\n}\n\ndetails > button {\n  /* для старых браузеров сбрасываем стили кнопки */\n  border-radius: none;\n  border: none;\n  box-shadow: none;\n  background: none;\n  font-family: none;\n  font-size: none;\n  padding: 0;\n  text-align: inherit;\n}')
+				p Но позже интегрировал стили в js код, избавив верстальщика от подключения лишнего файла стилей. Думаю стоит немного рассказать о классах:
+				ol
+					li
+						details
+							summary .details_hide
+							.details_hide
+								p содержит контент который необходимо анимировать при открытии спойлера
+					li
+						details
+							summary .details-visible
+							.details_hide
+								p когда добавляется/удаляется данный класс контент с анимацией появляется/скрывается
+					li
+						details
+							summary .details_h
+							.details_hide
+								p данный класс добавляется спойлеру только на старых браузерах, для того что бы совсем скрыть сонтент спойлера
+					li
+						details
+							summary details>button
+							.details_hide
+								p этот селектор сбрасывает стили браузера кнопки которая заменяет summary на старых браузерах
+		section
+			.container
+				h3 Стили
+				+codeBlock('js', `window.onload = function () {\n  // добавим стили для анимации\n  let styleD = document.createElement('style');\n  styleD.innerHTML = '.details_hide{overflow:hidden;opacity:0;max-height:0;-webkit-transition:max-height 200ms,opacity 200ms;-o-transition:max-height 200ms,opacity 200ms;transition:max-height 200ms,opacity 200ms}.details-visible .details_hide{overflow:auto;opacity:1;max-height:190px}.details_h .details_hide{display:none}details>button{border-radius:none;border:0;-webkit-box-shadow:none;box-shadow:none;background:0 0;font-family:none;font-size:none;padding:0;text-align:inherit}';\n  // добавим стили в head\n  document.head.appendChild(styleD);\n  // ролучаем все спойлеры\n  let arrDetails = document.querySelectorAll('details');\n\n  // перебираем все спойлееры для получения необходимых элементов и прослушивания событий\n  for (let i = 0; i < arrDetails.length; i++) {\n\n    // по кнопке summary будем отслеживать клик\n    let elemSummary;\n    // если summary отсутствует - добавляем\n    if (!(arrDetails[i].querySelector('summary'))) {\n      // если нет поддержки details\n      if (!('open' in arrDetails[i]))\n        // создаем кнопку\n        elemSummary = document.createElement('button');\n      else\n        // или содаем summary\n        elemSummary = document.createElement('summary');\n      // добавим текст по умолчанию\n      elemSummary.innerHTML = 'подробнее';\n      // добавляем текущему спойлеру\n      arrDetails[i].insertBefore(elemSummary, arrDetails[i].querySelector('.details_hide'));\n    }\n    // если summary есть - получаем \n    else {\n       elemSummary = arrDetails[i].querySelector('summary');\n      // если нет поддержки details\n      if (!('open' in arrDetails[i])) {\n        // тут необходимо вместо summary сделать button\n        let button = document.createElement('button');\n        // перенесли текст\n        button.innerHTML = elemSummary.innerHTML;\n        // перенесли классы\n        button.setAttribute('class', elemSummary.getAttribute('class'));\n        // elemSummary = button;\n        // добавили в спойлер кнопку\n        arrDetails[i].insertBefore(button, elemSummary);\n        // удалили старый summary\n        arrDetails[i].removeChild(elemSummary);\n\n        elemSummary = button;\n      }\n    }\n\n    // если спойлер открыт\n    if (arrDetails[i].hasAttribute('open')) {\n      // добавляем класс спойлеру что бы контент был виден\n      arrDetails[i].classList.add('details-visible');\n    }\n    // для старых браузеров скрываем контент что бы не было доступа к интерактивным элементам\n    else if (!('open' in arrDetails[i])) {\n      arrDetails[i].classList.add('details_h');\n    }\n\n    // отслеживаем клик\n    elemSummary.addEventListener('click', function (event) {\n\n      // получаем родительский блок\n      let parentBlock = this.parentNode;\n\n      // если открыт спойлер\n      if (parentBlock.classList.contains('details-visible')) {\n        // отменяем действие по умолчанию для браузеров поддерживоющих <details>\n        event.preventDefault();\n        // с анимацией скрываем контент\n        parentBlock.classList.remove('details-visible');\n\n        // после завершения анимации\n        setTimeout(function () {\n          if (!('open' in parentBlock))\n            // для старых браузеров скрываем контент что бы не было доступа к интерактивным элементам\n            parentBlock.classList.add('details_h');\n          else\n            // для новых - удаляем атрибут open\n            parentBlock.open = false;\n        }, 200);\n      }\n      // если спойлер закрыт\n      else {\n        // для старых браузеров удаляем display none для контента\n        parentBlock.classList.remove('details_h');\n        // через минимальный промежуток времени запускаем анимацию css появления контента\n        setTimeout(function () {\n          parentBlock.classList.add('details-visible');\n        }, 5)\n      }\n    });\n  }\n`)
+				p В данном случае особо пояснять нечего)) Сам код имеет достаточно комментариев))) Но для чего стоят #[code setTimeout()]? Дело в том что если одновременно с анимируемыми стилями добавить неанимированные стили - анимации не будет. По этому при открытии спойлера - задается минимальный промежуток времени перед началом анимации, а при закрытии ждем когда анимация закончится, а потом полностью скрываем контент.
+				p На моем гите есть готовый минимизированный код) Это на случай если вы не используете сборщики или какие либо плагины для оптимизации js кода можете взять готовый кастомный спойлер #[a(href="https://github.com/uzinok/details", rel="noreferrer noopener", target="_blank") оттуда]))
+	section
+		.container
+			h2 Дополнительная информация
+			p Для создания этой статьи и кастомного спойлера я изучил две статьи о #[a(href="https://developer.mozilla.org/ru/docs/Web/HTML/Element/details", rel="noreferrer noopener", target="_blank") details])) и #[a(href="https://developer.mozilla.org/ru/docs/Web/HTML/Element/summary", rel="noreferrer noopener", target="_blank") summary]))
+				//- +codeBlock('html', '')
+				//- +codeBlock('html', '')
+				//- +codeBlock('html', '')
+				//- +codeBlock('html', '')
