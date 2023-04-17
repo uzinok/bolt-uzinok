@@ -18,6 +18,24 @@ html(lang="ru")
 		else
 			base(href='../../../')
 
+		if idPage == 'index'
+			link(rel="preload", href="./fonts/Roboto-Regular.woff2", as="font", type="font/woff2", crossorigin)
+			link(rel="preload", href="./fonts/RobotoCondensed-Regular.woff2", as="font", type="font/woff2", crossorigin)
+			link(rel="preload", href="./styles/index.min.css", as="style")
+			link(rel="preload", href="./scripts/index.min.js", as="script")
+			link(rel="preload", href="./img/home/cloud-1.png", as="image")
+			link(rel="preload", href="./img/home/cloud-2.png", as="image")
+			link(rel="preload", href="./img/home/bg_footer@768.png", as="image", media="(max-width: 768px)")
+			link(rel="preload", href="./img/home/bg_footer@1280.png", as="image", media="(min-width: 1280px)")
+			link(rel="preload", href="./img/home/bg_footer@2000.png", as="image", media="(min-width: 2000px)")
+		else
+			link(rel="preload", href="./fonts/Roboto-Regular.woff2", as="font", type="font/woff2", crossorigin)
+			link(rel="preload", href="./fonts/RobotoCondensed-Regular.woff2", as="font", type="font/woff2", crossorigin)
+			if group != 'other'
+				link(rel="preload", href="./fonts/RobotoMono-Regular.woff2", as="font", type="font/woff2", crossorigin)
+			link(rel="preload", href="./styles/main.min.css", as="style")
+			link(rel="preload", href="./scripts/main.min.js", as="script")
+
 		link(rel='apple-touch-icon' sizes='180x180' href='img/favicon/apple-touch-icon.png')
 		link(rel='icon' type='image/png' sizes='32x32' href='img/favicon/favicon-32x32.png')
 		link(rel='icon' type='image/png' sizes='16x16' href='img/favicon/favicon-16x16.png')
@@ -39,7 +57,10 @@ html(lang="ru")
 		title #{pageTitle}
 		meta(name="description", content=`${desc}`)
 
-		link(rel="stylesheet", href=idPage == 'index' ? 'styles/index.min.css' : 'styles/main.min.css')
+		if idPage == 'index'
+			link(rel="stylesheet", href="styles/index.min.css")
+		else
+			link(rel="stylesheet", href="styles/main.min.css")
 
 	body(class=idPage == 'index' ? 'no-js index' : 'no-js')
 		script(src=idPage == 'index' ? 'scripts/index.min.js' : 'scripts/main.min.js')
