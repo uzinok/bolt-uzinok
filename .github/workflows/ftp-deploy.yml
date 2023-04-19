@@ -9,16 +9,17 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
-
-    - name: Use Node.js 16
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16.15.1'
 
     - name: 🔨 Build Project
       run: |
