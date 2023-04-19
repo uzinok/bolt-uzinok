@@ -5,9 +5,6 @@ include mixin.pug
 <!DOCTYPE html>
 html(lang="ru")
 	head
-		//- удалить
-		meta(name="robots", content="noindex")
-		//- /удалить
 		meta(charset="UTF-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
@@ -60,16 +57,15 @@ html(lang="ru")
 	body(class=idPage == 'index' ? 'no-js index' : 'no-js')
 		script(src=idPage == 'index' ? 'scripts/index.min.js' : 'scripts/main.min.js')
 
-		noindex(style="display: grid;grid-template-columns: 100%;grid-template-rows: auto 1fr auto;min-width: 320px;min-height: 100vh;")
-			if idPage == 'index'
-				canvas#bg-canvas.bg-canvas
+		if idPage == 'index'
+			canvas#bg-canvas.bg-canvas
 
-			include header.pug
+		include header.pug
 
-			main(class=idPage == 'index' ? '' : 'main')
-				if idPage != 'index'
-					+mainHeader(heading, subHeading, group)
+		main(class=idPage == 'index' ? '' : 'main')
+			if idPage != 'index'
+				+mainHeader(heading, subHeading, group)
 
-				block main
+			block main
 
-			include footer.pug
+		include footer.pug
