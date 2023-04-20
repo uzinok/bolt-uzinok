@@ -87,6 +87,8 @@ function copy() {
 			"./src/video/**/*.{mp4,webm}",
 			"./src/img/favicon/site.webmanifest",
 			"./src/img/favicon/browserconfig.xml",
+			"./src/robots.txt",
+			"./src/sitemap.xml",
 			"./src/.htaccess",
 			"./src/static/**/*.{css,js}",
 		], {
