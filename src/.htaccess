@@ -172,4 +172,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.html [L]
 </IfModule>
 
-# END WordPress
+RewriteEngine OnRewriteBase /RewriteCond %{HTTP:X-HTTPS} !1RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+RewriteEngine OnRewriteBase /RewriteCond %{HTTP:X-HTTPS}1[NC]RewriteRule ^(.*)$ http://%{HTTP_HOST}/$1 [R=301,L]
