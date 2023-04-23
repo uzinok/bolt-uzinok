@@ -1,0 +1,74 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+
+	section
+		.container
+			h2.visually-hidden Вступление
+			p #[code image-set] это интересный метод, который появился недавно, но я жду с нетерпеньем, когда он заработает во всех браузерах. Тут важно помнить что это не конструкция определяющая какая картинка должна загрузиться у пользователя, а метод, предоставляющий разные параметры. То есть, если у пользователя ритиновый дисплей и очень слабый интернет, браузер может загрузить маленькую картинку.
+			p А вот статьи про #[a(href="https://uzinok.ru/article/article/img_and_attributes/") тэг #[code img] и его атрибуты] и #[a(href="https://uzinok.ru/article/article/picture/") #[code picture] – оптимизация графики], по этому не буду говорить про новые форматы и другие мелочи.
+			p Давайте вспомним как всё работает:
+			p Простое подключение картинки:
+			+codeBlock('html', '<img src="./img/img1x.jpg" alt="#" width="640" height="360">')
+			p Подключение картинки для обычных дисплеев и для ритины:
+			+codeBlock('html', ' <img src="./img/img1x.jpg"\n  srcset="./img/img1x.jpg 1x, ./img/img2x.jpg 2x"\n  alt="#" width="640" height="360">')
+			p Подключение картинки для обычных дисплеев и ритины с картинками с более сильным сжатием:
+			+codeBlock('html', '<picture>\n  <source type="image/avif" srcset="./img/img1x.avif 1x, ./img/img2x.avif 2x">\n  <source type="image/webp" srcset="./img/img1x.webp 1x, ./img/img2x.webp 2x">\n\n  <img src="./img/img1x.jpg" srcset="./img/img1x.jpg 1x, ./img/img2x.jpg 2x" alt="#" width="640" height="360">\n</picture>')
+			figure
+				picture
+					source(type="image/avif", srcset="./img/article/image_set/img1x.avif 1x, ./img/article/image_set/img2x.avif 2x")
+					source(type="image/webp", srcset="./img/article/image_set/img1x.webp 1x, ./img/article/image_set/img2x.webp 2x")
+					img(src="./img/article/image_set/img1x.jpg" srcset="./img/article/image_set/img1x.jpg 1x, ./img/article/image_set/img2x.jpg 2x", alt="#", width="640", height="360", loading="lazy")
+				figcaption Результат html кода
+			p Теперь пришло время разобраться с CSS. Для начала создам блок для того, что бы было видно работу фоновой картинки, ну и добавим сразу фоновую картинку для тех кто не знает #[code image-set].
+			+codeBlock('css', '.block {\n  width: 640px;\n  height: 360px;\n  background-color: #747474; /* фоновый цвет, если не загрузится картинка */\n  color: #ffffff; /* цвет текста для контраста */\n  background-image: url(./img/img1x.jpg);\n}')
+			figure
+				.block(style="width:640px;height:360px;background-color:#747474;color:#ffffff;background-image: url(./img/article/image_set/img1x.jpg);max-width:100%;background-position:center")
+				figcaption Результат css кода
+	section
+		.container
+			h2 #[code image-set] и ритина.
+			p Сейчас у нас есть обычная картинка, идя от простого к сложному для начала добавлю картинку для ритиновых дисплеев.
+			p Для этого в css добавляем #[small (обязательно добавляем, а не заменяем)] ещё один фон следующим образом:
+			+codeBlock('css', 'background-image: image-set(\n    url(./img/img1x.jpg) 1x,\n    url(./img/img2x.jpg) 2x\n  );')
+			p В браузере Firefox всё ок, а вот в хроме ничего не поменялось... После изучения статьи на #[a(href="https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set", target="_blank", rel="noopener noreferrer") MDN] добавляю префикс и начинает всё работать.
+			+codeBlock('css', 'background-image: -webkit-image-set(\n    url(./img/img1x.jpg) 1x,\n    url(./img/img2x.jpg) 2x\n  );')
+			p Для ритины уже много сделали, раньше нужно было делать отдельный медиа запрос типа #[code @media (min-resolution: @retina-dpi), (min-resolution: @retina-dppx)], а теперь всё гораздо проще, особенно учитывая что префиксы, как правило, добавляют плагины.
+			figure
+				.block(style="width:640px;height:360px;background-color:#747474;color:#ffffff;max-width:100%;background-position:center;background-image: url(./img/article/image_set/img1x.jpg);background-image:image-set(url(./img/article/image_set/img1x.jpg) 1x,url(./img/article/image_set/img2x.jpg) 2x);background-image:-webkit-image-set(url(./img/article/image_set/img1x.jpg) 1x,url(./img/article/image_set/img2x.jpg) 2x);")
+				figcaption Результат css кода: на ритиновых дисплеях будет выводиться 2x.jpg
+	section
+		.container
+			h2 #[code image-set] и разные форматы графики.
+			p Так, а как быть если гугл пейдж спид требует картинку в более новых форматах? К сожаленью до сих пор даже #[i .webp] опасно использовать – не все браузеры знают что это такое. Тут можно ещё раз обратиться к методу #[code image-set]:
+			+codeBlock('css', 'background-image: image-set(\n    url(./img/img1x.webp) 1x type("image/webp"),\n    url(./img/img1x.jpg) 1x,\n    url(./img/img2x.webp) 2x type("image/webp"),\n    url(./img/img2x.jpg) 2x\n  );\nbackground-image: -webkit-image-set(\n    url(./img/img1x.webp) 1x type("image/webp"),\n    url(./img/img1x.jpg) 1x,\n    url(./img/img2x.webp) 2x type("image/webp"),\n    url(./img/img2x.jpg) 2x\n  );')
+			p И... Ничего не поменялось. Заходим на #[a(href="https://caniuse.com/?search=%20-webkit-image-set", target="_blank", rel="noopener noreferrer") caniuse.com] И видим печальную картину – практически все браузеры умеют только ритину добавлять... А вот для Firefox можно и .avif добавить.
+			p Ещё стоит добавить что Firefox понимает как #[code image-set] так и #[code -webkit-image-set].
+			figure
+				.block(style=`width: 640px;height: 360px;background-color: #747474;color: #ffffff;background-image: url(./img/article/image_set/img1x.jpg);background-image: image-set(url(./img/article/image_set/img1x.jpg) 1x, url(./img/article/image_set/img2x.jpg) 2x);background-image: -webkit-image-set(url(./img/article/image_set/img1x.jpg) 1x, url(./img/article/image_set/img2x.jpg) 2x);background-image: image-set(url(./img/article/image_set/img1x.avif) 1x type("image/avif"), url(./img/article/image_set/img1x.webp) 1x type("image/webp"), url(./img/article/image_set/img1x.jpg) 1x, url(./img/article/image_set/img2x.avif) 2x type("image/avif"), url(./img/article/image_set/img2x.webp) 2x type("image/webp"), url(./img/article/image_set/img2x.jpg) 2x);background-image: -webkit-image-set(url(./img/article/image_set/img1x.avif) 1x type("image/avif"), url(./img/article/image_set/img1x.webp) 1x type("image/webp"), url(./img/article/image_set/img1x.jpg) 1x, url(./img/article/image_set/img2x.avif) 2x type("image/avif"), url(./img/article/image_set/img2x.webp) 2x type("image/webp"), url(./img/article/image_set/img2x.jpg) 2x);max-width: 100%;background-position: center;`)
+				figcaption Результат css кода: на ритиновых дисплеях будет выводиться 2x.jpg, а в браузерах Firefox будет выводиться картинка 2x.avif
+	section
+		.container
+			h2 Итоги.
+			+codeBlock('css', '.block {\n  width: 640px;\n  height: 360px;\n  background-color: #747474; /* фоновый цвет, если не загрузится картинка */\n  color: #ffffff; /* цвет текста для контраста */\n  background-image: url(./img/img1x.jpg); /* для браузеров не поддерживающих image-set */\n  background-image: image-set(\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.jpg) 2x\n    );\n  background-image: -webkit-image-set(\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.jpg) 2x\n    );\n  background-image: image-set(\n      url(./img/img1x.avif) 1x type("image/avif"),\n      url(./img/img1x.webp) 1x type("image/webp"),\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.avif) 2x type("image/avif"),\n      url(./img/img2x.webp) 2x type("image/webp"),\n      url(./img/img2x.jpg) 2x\n    );\n  background-image: -webkit-image-set(\n      url(./img/img1x.avif) 1x type("image/avif"),\n      url(./img/img1x.webp) 1x type("image/webp"),\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.avif) 2x type("image/avif"),\n      url(./img/img2x.webp) 2x type("image/webp"),\n      url(./img/img2x.jpg) 2x\n    );\n}')
+			p На момент записи видео можно эту портянку писать только с префиксами. И если не важно что фоновая картинка останется без ритины для части браузеров, то код сильно сократится:
+			+codeBlock('css', '.block {\n  width: 640px;\n  height: 360px;\n  background-color: #747474; /* фоновый цвет, если не загрузится картинка */\n  color: #ffffff; /* цвет текста для контраста */\n  background-image: url(./img/img1x.jpg); /* для браузеров не поддерживающих image-set */\n  background-image: -webkit-image-set(\n      url(./img/img1x.avif) 1x type("image/avif"),\n      url(./img/img1x.webp) 1x type("image/webp"),\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.avif) 2x type("image/avif"),\n      url(./img/img2x.webp) 2x type("image/webp"),\n      url(./img/img2x.jpg) 2x\n  );\n}')
+			p Я ни в коем случае не призываю писать только с префиксами, firefox не сразу добавил псевдоним для #[code image-set], и тем более если у вас есть автопрефиксер. Но уже сейчас и фоновые картинки можно улучшить в стилях.
+
+
+	section
+		.container
+			h2.visually-hidden видео
+			+zen-video("https://dzen.ru/embed/vMtRChb_xFgs?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63d05de6fec8ca5051f45ac8", "img/article/image_set/video-1")
+
+
+
+
+
+
+
+			//- +codeBlock('html', '')
