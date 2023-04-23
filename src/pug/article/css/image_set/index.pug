@@ -9,8 +9,8 @@ block main
 	section
 		.container
 			h2.visually-hidden Вступление
-			p #[code image-set] это интересный метод, который появился недавно, но я жду с нетерпеньем, когда он заработает заработает во всех браузерах. Тут важно помнить что это не конструкция определяющая какая картинка должна загрузиться у пользователя, а метод, предоставляющий разные параметры. То есть, если у пользователя ритиновый дисплей и очень слабый интернет, браузер может загрузить маленькую картинку.
-			p А вот статьи про #[a(href="https://uzinok.ru/article/article/img_and_attributes/") Тэг #[code img] и его атрибуты] и #[a(href="https://uzinok.ru/article/article/picture/") #[code picture] – оптимизация графики], по этому не буду говорить про новые форматы и другие мелочи.
+			p #[code image-set] это интересный метод, который появился недавно, но я жду с нетерпеньем, когда он заработает во всех браузерах. Тут важно помнить что это не конструкция определяющая какая картинка должна загрузиться у пользователя, а метод, предоставляющий разные параметры. То есть, если у пользователя ритиновый дисплей и очень слабый интернет, браузер может загрузить маленькую картинку.
+			p А вот статьи про #[a(href="https://uzinok.ru/article/article/img_and_attributes/") тэг #[code img] и его атрибуты] и #[a(href="https://uzinok.ru/article/article/picture/") #[code picture] – оптимизация графики], по этому не буду говорить про новые форматы и другие мелочи.
 			p Давайте вспомним как всё работает:
 			p Простое подключение картинки:
 			+codeBlock('html', '<img src="./img/img1x.jpg" alt="#" width="640" height="360">')
@@ -22,7 +22,7 @@ block main
 				picture
 					source(type="image/avif", srcset="./img/article/image_set/img1x.avif 1x, ./img/article/image_set/img2x.avif 2x")
 					source(type="image/webp", srcset="./img/article/image_set/img1x.webp 1x, ./img/article/image_set/img2x.webp 2x")
-					img(src="./img/article/image_set/img1x.jpg" srcset="./img/article/image_set/img1x.jpg 1x, ./img/article/image_set/img2x.jpg 2x", alt="пять цифр подряд, у цифры три цвет коричневый", width="640", height="360", loading="lazy")
+					img(src="./img/article/image_set/img1x.jpg" srcset="./img/article/image_set/img1x.jpg 1x, ./img/article/image_set/img2x.jpg 2x", alt="#", width="640", height="360", loading="lazy")
 				figcaption Результат html кода
 			p Теперь пришло время разобраться с CSS. Для начала создам блок для того, что бы было видно работу фоновой картинки, ну и добавим сразу фоновую картинку для тех кто не знает #[code image-set].
 			+codeBlock('css', '.block {\n  width: 640px;\n  height: 360px;\n  background-color: #747474; /* фоновый цвет, если не загрузится картинка */\n  color: #ffffff; /* цвет текста для контраста */\n  background-image: url(./img/img1x.jpg);\n}')
@@ -55,7 +55,7 @@ block main
 		.container
 			h2 Итоги.
 			+codeBlock('css', '.block {\n  width: 640px;\n  height: 360px;\n  background-color: #747474; /* фоновый цвет, если не загрузится картинка */\n  color: #ffffff; /* цвет текста для контраста */\n  background-image: url(./img/img1x.jpg); /* для браузеров не поддерживающих image-set */\n  background-image: image-set(\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.jpg) 2x\n    );\n  background-image: -webkit-image-set(\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.jpg) 2x\n    );\n  background-image: image-set(\n      url(./img/img1x.avif) 1x type("image/avif"),\n      url(./img/img1x.webp) 1x type("image/webp"),\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.avif) 2x type("image/avif"),\n      url(./img/img2x.webp) 2x type("image/webp"),\n      url(./img/img2x.jpg) 2x\n    );\n  background-image: -webkit-image-set(\n      url(./img/img1x.avif) 1x type("image/avif"),\n      url(./img/img1x.webp) 1x type("image/webp"),\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.avif) 2x type("image/avif"),\n      url(./img/img2x.webp) 2x type("image/webp"),\n      url(./img/img2x.jpg) 2x\n    );\n}')
-			p На момент записи видео можно эту портянку писать только с префиксами. И если не важно что останется фоновая картинка останется без ритины для части браузеров, то код сильно сократится:
+			p На момент записи видео можно эту портянку писать только с префиксами. И если не важно что фоновая картинка останется без ритины для части браузеров, то код сильно сократится:
 			+codeBlock('css', '.block {\n  width: 640px;\n  height: 360px;\n  background-color: #747474; /* фоновый цвет, если не загрузится картинка */\n  color: #ffffff; /* цвет текста для контраста */\n  background-image: url(./img/img1x.jpg); /* для браузеров не поддерживающих image-set */\n  background-image: -webkit-image-set(\n      url(./img/img1x.avif) 1x type("image/avif"),\n      url(./img/img1x.webp) 1x type("image/webp"),\n      url(./img/img1x.jpg) 1x,\n      url(./img/img2x.avif) 2x type("image/avif"),\n      url(./img/img2x.webp) 2x type("image/webp"),\n      url(./img/img2x.jpg) 2x\n  );\n}')
 			p Я ни в коем случае не призываю писать только с префиксами, firefox не сразу добавил псевдоним для #[code image-set], и тем более если у вас есть автопрефиксер. Но уже сейчас и фоновые картинки можно улучшить в стилях.
 
