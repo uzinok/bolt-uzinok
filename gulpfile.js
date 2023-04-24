@@ -192,7 +192,8 @@ function watchFiles() {
 function server() {
 	browserSync.init({
 		server: {
-			baseDir: paths.dest
+			baseDir: paths.dest,
+			https: true
 		}
 	});
 
