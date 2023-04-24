@@ -8,17 +8,17 @@ mixin mainHeader(heading, subHeading, group)
 		.main__header-container.container
 			ol.breadcrumb
 				li
-					a(href="./", title="Главная" )
+					a(href="/", title="Главная" )
 						span.visually-hidden главная
 
 				if group == 'other'
 					li
-						a(href=`article/${idPage}/`, aria-current="page") #{nameGroup}
+						a(href=`https://uzinok.ru/article/${idPage}/`, aria-current="page") #{nameGroup}
 				else
 						li
-							a(href=`article/${group}/`,) #{nameGroup}
+							a(href=`https://uzinok.ru/article/${group}/`,) #{nameGroup}
 						li
-							a(href=`article/${group}/${idPage}/`, aria-current="page") #{heading}
+							a(href=`https://uzinok.ru/article/${group}/${idPage}/`, aria-current="page") #{heading}
 
 			if idPage != 'index'
 				if group != 'other'
@@ -56,6 +56,6 @@ mixin zen-video(dataIframe, urlVideo, urlImg)
 
 mixin navLink(idCurrentPage, nameLink)
 	if idPage == idCurrentPage
-		a.header__link(href=idPage == 'index' ? '#${idCurrentPage}' : `article/${idCurrentPage}/`, aria-current="page") #{nameLink}
+		a.header__link(href=idPage == 'index' ? '#${idCurrentPage}' : `https://uzinok.ru/article/${idCurrentPage}/`, aria-current="page") #{nameLink}
 	else
-		a.header__link(href=idPage == 'index' ? `#${idCurrentPage}` : `article/${idCurrentPage}/`) #{nameLink}
+		a.header__link(href=idPage == 'index' ? `#${idCurrentPage}` : `https://uzinok.ru/article/${idCurrentPage}/`) #{nameLink}

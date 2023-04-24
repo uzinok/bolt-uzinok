@@ -5,11 +5,10 @@ include mixin.pug
 <!DOCTYPE html>
 html(lang="ru")
 	head
-		//- удалить
-		meta(name="robots", content="noindex")
-		//- /удалить
 		meta(charset="UTF-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(name="zen-verification", content="Wj6QmMKN8RXwIiPpdg45mlvK5z00lslVYe54i0HEwbSXDfGXRYpEbNrDCzAatzvE")
+		meta(name="google-site-verification", content="xJyxyY23NRA12j-LeQmMEsoko9LRLuZByDGOetRI5PQ")
 
 		if idPage == 'index'
 			base(href='./')
@@ -31,22 +30,24 @@ html(lang="ru")
 			link(rel="preload", href="./styles/main.min.css", as="style")
 			link(rel="preload", href="./scripts/main.min.js", as="script")
 
-		link(rel='apple-touch-icon' sizes='180x180' href='img/favicon/apple-touch-icon.png')
-		link(rel='icon' type='image/png' sizes='32x32' href='img/favicon/favicon-32x32.png')
-		link(rel='icon' type='image/png' sizes='16x16' href='img/favicon/favicon-16x16.png')
-		link(rel='manifest' href='img/favicon/site.webmanifest')
-		link(rel='mask-icon' href='img/favicon/safari-pinned-tab.svg' color='#5bbad5')
-		meta(name='msapplication-square70x70logo' content='img/favicon/mstile-70x70.png')
-		meta(name='msapplication-square144x144logo' content='img/favicon/mstile-144x144.png')
-		meta(name='msapplication-square150x150logo' content='img/favicon/mstile-150x150.png')
-		meta(name='msapplication-wide310x150logo' content='img/favicon/mstile-310x150.png')
-		meta(name='msapplication-square310x310logo' content='img/favicon/mstile-310x310.png')
+		meta(name="referrer", content="origin")
+
+		link(rel='apple-touch-icon' sizes='180x180' href='https://uzinok.ru/img/favicon/apple-touch-icon.png')
+		link(rel='icon' type='image/png' sizes='32x32' href='https://uzinok.ru/img/favicon/favicon-32x32.png')
+		link(rel='icon' type='image/png' sizes='16x16' href='https://uzinok.ru/img/favicon/favicon-16x16.png')
+		link(rel='manifest' href='https://uzinok.ru/img/favicon/site.webmanifest')
+		link(rel='mask-icon' href='https://uzinok.ru/img/favicon/safari-pinned-tab.svg' color='#5bbad5')
+		meta(name='msapplication-square70x70logo' content='https://uzinok.ru/img/favicon/mstile-70x70.png')
+		meta(name='msapplication-square144x144logo' content='https://uzinok.ru/img/favicon/mstile-144x144.png')
+		meta(name='msapplication-square150x150logo' content='https://uzinok.ru/img/favicon/mstile-150x150.png')
+		meta(name='msapplication-wide310x150logo' content='https://uzinok.ru/img/favicon/mstile-310x150.png')
+		meta(name='msapplication-square310x310logo' content='https://uzinok.ru/img/favicon/mstile-310x310.png')
 		meta(name='msapplication-TileColor' content='#2d89ef')
 		meta(name='theme-color' content='#ffffff')
 
 		meta(property="og:title", content="Записки верстальщика")
 		meta(property="og:description", content="Собрание демок и фич для верстальщиков")
-		meta(property="og:image", content="img/favicon/open-graph.jpg")
+		meta(property="og:image", content="https://uzinok.ru/img/favicon/open-graph.png")
 
 		meta(http-equiv="X-UA-Compatible", content="ie=edge")
 		title #{pageTitle}
@@ -60,16 +61,32 @@ html(lang="ru")
 	body(class=idPage == 'index' ? 'no-js index' : 'no-js')
 		script(src=idPage == 'index' ? 'scripts/index.min.js' : 'scripts/main.min.js')
 
-		noindex(style="display: grid;grid-template-columns: 100%;grid-template-rows: auto 1fr auto;min-width: 320px;min-height: 100vh;")
-			if idPage == 'index'
-				canvas#bg-canvas.bg-canvas
+		if idPage == 'index'
+			canvas#bg-canvas.bg-canvas
 
-			include header.pug
+		include header.pug
 
-			main(class=idPage == 'index' ? '' : 'main')
-				if idPage != 'index'
-					+mainHeader(heading, subHeading, group)
+		main(class=idPage == 'index' ? '' : 'main')
+			if idPage != 'index'
+				+mainHeader(heading, subHeading, group)
 
-				block main
+			block main
 
-			include footer.pug
+		include footer.pug
+		//  Yandex.Metrika counter
+		script(type='text/javascript').
+
+			(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+				m[i].l=1*new Date();
+				for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+				k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+				(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+				ym(56104789, "init", {
+							clickmap:true,
+							trackLinks:true,
+							accurateTrackBounce:true
+				});
+
+		noscript <div><img src="https://mc.yandex.ru/watch/56104789" style="position:absolute; left:-9999px;" alt=""></div>
+		//  /Yandex.Metrika counter

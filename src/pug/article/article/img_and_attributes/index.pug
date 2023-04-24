@@ -33,7 +33,7 @@ block main
 				h3 Доступная графика: альтернативный текст #[code alt]
 				p Но что услышит пользователь скрин-ридера?
 				figure
-					video(playsinline, controls, poster="img/article/img_and_attributes/poster-1.webp", width="820", height="461")
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-1.webp", width="820", height="461", preload="metadata")
 						source(src="video/img_and_attributes/video-1.webm", type="video/webm")
 						source(src="video/img_and_attributes/video-1.mp4", type="video/mp4")
 					figcaption Скрин-ридер «NVDA» не видит картинку без описания
@@ -65,7 +65,7 @@ block main
 				p Выглядеть это будет примерно так:
 				+codeBlock('html', '<img \n  src="img/colobok@1x.png" \n  srcset="img/colobok@1x.png 300w, img/colobok@2x.png 500w" \n  alt="Весёлый колобок с веткой земляники сидит на пеньке" \n  width="300" \n  height="300">')
 				figure
-					video(playsinline, controls, poster="img/article/img_and_attributes/poster-2.webp", width="820", height="461")
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-2.webp", width="820", height="461", loading="lazy", preload="metadata")
 						source(src="video/img_and_attributes/video-2.webm", type="video/webm")
 						source(src="video/img_and_attributes/video-2.mp4", type="video/mp4")
 					figcaption При увеличении ширины окна браузера меняется картинка
@@ -77,7 +77,7 @@ block main
 				p Но я его практически не использую: так как он не работает без атрибута #[code srcset], который так же у тега #[code img] использую редко. Но тут так же всё довольно просто: для использования этого атрибута необходимо добавить #[code srcset] с медиа выражениями, ну и добавить #[code sizes] примерно так:
 				+codeBlock('html', '<img\n  src="img/colobok@1x.png"\n  srcset="img/colobok@1x.png 300w, img/colobok@2x.png 500w, img/colobok@3x.png 900w"\n  sizes="(max-width: 300px) 100px, (max-width: 500px) 200px, 900px"\n  alt="Весёлый колобок с веткой земляники сидит на пеньке">')
 				figure
-					video(playsinline, controls, poster="img/article/img_and_attributes/poster-3.webp", width="820", height="461")
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-3.webp", width="820", height="461", loading="lazy", preload="metadata")
 						source(src="video/img_and_attributes/video-3.webm", type="video/webm")
 						source(src="video/img_and_attributes/video-3.mp4", type="video/mp4")
 					figcaption Изменяются размеры картинки при изменении размера окна браузера
@@ -89,7 +89,7 @@ block main
 				p Для такого эффекта нужно добавить атрибут loading со значением #[code lazy]:
 				+codeBlock('html', '<img\n  src="img/colobok@1x.png"\n  loading="lazy"\n  alt="Весёлый колобок с веткой земляники сидит на пеньке"\n  width="300"\n  height="300">')
 				figure
-					video(playsinline, controls, poster="img/article/img_and_attributes/poster-4.webp", width="820", height="461")
+					video(playsinline, controls, poster="img/article/img_and_attributes/poster-4.webp", width="820", height="461", loading="lazy", preload="metadata")
 						source(src="video/img_and_attributes/video-4.webm", type="video/webm")
 						source(src="video/img_and_attributes/video-4.mp4", type="video/mp4")
 					figcaption После добавления атрибута, третья картинка загрузилась не сразу

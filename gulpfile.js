@@ -87,6 +87,8 @@ function copy() {
 			"./src/video/**/*.{mp4,webm}",
 			"./src/img/favicon/site.webmanifest",
 			"./src/img/favicon/browserconfig.xml",
+			"./src/robots.txt",
+			"./src/sitemap.xml",
 			"./src/.htaccess",
 			"./src/static/**/*.{css,js}",
 		], {
@@ -231,16 +233,12 @@ const ttf2woff = require('gulp-ttf2woff');
 
 // img
 function optiImg() {
-	src([paths.img.src + "/**/*.svg", "!" + paths.img.src + "/sprite.svg"], {
-			base: paths.src
-		})
+	src(paths.img.resource + "/**/*.svg")
 		.pipe(svgmin())
 		.pipe(dest(paths.src));
-	return src(paths.img.src + "/**/*.{png,jpg}", {
-			base: paths.src
-		})
+	return src(paths.img.resource + "/*.{png,jpg}")
 		.pipe(squoosh())
-		.pipe(dest(paths.src));
+		.pipe(dest(paths.img.resource));
 }
 
 function createWebp() {
