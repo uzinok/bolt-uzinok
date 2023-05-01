@@ -1,0 +1,40 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2 Вступление.
+			p У меня уже есть статья #[a(href="https://uzinok.ru/article/article/deploy/") Деплой сайта на гитхабе], ну а можно ли сборку отправить сразу на хостинг? Конечно можно, и довольно просто))
+			p Нам понадобится такой же файл как и в деплое на gh-pages но с небольшими изменениями.
+			p Вот пример моего файла:
+			+codeBlock('yml', `on:\n  pull_request:\n    branches: [ "master" ]\n\nname: 🚀 Deploy website on push\n\njobs:\n  web-deploy:\n    name: 🎉 Deploy\n    runs-on: ubuntu-latest\n    steps:\n    - name: 🚚 Get latest code\n      uses: actions/checkout@v3\n\n    - name: Use Node.js 16\n      uses: actions/setup-node@v2\n      with:\n        node-version: '16'\n\n    - name: 🔨 Build Project\n      run: |\n        npm install\n        npm run build\n\n    - name: 📂 Sync files\n      uses: SamKirkland/FTP-Deploy-Action@4.3.3\n      with:\n        server: ftp57.hostland.ru\n        username: $\{\{ secrets.FTP_USER \}\}\n        password: $\{\{ secrets.FTP_PASS \}\}\n        port: 21\n        local-dir: ./dest/`)
+			p А доку можно посмотреть #[a(href="https://github.com/marketplace/actions/ftp-deploy", target="_blank", rel="noopener noreferrer") тут]
+			figure
+				picture
+					source(srcset="img/article/deploy/deploy-1.avif", type="image/avif")
+					source(srcset="img/article/deploy/deploy-1.webp", type="image/webp")
+					img(src="img/article/deploy/deploy-1.jpg", alt="скрин со страници настроек репозитория github с подсказками", width="820", height="418", loading="lazy")
+				figcaption Скрин с подсказками
+
+	section
+		.container
+			h2.visually-hidden видео
+			+zen-video("https://dzen.ru/embed/v7qTAnVTgDAY?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/6427fdb7e1fa7f2864702b4c", "img/article/deploy/video-1")
+
+
+
+
+
+
+
+
+
+
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
+			//- +codeBlock('', '')
