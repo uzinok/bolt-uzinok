@@ -192,8 +192,7 @@ function watchFiles() {
 function server() {
 	browserSync.init({
 		server: {
-			baseDir: paths.dest,
-			https: true
+			baseDir: paths.dest
 		}
 	});
 
@@ -248,7 +247,7 @@ function createWebp() {
 				webp: {}
 			})
 		)
-		.pipe(dest(paths.img.src));
+		.pipe(dest(paths.img.resource));
 }
 
 function createAvif() {
