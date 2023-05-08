@@ -299,6 +299,18 @@ function slider(slider) {
 	}
 }
 
+function topArrow() {
+	const top = document.querySelector('.top');
+	document.addEventListener('scroll', function () {
+		const scrollY = window.scrollY || window.pageYOffset;
+		if (scrollY < window.innerHeight / 4) {
+			top.classList.add('top--after');
+		} else {
+			top.classList.remove('top--after');
+		}
+	});
+}
+
 window.addEventListener('load', () => {
 	setYear();
 
@@ -309,4 +321,6 @@ window.addEventListener('load', () => {
 	for (let i = 0; i < arrSliders.length; i++) {
 		slider(arrSliders[i]);
 	}
+
+	topArrow();
 });

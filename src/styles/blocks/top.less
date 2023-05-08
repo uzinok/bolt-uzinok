@@ -1,0 +1,44 @@
+.top:not(.top--after)::after {
+	opacity: 0;
+}
+
+.top::after {
+	content: '';
+	position: absolute;
+	bottom: var(--offset-pageY);
+	left: 50%;
+	width: 15px;
+	height: 30px;
+	background: linear-gradient(60deg, #ffffff, #0039a6, #d52b1e, #0039a6, #f8f8f8);
+	background-color: #fff;
+	background-size: 900% 300%;
+	transform: translateX(-50%);
+	opacity: 0.6;
+	transition: opacity 1s var(--transition-function);
+	animation: animatedgradient 24s ease alternate infinite;
+	mask-image: url(../../img/icons/arrow-down-svgrepo-com.svg);
+	mask-size: 30px 30px;
+	mask-position: center;
+}
+
+@keyframes animatedgradient {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	25% {
+		background-position: 100% 0%;
+	}
+
+	50% {
+		background-position: 100% 100%;
+	}
+
+	0% {
+		background-position: 0% 100%;
+	}
+
+	100% {
+		background-position: 0% 0%;
+	}
+}
