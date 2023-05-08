@@ -9,7 +9,7 @@ block variables
 
 
 block main
-	section.top
+	section.top.top--after
 		.top__container.container
 			h1
 				a.logo(href="/", aria-current="page")
@@ -18,8 +18,6 @@ block main
 				| Записки верстальщика&ensp;
 				span Собрание демок и фич для верстальщиков
 
-		a.go-bottom(href="#css")
-			.visually-hidden вниз
 	include templates/index-css.pug
 	include templates/index-js.pug
 	include templates/index-svg.pug
