@@ -1,10 +1,8 @@
 on:
   push:
     branches: [ "master" ]
-  merge_group:
-    branches: [ "master" ]
-name: 🚀 Deploy website on push
 
+name: 🚀 Deploy website on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
