@@ -311,8 +311,17 @@ function topArrow() {
 	});
 }
 
+function redirect() {
+	console.log(window.location.href.indexOf('?') >= 0);
+	if (window.location.href.indexOf('?') >= 0) {
+		window.location.replace("https://uzinok.ru");
+	}
+}
+
 window.addEventListener('load', () => {
 	setYear();
+
+	redirect();
 
 	if (document.querySelector('#bg-canvas'))
 		bdCanvas(document.querySelector('#bg-canvas'));

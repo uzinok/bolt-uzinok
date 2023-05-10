@@ -11,6 +11,11 @@ html(lang="ru")
 		meta(name="google-site-verification", content="xJyxyY23NRA12j-LeQmMEsoko9LRLuZByDGOetRI5PQ")
 
 		if idPage == 'index'
+			link(rel="canonical", href="https://uzinok.ru")
+		else
+			link(rel="canonical", href=`https://uzinok.ru/${url}`)
+
+		if idPage == 'index'
 			base(href='./')
 		else if group == 'other'
 			base(href='../../')
