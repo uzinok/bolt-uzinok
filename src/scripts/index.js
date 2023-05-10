@@ -301,7 +301,7 @@ function slider(slider) {
 
 function topArrow() {
 	const top = document.querySelector('.top');
-	document.addEventListener('scroll', function () {
+	document.addEventListener('scroll', function() {
 		const scrollY = window.scrollY || window.pageYOffset;
 		if (scrollY < window.innerHeight / 4) {
 			top.classList.add('top--after');
@@ -311,17 +311,12 @@ function topArrow() {
 	});
 }
 
-function redirect() {
-	console.log(window.location.href.indexOf('?') >= 0);
-	if (window.location.href.indexOf('?') >= 0) {
-		window.location.replace("https://uzinok.ru");
-	}
+if (window.location.href.indexOf('?') >= 0) {
+	window.location.replace("https://uzinok.ru");
 }
 
 window.addEventListener('load', () => {
 	setYear();
-
-	redirect();
 
 	if (document.querySelector('#bg-canvas'))
 		bdCanvas(document.querySelector('#bg-canvas'));
