@@ -63,8 +63,8 @@ html(lang="ru")
 			title #{pageTitle}
 		else
 			title Записки верстальщика | #{pageTitle}
-			meta(property="og:title", content=`Записки верстальщика | ${pageTitle}`)
-		//- title #{pageTitle}
+		if keywords
+			meta(name="keywords", content=`${keywords}`)
 		meta(name="description", content=`${desc}`)
 
 		if idPage == 'index'
