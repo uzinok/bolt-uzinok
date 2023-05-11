@@ -50,13 +50,21 @@ html(lang="ru")
 		meta(name='msapplication-square310x310logo', content='https://uzinok.ru/img/favicon/mstile-310x310.png')
 		meta(name='msapplication-TileColor', content='#2d89ef')
 		meta(name='theme-color', content='#ffffff')
-
-		meta(property="og:title", content="Записки верстальщика")
-		meta(property="og:description", content="Собрание демок и фич для верстальщиков")
+		if idPage == 'index'
+			meta(property="og:title", content=`Записки верстальщика`)
+		else
+			meta(property="og:title", content=`Записки верстальщика | ${pageTitle}`)
+		meta(property="og:description", content=`${desc}`)
 		meta(property="og:image", content="https://uzinok.ru/img/favicon/open-graph.png")
 
 		meta(http-equiv="X-UA-Compatible", content="ie=edge")
-		title #{pageTitle}
+
+		if idPage == 'index'
+			title #{pageTitle}
+		else
+			title Записки верстальщика | #{pageTitle}
+			meta(property="og:title", content=`Записки верстальщика | ${pageTitle}`)
+		//- title #{pageTitle}
 		meta(name="description", content=`${desc}`)
 
 		if idPage == 'index'
