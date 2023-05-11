@@ -48,12 +48,12 @@ block main
 					source(srcset="img/article/colored_icons/img-2.webp", type="image/webp")
 					img(src="img/article/colored_icons/img-2.png", alt="Слева как выглядит иконка в браузере, справа html код картинки", width="820", height="394", loading="lazy")
 				figcaption На картинке видно что нет браузерной рамки у ссылки с иконкой.
-			p Добавлю изменение цвета иконки сразу, и получаю такой код:
+			p Поправлю и сразу добавлю изменение цвета иконки сразу, и получаю такой код:
 			+codeBlock('css', `.battery {\n display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n}\n\n.battery::before {\n  content: '';\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, что-бы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}\n\n.battery:hover::before {\n	background-color: #ff6347;\n}`)
 			figure
 				a.battery(href="https://uzinok.ru/article/article/colored_icons/#")
 					span.visually-hidden уровень заряда батареи
-					style .battery{display:inline-block;width:40px;height:40px;}.battery::before {content:'';display:inline-block;width:40px;height:40px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:40px 40px;}.battery:hover::before{background-color:#ff6347;}
+					style .battery{display:inline-block;width:100px;height:100px;}.battery::before {content:'';display:inline-block;width:100px;height:100px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:100px 100px;}.battery:hover::before{background-color:#ff6347;}
 				figcaption При наведении поменяется цвет, а в состоянии фокуса будет рамка.
 	section
 		.container
