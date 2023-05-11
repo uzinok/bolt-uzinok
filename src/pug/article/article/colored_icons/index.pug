@@ -31,6 +31,34 @@ block main
 			p Перехожу к стилям:
 			+codeBlock('css', `.battery {\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: rgb(60, 153, 60); /* фоновый цвет, что-бы было видно работу маски */\n  mask-image: url(../img/battery.svg); /* маска */\n  mask-size: 40px 40px; /* размер маски */\n}\n\n.visually-hidden {\n  /* скрываем подпись доступности */\n  position: absolute;\n  width: 0;\n  height: 0;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  border: none;\n}`)
 			p И каков результат? Если вы используете #[i Firefox] то увидите батарейку зелёного цвета, а если другой браузер, то, скорее всего, увидите зелёный прямоугольник.
+			figure
+				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:rgb(60, 153, 60);mask-image:url(img/article/colored_icons/battery.svg);mask-size:40px 40px;")
+					span.visually-hidden уровень заряда батареи
+				figcaption Так выглядит работа текущего кода в вашем браузере
+			p Для того, что бы правильно отображалась иконка в хроме, достаточно добавить префикс #[code -webkit-]. Так как у мозилы для #[code mask-image] есть псевдоним #[code -webkit-mask-image], то если вы верстаете без префиксера, то можно написать только с префиксами, ну а если у вас сборщик, то и не нужно думать о префиксах))
+			+codeBlock('css', '.battery {\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: rgb(60, 153, 60); /* фоновый цвет, что-бы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}')
+			figure
+				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:rgb(60, 153, 60);-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:40px 40px;")
+					span.visually-hidden уровень заряда батареи
+				figcaption Теперь, скорее всего, у вас отображается иконка батарейки.
+			p При необходимости можно поменять цвет иконки, например при наведении на ссылку, поменяв её фоновый цвет. Но тут есть один неприятный момент: при попадании в фокус не отображается оутлайн. Это логично: маска просто обрезает всё кроме мест где картинка маски закрашена. Для решения этого вопроса достаточно внутри ссылки добавить псевдоэлемент, и ему добавить маску.
+			figure
+				picture
+					source(srcset="img/article/colored_icons/img-2.avif", type="image/avif")
+					source(srcset="img/article/colored_icons/img-2.webp", type="image/webp")
+					img(src="img/article/colored_icons/img-2.png", alt="Слева как выглядит иконка в браузере, справа html код картинки", width="820", height="394", loading="lazy")
+				figcaption На картинке видно что нет браузерной рамки у ссылки с иконкой.
+			p Добавлю изменение цвета иконки сразу, и получаю такой код:
+			+codeBlock('css', `.battery {\n display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n}\n\n.battery::before {\n  content: '';\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, что-бы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}\n\n.battery:hover::before {\n	background-color: #ff6347;\n}`)
+			figure
+				a.battery(href="https://uzinok.ru/article/article/colored_icons/#")
+					span.visually-hidden уровень заряда батареи
+					style .battery{display:inline-block;width:40px;height:40px;}.battery::before {content:'';display:inline-block;width:40px;height:40px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:40px 40px;}.battery:hover::before{background-color:#ff6347;}
+				figcaption При наведении поменяется цвет, а в состоянии фокуса будет рамка.
+	section
+		.container
+			h2 Иконка частично меняющая цвет
+			p Тут можно несколькими способами вставить иконку в html.
 
 	section
 		.container
@@ -39,8 +67,6 @@ block main
 
 
 
-			//- +codeBlock('', '')
-			//- +codeBlock('', '')
 			//- +codeBlock('', '')
 			//- +codeBlock('', '')
 			//- +codeBlock('', '')
