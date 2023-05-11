@@ -18,7 +18,7 @@ block main
 				picture
 					source(srcset="img/article/colored_icons/img-1.avif", type="image/avif")
 					source(srcset="img/article/colored_icons/img-1.webp", type="image/webp")
-					img(src="img/article/colored_icons/img-1.jpg", alt="скрин со страници caniuse.com", width="820", height="282", loading="lazy")
+					img(src="img/article/colored_icons/img-1.jpg", alt="скрин со страницы caniuse.com", width="820", height="282", loading="lazy")
 				figcaption Поддержка браузерами свойства #[code mask-image] 96.83%
 			p Покажу на примере ссылки, так как там есть один небольшой нюанс.
 			p Нашел такой вектор батарейку
@@ -29,27 +29,27 @@ block main
 			p Ну и прописываю ссылку в html:
 			+codeBlock('html', '<a href="#" class="battery">\n  <span class="visually-hidden">уровень заряда батареи</span>\n</a>')
 			p Перехожу к стилям:
-			+codeBlock('css', `.battery {\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, что-бы было видно работу маски */\n  mask-image: url(../img/battery.svg); /* маска */\n  mask-size: 40px 40px; /* размер маски */\n}\n\n.visually-hidden {\n  /* скрываем подпись доступности */\n  position: absolute;\n  width: 0;\n  height: 0;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  border: none;\n}`)
-			p И каков результат? Если вы используете #[i Firefox] то увидите батарейку зелёного цвета, а если другой браузер, то, скорее всего, увидите зелёный прямоугольник.
+			+codeBlock('css', `.battery {\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  mask-image: url(../img/battery.svg); /* маска */\n  mask-size: 40px 40px; /* размер маски */\n}\n\n.visually-hidden {\n  /* скрываем подпись доступности */\n  position: absolute;\n  width: 0;\n  height: 0;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  border: none;\n}`)
+			p И каков результат? Если вы используете #[i Firefox], то увидите батарейку зелёного цвета, а если другой браузер, то, скорее всего, увидите зелёный прямоугольник.
 			figure
 				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:#3c993c;mask-image:url(img/article/colored_icons/battery.svg);mask-size:40px 40px;")
 					span.visually-hidden уровень заряда батареи
 				figcaption Так выглядит работа текущего кода в вашем браузере
 			p Для того, что бы правильно отображалась иконка в хроме, достаточно добавить префикс #[code -webkit-]. Так как у мозилы для #[code mask-image] есть псевдоним #[code -webkit-mask-image], то если вы верстаете без префиксера, то можно написать только с префиксами, ну а если у вас сборщик, то и не нужно думать о префиксах))
-			+codeBlock('css', '.battery {\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, что-бы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}')
+			+codeBlock('css', '.battery {\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}')
 			figure
 				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:40px 40px;")
 					span.visually-hidden уровень заряда батареи
 				figcaption Теперь, скорее всего, у вас отображается иконка батарейки.
-			p При необходимости можно поменять цвет иконки, например при наведении на ссылку, поменяв её фоновый цвет. Но тут есть один неприятный момент: при попадании в фокус не отображается оутлайн. Это логично: маска просто обрезает всё кроме мест где картинка маски закрашена. Для решения этого вопроса достаточно внутри ссылки добавить псевдоэлемент, и ему добавить маску.
+			p При необходимости можно поменять цвет иконки, например при наведении на ссылку, поменяв её фоновый цвет. Но тут есть один неприятный момент: при попадании в фокус не отображается оутлайн. Это логично: маска просто обрезает всё кроме мест, где картинка маски закрашена. Для решения этого вопроса достаточно внутри ссылки добавить псевдоэлемент, и ему добавить маску.
 			figure
 				picture
 					source(srcset="img/article/colored_icons/img-2.avif", type="image/avif")
 					source(srcset="img/article/colored_icons/img-2.webp", type="image/webp")
 					img(src="img/article/colored_icons/img-2.png", alt="Слева как выглядит иконка в браузере, справа html код картинки", width="820", height="394", loading="lazy")
-				figcaption На картинке видно что нет браузерной рамки у ссылки с иконкой.
+				figcaption На картинке видно, что нет браузерной рамки у ссылки с иконкой.
 			p Поправлю и сразу добавлю изменение цвета иконки сразу, и получаю такой код:
-			+codeBlock('css', `.battery {\n display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n}\n\n.battery::before {\n  content: '';\n  display: inline-block; /* для рамеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, что-бы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}\n\n.battery:hover::before {\n	background-color: #ff6347;\n}`)
+			+codeBlock('css', `.battery {\n display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n}\n\n.battery::before {\n  content: '';\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}\n\n.battery:hover::before {\n	background-color: #ff6347;\n}`)
 			figure
 				a.battery(href="https://uzinok.ru/article/article/colored_icons/#")
 					span.visually-hidden уровень заряда батареи
@@ -58,12 +58,12 @@ block main
 	section
 		.container
 			h2 Иконка частично меняющая цвет
-			p Тут можно несколькими способами вставить иконку в html. Первый - просто скопировать код svg и вставить в html #[small (этот способ и буду использовать)]. Если иконка часто повторяется на странице - лучше использовать спрайт.
-			p Подготовил вектор с двумя цветами
+			p Тут можно несколькими способами вставить иконку в html. Первый - просто скопировать код svg и вставить в html #[small (этот способ и буду использовать)]. Если иконка часто повторяется на странице - лучше использовать спрайт. #[small #[a(href="https://uzinok.ru/article/svg/add_svg_to_page/") Как добавить SVG на страницу правильно?]]
+			p Подготовил вектор с двумя цветами:
 				svg(xmlns='http://www.w3.org/2000/svg', width='25', height='25', viewBox='0 0 24 24', style="margin:0 5px;display:inline-block;vertical-align:middle;", aria-hidden="true", focusable="false")
 					path(d='M4.5 19.5a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0 3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5 3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5 3.54 3.54 0 0 0 5 0Z', style='fill:#2ca9bc;stroke-width:2')
 					path(d='M4.5 19.5h0a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0h0a3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5h0a3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5h0a3.54 3.54 0 0 0 5 0ZM10 14l4-4', style='fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2')
-				| Для того, что бы можно было взаимодействовать с одним из #[code path], задам дополнительный класс: #[code .changes-color]. Если это декоративная иконка, необходимо скрыть её от програм чтения с экранов добавив атрибуты #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden", target="_blank", rel="noopener noreferrer") #[code aria-hidden="true"]] и #[code focusable="false"]. В случае когда вектором нужно добавить контентную картинку, то необходимо добавить атрибут #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role", target="_blank", rel="noopener noreferrer") role="img"] ну и подпись. В таком виде вставлю код в html.
+				| Для того, что бы можно было взаимодействовать с одним из #[code path], задам дополнительный класс: #[code .changes-color]. Если это декоративная иконка, необходимо скрыть её от программ чтения с экранов добавив атрибуты #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden", target="_blank", rel="noopener noreferrer") #[code aria-hidden="true"]] и #[code focusable="false"]. В случае когда вектором нужно добавить контентную картинку, то необходимо добавить атрибут #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role", target="_blank", rel="noopener noreferrer") role="img"] ну и подпись. В таком виде вставлю код в html.
 			+codeBlock('html', `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 24 24" aria-hidden="true" focusable="false">\n  <path class="changes-color" style="fill: #2ca9bc; stroke-width: 2" d="M4.5 19.5a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0 3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5 3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5 3.54 3.54 0 0 0 5 0Z"/>\n  <path style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round;stroke-width: 2" d="M4.5 19.5h0a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0h0a3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5h0a3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5h0a3.54 3.54 0 0 0 5 0ZM10 14l4-4"/>\n</svg>`)
 			p Можно пробовать менять цвет
 			+codeBlock('css', '.changes-color {\n  fill: #ff6347;\n}')
