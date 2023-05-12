@@ -301,7 +301,7 @@ function slider(slider) {
 
 function topArrow() {
 	const top = document.querySelector('.top');
-	document.addEventListener('scroll', function () {
+	document.addEventListener('scroll', function() {
 		const scrollY = window.scrollY || window.pageYOffset;
 		if (scrollY < window.innerHeight / 4) {
 			top.classList.add('top--after');
@@ -309,6 +309,10 @@ function topArrow() {
 			top.classList.remove('top--after');
 		}
 	});
+}
+
+if (window.location.href.indexOf('?') >= 0) {
+	window.location.replace("https://uzinok.ru");
 }
 
 window.addEventListener('load', () => {

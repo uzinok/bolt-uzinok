@@ -202,8 +202,6 @@ function mediaDzen(elem) {
 			play.remove();
 		});
 	});
-
-
 }
 
 window.addEventListener('load', () => {

@@ -2,3 +2,17 @@ User-Agent: *
 Allow: /
 
 Sitemap: https://uzinok.ru/sitemap.xml
+
+Clean-param: p /
+Clean-param: route /
+Clean-param: category /
+Clean-param: product_id /
+Clean-param: path /
+Clean-param: preview /
+Clean-param: _thumbnail_id /
+Clean-param: com /
+Clean-param: name_gelery_coment /
+Clean-param: npn /
+Clean-param: nowprocket /
+Clean-param: manufacturer_id /
+Clean-param: information_id /
