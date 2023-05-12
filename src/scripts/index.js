@@ -311,10 +311,6 @@ function topArrow() {
 	});
 }
 
-if (window.location.href.indexOf('?') >= 0) {
-	window.location.replace("https://uzinok.ru");
-}
-
 window.addEventListener('load', () => {
 	setYear();
 
