@@ -8,66 +8,66 @@ block main
 	section
 		.container
 			h2.visually-hidden Вступление.
-			p Привет!) Статья скорее для студентов: Расскажу как добавить на страницу сайта иконку не добавляя её в html, и как быть если нужно поменять или скрыть часть svg иконки.
-			p Кто-то предлагает использовать шрифтовые иконки, что не очень хорошо #[small (не буду перечислять минусы)]. А я покажу другие способы.
+			p Привет!) Статья скорее для студентов: Расскажу как добавить на&nbsp;страницу сайта иконку не&nbsp;добавляя её&nbsp;в&nbsp;html, и&nbsp;как быть если нужно поменять или скрыть часть svg иконки.
+			p Кто-то предлагает использовать шрифтовые иконки, что не&nbsp;очень хорошо #[small (не&nbsp;буду перечислять минусы)]. Я&nbsp;покажу другие способы.
 	section
 		.container
 			h2 CSS маски
-			p #[code mask-image] поддерживается довольно хорошо, но лучше проверить на сервисе #[a(href="https://caniuse.com/?search=mask-image", target="_blank", rel="noopener noreferrer") caniuse.com].
+			p #[code mask-image] поддерживается довольно хорошо, но&nbsp;лучше проверить на&nbsp;сервисе #[a(href="https://caniuse.com/?search=mask-image", target="_blank", rel="noopener noreferrer") caniuse.com].
 			figure
 				picture
 					source(srcset="img/article/colored_icons/img-1.avif", type="image/avif")
 					source(srcset="img/article/colored_icons/img-1.webp", type="image/webp")
 					img(src="img/article/colored_icons/img-1.jpg", alt="скрин со страницы caniuse.com", width="820", height="282", loading="lazy")
 				figcaption Поддержка браузерами свойства #[code mask-image] 96.83%
-			p Покажу на примере ссылки, так как там есть один небольшой нюанс.
+			p Покажу на&nbsp;примере ссылки, так как там есть один небольшой нюанс.
 			p Нашел такой вектор батарейку
 				svg(width="25", height="25", viewBox="0 0 32 32", xmlns="http://www.w3.org/2000/svg", style="margin:0 5px;display:inline-block;vertical-align:middle;", aria-hidden="true", focusable="false")
 					path(d="M0 20q0 2.5 1.76 4.26t4.26 1.76H24q2.5 0 4.26-1.76T30.02 20H32v-8h-1.98q0-2.46-1.76-4.22T24 6.02H6.02q-2.5 0-4.26 1.76T0 12v8zm4 0v-8q0-.83.58-1.4t1.44-.58H24q.83 0 1.4.57t.62 1.41v8q0 .83-.61 1.44t-1.41.58H6.02q-.84 0-1.44-.58T4 20zm2.02 0H8v-8H6.02v8zm4 0H12v-8h-1.98v8zm4 0H16v-8h-1.98v8z")
 				|:
 			+codeBlock('svg', '<svg width="800" height="800" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">\n <path d="M0 20q0 2.5 1.76 4.26t4.26 1.76H24q2.5 0 4.26-1.76T30.02 20H32v-8h-1.98q0-2.46-1.76-4.22T24 6.02H6.02q-2.5 0-4.26 1.76T0 12v8zm4 0v-8q0-.83.58-1.4t1.44-.58H24q.83 0 1.4.57t.62 1.41v8q0 .83-.61 1.44t-1.41.58H6.02q-.84 0-1.44-.58T4 20zm2.02 0H8v-8H6.02v8zm4 0H12v-8h-1.98v8zm4 0H16v-8h-1.98v8z"/>\n</svg>')
-			p Ну и прописываю ссылку в html:
+			p Ну&nbsp;и&nbsp;прописываю ссылку в&nbsp;html:
 			+codeBlock('html', '<a href="#" class="battery">\n  <span class="visually-hidden">уровень заряда батареи</span>\n</a>')
-			p Перехожу к стилям:
+			p Перехожу к&nbsp;стилям:
 			+codeBlock('css', `.battery {\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  mask-image: url(../img/battery.svg); /* маска */\n  mask-size: 40px 40px; /* размер маски */\n}\n\n.visually-hidden {\n  /* скрываем подпись доступности */\n  position: absolute;\n  width: 0;\n  height: 0;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  border: none;\n}`)
 			p И каков результат? Если вы используете #[i Firefox], то увидите батарейку зелёного цвета, а если другой браузер, то, скорее всего, увидите зелёный прямоугольник.
 			figure
 				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:#3c993c;mask-image:url(img/article/colored_icons/battery.svg);mask-size:40px 40px;")
 					span.visually-hidden уровень заряда батареи
-				figcaption Так выглядит работа текущего кода в вашем браузере
-			p Для того, что бы правильно отображалась иконка в хроме, достаточно добавить префикс #[code -webkit-]. Так как у мозилы для #[code mask-image] есть псевдоним #[code -webkit-mask-image], то если вы верстаете без префиксера, то можно написать только с префиксами, ну а если у вас сборщик, то и не нужно думать о префиксах))
+				figcaption Так выглядит работа текущего кода в&nbsp;вашем браузере
+			p Для того, что&nbsp;бы правильно отображалась иконка в&nbsp;хроме, достаточно добавить префикс #[code -webkit-]. Так как у&nbsp;мозилы для #[code mask-image] есть псевдоним #[code -webkit-mask-image], то&nbsp;если вы&nbsp;верстаете без префиксера, то&nbsp;можно написать только с&nbsp;префиксами, ну&nbsp;а&nbsp;если у&nbsp;вас сборщик, то&nbsp;и&nbsp;не&nbsp;нужно думать о&nbsp;префиксах))
 			+codeBlock('css', '.battery {\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}')
 			figure
 				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:40px 40px;")
 					span.visually-hidden уровень заряда батареи
-				figcaption Теперь, скорее всего, у вас отображается иконка батарейки.
-			p При необходимости можно поменять цвет иконки, например при наведении на ссылку, поменяв её фоновый цвет. Но тут есть один неприятный момент: при попадании в фокус не отображается оутлайн. Это логично: маска просто обрезает всё кроме мест, где картинка маски закрашена. Для решения этого вопроса достаточно внутри ссылки добавить псевдоэлемент, и ему добавить маску.
+				figcaption Теперь, скорее всего, у&nbsp;вас отображается иконка батарейки.
+			p При необходимости можно поменять цвет иконки, например при наведении на&nbsp;ссылку, поменяв её&nbsp;фоновый цвет. Но&nbsp;тут есть один неприятный момент: при попадании в&nbsp;фокус не&nbsp;отображается оутлайн. Это логично: маска просто обрезает всё кроме мест, где картинка маски закрашена. Для решения этого вопроса достаточно внутри ссылки добавить псевдоэлемент, и&nbsp;ему добавить маску.
 			figure
 				picture
 					source(srcset="img/article/colored_icons/img-2.avif", type="image/avif")
 					source(srcset="img/article/colored_icons/img-2.webp", type="image/webp")
 					img(src="img/article/colored_icons/img-2.png", alt="Слева как выглядит иконка в браузере, справа html код картинки", width="820", height="394", loading="lazy")
-				figcaption На картинке видно, что нет браузерной рамки у ссылки с иконкой.
-			p Поправлю и сразу добавлю изменение цвета иконки сразу, и получаю такой код:
+				figcaption На&nbsp;картинке видно, что нет браузерной рамки у&nbsp;ссылки с&nbsp;иконкой.
+			p Поправлю и&nbsp;сразу добавлю изменение цвета иконки сразу, и&nbsp;получаю такой код:
 			+codeBlock('css', `.battery {\n display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n}\n\n.battery::before {\n  content: '';\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}\n\n.battery:hover::before {\n	background-color: #ff6347;\n}`)
 			figure
 				a.battery(href="https://uzinok.ru/article/article/colored_icons/#")
 					span.visually-hidden уровень заряда батареи
 					style .battery{display:inline-block;width:100px;height:100px;}.battery::before {content:'';display:inline-block;width:100px;height:100px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:100px 100px;}.battery:hover::before{background-color:#ff6347;}
-				figcaption При наведении поменяется цвет, а в состоянии фокуса будет рамка.
+				figcaption При наведении поменяется цвет, а&nbsp;в&nbsp;состоянии фокуса будет рамка.
 	section
 		.container
-			h2 Иконка частично меняющая цвет
-			p Тут можно несколькими способами вставить иконку в html. Первый - просто скопировать код svg и вставить в html #[small (этот способ и буду использовать)]. Если иконка часто повторяется на странице - лучше использовать спрайт. #[small #[a(href="https://uzinok.ru/article/svg/add_svg_to_page/") Как добавить SVG на страницу правильно?]]
-			p Подготовил вектор с двумя цветами:
+			h2 Иконка частично меняющая цвет.
+			p Тут можно несколькими способами вставить иконку в&nbsp;html. Первый&nbsp;&mdash; просто скопировать код svg и&nbsp;вставить в&nbsp;html #[small (этот способ и&nbsp;буду использовать)]. Если иконка часто повторяется на&nbsp;странице&nbsp;&mdash; лучше использовать спрайт. #[small #[a(href="https://uzinok.ru/article/svg/add_svg_to_page/") Как добавить SVG на&nbsp;страницу правильно?]]
+			p Подготовил вектор с&nbsp;двумя цветами:
 				svg(xmlns='http://www.w3.org/2000/svg', width='25', height='25', viewBox='0 0 24 24', style="margin:0 5px;display:inline-block;vertical-align:middle;", aria-hidden="true", focusable="false")
 					path(d='M4.5 19.5a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0 3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5 3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5 3.54 3.54 0 0 0 5 0Z', style='fill:#2ca9bc;stroke-width:2')
 					path(d='M4.5 19.5h0a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0h0a3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5h0a3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5h0a3.54 3.54 0 0 0 5 0ZM10 14l4-4', style='fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2')
-				| Для того, что бы можно было взаимодействовать с одним из #[code path], задам дополнительный класс: #[code .changes-color]. Если это декоративная иконка, необходимо скрыть её от программ чтения с экранов добавив атрибуты #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden", target="_blank", rel="noopener noreferrer") #[code aria-hidden="true"]] и #[code focusable="false"]. В случае когда вектором нужно добавить контентную картинку, то необходимо добавить атрибут #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role", target="_blank", rel="noopener noreferrer") role="img"] ну и подпись. В таком виде вставлю код в html.
+				| Для того, что&nbsp;бы можно было взаимодействовать с&nbsp;одним&nbsp;из #[code path], задам дополнительный класс: #[code .changes-color]. Если это декоративная иконка, необходимо скрыть её&nbsp;от&nbsp;программ чтения с&nbsp;экранов добавив атрибуты #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden", target="_blank", rel="noopener noreferrer") #[code aria-hidden="true"]] и #[code focusable="false"]. В&nbsp;случае когда вектором нужно добавить контентную картинку, то&nbsp;необходимо добавить атрибут #[a(href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role", target="_blank", rel="noopener noreferrer") role="img"] ну&nbsp;и&nbsp;подпись. В&nbsp;таком виде вставлю код в&nbsp;html.
 			+codeBlock('html', `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 24 24" aria-hidden="true" focusable="false">\n  <path class="changes-color" style="fill: #2ca9bc; stroke-width: 2" d="M4.5 19.5a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0 3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5 3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5 3.54 3.54 0 0 0 5 0Z"/>\n  <path style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round;stroke-width: 2" d="M4.5 19.5h0a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0h0a3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5h0a3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5h0a3.54 3.54 0 0 0 5 0ZM10 14l4-4"/>\n</svg>`)
 			p Можно пробовать менять цвет
 			+codeBlock('css', '.changes-color {\n  fill: #ff6347;\n}')
-			p Цвет не поменяется если есть атрибут #[code fill] или через стили прописано это же свойство. И, частенько это может лечиться только удалением атрибутов.
+			p Цвет не&nbsp;поменяется если есть атрибут #[code fill] или через стили прописано это&nbsp;же свойство. И, частенько это может лечиться только удалением атрибутов.
 			+codeBlock('html', `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 24 24" aria-hidden="true" focusable="false">\n  <path class="changes-color" style="stroke-width: 2" d="M4.5 19.5a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0 3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5 3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5 3.54 3.54 0 0 0 5 0Z"/>\n  <path style="fill: none; stroke: #000; stroke-linecap: round; stroke-linejoin: round;stroke-width: 2" d="M4.5 19.5h0a3.54 3.54 0 0 1 0-5L7 12a3.54 3.54 0 0 1 5 0h0a3.54 3.54 0 0 1 0 5l-2.5 2.5a3.54 3.54 0 0 1-5 0Zm13-8L20 9a3.54 3.54 0 0 0 0-5h0a3.54 3.54 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 0 5h0a3.54 3.54 0 0 0 5 0ZM10 14l4-4"/>\n</svg>`)
 			p Теперь можно свободно применять стили:
 			+codeBlock('css', '.changes-color {\n  fill: #2ca9bc;\n}\n\nsvg:hover .changes-color {\n  fill: #ff6347;\n}')
@@ -78,7 +78,7 @@ block main
 	section
 		.container
 			h2.visually-hidden Итоги
-			p На самом деле сделать цветные иконки получилось очень просто. Осталось только понять где контентная, а где декоративная графика. Кстати, есть статья про #[a(href="https://uzinok.ru/article/article/img_and_attributes/") Тэг &lt;img&gt; и его атрибуты] и #[a(href="https://uzinok.ru/article/article/picture/") Picture – оптимизация графики].
+			p На&nbsp;самом деле сделать цветные иконки получилось очень просто. Осталось только понять где контентная, а&nbsp;где декоративная графика. Кстати, есть статья про #[a(href="https://uzinok.ru/article/article/img_and_attributes/") Тэг &lt;img&gt; и&nbsp;его атрибуты] и #[a(href="https://uzinok.ru/article/article/picture/") Picture&nbsp;&mdash; оптимизация графики].
 
 
 	//- section
