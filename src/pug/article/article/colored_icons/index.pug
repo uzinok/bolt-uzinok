@@ -35,7 +35,7 @@ block main
 				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:#3c993c;mask-image:url(img/article/colored_icons/battery.svg);mask-size:40px 40px;")
 					span.visually-hidden уровень заряда батареи
 				figcaption Так выглядит работа текущего кода в&nbsp;вашем браузере
-			p Для того, что&nbsp;бы правильно отображалась иконка в&nbsp;хроме, достаточно добавить префикс #[code -webkit-]. Так как у&nbsp;мозилы для #[code mask-image] есть псевдоним #[code -webkit-mask-image], то&nbsp;если вы&nbsp;верстаете без префиксера, то&nbsp;можно написать только с&nbsp;префиксами, ну&nbsp;а&nbsp;если у&nbsp;вас сборщик, то&nbsp;и&nbsp;не&nbsp;нужно думать о&nbsp;префиксах))
+			p Для того, что&nbsp;бы правильно отображалась иконка в&nbsp;хроме, достаточно добавить префикс #[code -webkit-]. Так как у&nbsp;мозилы для #[code mask-image] есть псевдоним #[code -webkit-mask-image], то&nbsp;если вы&nbsp;верстаете без префиксера, то&nbsp;можно написать только с&nbsp;префиксами #[small (но лучше и без префиксав тоже)], ну&nbsp;а&nbsp;если у&nbsp;вас сборщик, то&nbsp;и&nbsp;не&nbsp;нужно думать о&nbsp;префиксах))
 			+codeBlock('css', '.battery {\n  display: inline-block; /* для размеров */\n  width: 40px;\n  height: 40px;\n  background-color: #3c993c; /* фоновый цвет, чтобы было видно работу маски */\n  -webkit-mask-image: url(../img/battery.svg); /* маска */\n  -webkit-mask-size: 40px 40px; /* размер маски */\n}')
 			figure
 				a(href="https://uzinok.ru/article/article/colored_icons/#", style="display:inline-block;width:40px;height:40px;background-color:#3c993c;-webkit-mask-image:url(img/article/colored_icons/battery.svg);-webkit-mask-size:40px 40px;")
@@ -84,7 +84,7 @@ block main
 	section
 		.container
 			h2.visually-hidden видео
-			+zen-video("https://dzen.ru/embed/v7qTAnVTgDAY?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/64600fbe5e088d76811edaf4", "img/article/colored_icons/video-1")
+			+zen-video("https://dzen.ru/embed/vSEjX2cFiyyc?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/64600fbe5e088d76811edaf4", "img/article/colored_icons/video-1")
 
 
 
