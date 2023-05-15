@@ -1,0 +1,229 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+
+	section
+		.container
+			h2 Привет.
+			p Как стилизовать упорядоченные списки? Как добавить ведущий ноль у&nbsp;такого списка? Что делать если у&nbsp;вас вложенный список? Самый простой вариант: писать спаны. Но&nbsp;это как-то грустно:Как стилизовать упорядоченные списки? Как добавить ведущий ноль у&nbsp;такого списка? Что делать если у&nbsp;вас вложенный список? Самый простой вариант: писать спаны. Но&nbsp;это как-то грустно:
+			ol
+				li Можно пропустить нужное число
+				li При изменении порядка сложно следить за&nbsp;порядком
+				li Неудобно работать над проектом при лишних html элементах
+			p Можно ещё найти грустных моментов, но&nbsp;сегодня вопрос не&nbsp;о&nbsp;минусах, а&nbsp;о&nbsp;том как это можно стилизовать.
+	section
+		.container
+			h2 Кастомизация простого упорядоченного списка.
+			blockquote(cite="https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Counter_Styles/Using_CSS_countes")
+				| CSS счётчики, в&nbsp;своей сущности, переменные CSS, значения которых  могут быть инкрементированы при помощи CSS для отслеживания  количества их&nbsp;использования. Они позволяют регулировать внешний  вид контента, основываясь на&nbsp;его местоположении в&nbsp;документе.  CSS счётчики реализованы в&nbsp;CSS 2.1
+			p Ну&nbsp;или по&nbsp;другому #[code counter] это функция, которая принимает параметры, и, для того, что&nbsp;бы она заработала нужно её&nbsp;включить.
+			p Начну с&nbsp;самого простого:
+			+codeBlock('html', `<ol class="list">\n  <li class="item">первый</li>\n  <li class="item">второй</li>\n  <li class="item">третий</li>\n</ol>`)
+			p Для начала необходимо удалить у&nbsp;списка браузерные маркеры #[code list-style-type: none;] и&nbsp;обнулить/создать счетчик: #[code counter-reset: item;]. Далее элементам списка добавим псевдоэлементы, увеличим счётчик #[code counter-increment: item;] и&nbsp;в #[code content] добавим номер текущего элемента #[code content: counter(item);]. В&nbsp;данном примере item это переменная которую я&nbsp;придумал, вы&nbsp;можете добавить своё название. Для видимости работы скрипта изменю ещё цвет и&nbsp;добавлю точку после номера. На&nbsp;выходе получаю такой код:
+			+codeBlock('css', `.list {\n  /* убираем браузерные маркеры */\n  list-style-type: none;\n  /* Устанавливает значение счётчика, равным 0 */\n  counter-reset: item;\n}\n\n.item::before {\n  color: #ff6347;\n  /* Инкрементирует счётчик*/\n  counter-increment: item;\n  /* Отображает текущее значение счётчика */\n  content: counter(item) ". ";\n}`)
+			figure
+				ol.list-1
+					li.item-1 первый
+					li.item-1 второй
+					li.item-1 третий
+				style .list-1{list-style-type:none;counter-reset:item;}.item-1::before{color:#ff6347;counter-increment:item;content:counter(item)". ";}
+				figcaption В&nbsp;результате получаем кастомный нумерованный список.
+	section
+		.container
+			h2 Счетчик с ведущим нулём.
+			p Тут на&nbsp;столько всё просто что не&nbsp;буду добавлять весь код. Единственное, что необходимо сделать, так это в&nbsp;коунтэр добавить второй параметр через запятую: #[code decimal-leading-zero].
+			figure
+				ol.list-2
+					li.item-2 первый
+					li.item-2 второй
+					li.item-2 третий
+				style .list-2{list-style-type:none;counter-reset:item;}.item-2::before{color:#ff6347;counter-increment:item;content:counter(item, decimal-leading-zero)". ";}
+				figcaption Список с ведущим нулём.
+			p Вместо ведущего нуля можно добавлять и&nbsp;другие значения свойства #[code list-style-type].
+	section
+		.container
+			h2 Вложенные списки.
+			p Усложнение будет совсем несложным. Необходимо только заменить функцию #[code counter] на #[code counters] и&nbsp;добавить второй обязательный параметр, который будет разделителем у&nbsp;нумерации вложенных списков: #[code content: counters(item, &laquo;.&raquo;);].
+			p Так&nbsp;же как и&nbsp;у&nbsp;коунтер можно добавить ведущий ноль или поменять тип нумерации #[code content: counters(item, &laquo;.&raquo;, decimal-leading-zero) &quot; &quot;;].
+			figure
+				ol.list-3
+					li.item-3 первый
+					li.item-3 второй
+						ol.list-3
+							li.item-3 первый
+							li.item-3 второй
+							li.item-3 третий
+					li.item-3 третий
+				style .list-3{list-style-type:none;counter-reset:item;}.item-3::before{color:#ff6347;counter-increment:item;content:counters(item, ".", lower-greek)". ";}
+				figcaption Вложенный список с нумерацией греческими буквами.
+	section
+		.container
+			h2 Нюанс для студентов.
+			p Если добавить подобную кастомизацию списку, элементы которого могут быть скрыты, то&nbsp;для вас может быть неожиданный результат, нумерация пойдёт не&nbsp;по&nbsp;плану.
+			h3 Рассмотрим на&nbsp;примере слайдера.
+			p.warning Важно помнить что этот пример для простейшего слайдера, который не&nbsp;стоит использовать для продакшена, так как есть проблемы с&nbsp;доступностью. Это пример для понимания как работает css
+			p Я&nbsp;сделал простейший слайдер:
+			+codeBlock('html', `<ol class="slider list">\n  <li class="item">первый</li>\n  <li class="item">второй</li>\n  <li class="item">третий</li>\n</ol>\n\n<div class="button-wrap">\n  <button class="button-prew">Назад</button>\n  <button class="button-next">Вперед</button>\n</div>`)
+			+codeBlock('css', `.button-wrap {\n  display: flex;\n  justify-content: center;\n}\n\n.slider {\n  position: relative;\n  width: 300px;\n  height: 100px;\n  margin-left: auto;\n  margin-right: auto;\n  border: 1px solid turquoise;\n  padding: 0;\n}\n\n.item {\n  width: 300px;\n  height: 100px;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n.item:not(.item--active) {\n  display: none;\n}`)
+			+codeBlock('js', `const slider = document.querySelector('.slider');\nconst sliderItems = document.querySelectorAll('.slider .item');\nconst next = document.querySelector('.button-next');\nconst prew = document.querySelector('.button-prew');\nlet count = 0;\n\nconsole.log(sliderItems);\nconsole.log(next);\nconsole.log(prew);\n\nsliderItems[count].classList.add('item--active');\n\nnext.addEventListener('click', function () {\n  if (count < sliderItems.length - 1) {\n    count++;\n    slider.querySelector('.item--active').classList.remove('item--active');\n    sliderItems[count].classList.add('item--active');\n  }\n});\n\nprew.addEventListener('click', function () {\n  if (count >= 1) {\n    count--;\n    slider.querySelector('.item--active').classList.remove('item--active');\n    sliderItems[count].classList.add('item--active');\n  }\n});`)
+			ol.slider.list-1
+				li.item-1 первый
+				li.item-1 второй
+				li.item-1 третий
+			.button-wrap
+				button.button-prew Назад
+				button.button-next Вперед
+			style.
+
+				.button-wrap {
+					display: flex;
+					justify-content: center;
+				}
+
+				.slider {
+					position: relative;
+					width: 300px;
+					height: 100px;
+					margin-left: auto;
+					margin-right: auto;
+					border: 1px solid turquoise;
+					padding: 0;
+				}
+
+				.item-1 {
+					width: 300px;
+					height: 100px;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+
+				.item-1:not(.item--active) {
+					display: none;
+				}
+
+			script.
+
+				const slider = document.querySelector('.slider');
+				const sliderItems = document.querySelectorAll('.slider .item-1');
+				const next = document.querySelector('.button-next');
+				const prew = document.querySelector('.button-prew');
+				let count = 0;
+
+				console.log(sliderItems);
+				console.log(next);
+				console.log(prew);
+
+				sliderItems[count].classList.add('item--active');
+
+				next.addEventListener('click', function () {
+					if (count < sliderItems.length - 1) {
+						count++;
+						slider.querySelector('.item--active').classList.remove('item--active');
+						sliderItems[count].classList.add('item--active');
+					}
+				});
+
+				prew.addEventListener('click', function () {
+					if (count >= 1) {
+						count--;
+						slider.querySelector('.item--active').classList.remove('item--active');
+						sliderItems[count].classList.add('item--active');
+					}
+				});
+			p По&nbsp;кликам на&nbsp;кнопки вперёд и&nbsp;назад, когда меняется контент, нумерация не&nbsp;меняется. Для того чтобы нумерация менялась, необходимо сделать следующее:
+			ol
+			li Добавить внутри элемента списка враппер для контента, в&nbsp;моём случае это #[code p]
+			li Скрывать именно контент, а&nbsp;не&nbsp;сам элемент списка.
+			p То&nbsp;есть немного поменяю css.
+			+codeBlock('css', `.button-wrap {\n  display: flex;\n  justify-content: center;\n}\n\n.slider {\n  position: relative;\n  width: 300px;\n  height: 100px;\n  margin-left: auto;\n  margin-right: auto;\n  border: 1px solid turquoise;\n  padding: 0;\n}\n\n.item {\n  width: 300px;\n  height: 100px;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n\n/* .item:not(.item--active) {\n  display: none;\n} */\n\n.item:not(.item--active) p {\n  display: none;\n}\n\n.item:not(.item--active)::before {\n  color: transparent;\n}`)
+			ol.sliderS.list-s
+				li.item-s
+					p первый
+				li.item-s
+					p второй
+				li.item-s
+					p третий
+			.button-wrap
+				button.button-prew-s Назад
+				button.button-next-s Вперед
+			style.
+
+				.button-wrap {
+					display: flex;
+					justify-content: center;
+				}
+
+				.sliderS {
+					position: relative;
+					width: 300px;
+					height: 100px;
+					margin-left: auto;
+					margin-right: auto;
+					border: 1px solid turquoise;
+					padding: 0;
+					counter-reset: item;
+				}
+
+				.item-s {
+					width: 300px;
+					height: 100px;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+
+				.item-s:not(.item--active) p {
+					display: none;
+				}
+
+				.item-s:not(.item--active)::before {
+					color: transparent;
+				}
+
+			script.
+
+				const sliderS = document.querySelector('.sliderS');
+				const sliderItemsS = document.querySelectorAll('.sliderS .item-s');
+				const nextS = document.querySelector('.button-next-s');
+				const prewS = document.querySelector('.button-prew-s');
+				let countS = 0;
+
+				sliderItemsS[countS].classList.add('item--active');
+
+				nextS.addEventListener('click', function () {
+					if (countS < sliderItemsS.length - 1) {
+						countS++;
+						sliderS.querySelector('.item--active').classList.remove('item--active');
+						sliderItemsS[countS].classList.add('item--active');
+					}
+				});
+
+				prewS.addEventListener('click', function () {
+					if (countS >= 1) {
+						countS--;
+						sliderS.querySelector('.item--active').classList.remove('item--active');
+						sliderItemsS[countS].classList.add('item--active');
+					}
+				});
+	section
+		.container
+			h2 В итоге.
+			p Используя #[code counter] и #[code counters] можно легко кастомизировать нумерацию упорядоченного списка, избежав неудобств и&nbsp;затруднений во&nbsp;время верстки и&nbsp;поддержки проекта.
+
+	//- section
+	//- 	.container
+	//- 		h2.visually-hidden видео
+	//- 		+zen-video("https://dzen.ru/embed/vH1Bg7E8TgRk?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/63b2d43151ee5b461f05603f", "img/article/child_css_selector/video-1")
+
+
+
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
