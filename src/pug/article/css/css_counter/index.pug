@@ -167,6 +167,7 @@ block main
 					border: 1px solid turquoise;
 					padding: 0;
 					counter-reset: item;
+					list-style-type: none;
 				}
 
 				.item-s {
@@ -175,6 +176,12 @@ block main
 					position: absolute;
 					top: 0;
 					left: 0;
+				}
+
+				.item-s::before {
+					color: #ff6347;
+					counter-increment: item;
+					content: counter(item) ". ";
 				}
 
 				.item-s:not(.item--active) p {
