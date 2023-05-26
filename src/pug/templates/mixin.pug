@@ -13,12 +13,12 @@ mixin mainHeader(heading, subHeading, group)
 
 				if group == 'other'
 					li
-						a(href=`article/${idPage}/`, aria-current="page") #{nameGroup}
+						a(href=`article/${idPage}/`, aria-current="location") #{nameGroup}
 				else
 						li
 							a(href=`article/${group}/`,) #{nameGroup}
 						li
-							a(href=`article/${group}/${idPage}/`, aria-current="page") #{heading}
+							a(href=`article/${group}/${idPage}/`, aria-current="location") #{heading}
 
 			if idPage != 'index'
 				if group != 'other'
