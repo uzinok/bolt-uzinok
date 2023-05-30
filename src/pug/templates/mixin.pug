@@ -44,6 +44,12 @@ mixin articleCard(title, descCard, file, date = 'Дата потерялась')
 			if date
 				span.card__date #{date}
 
+mixin navLink(idCurrentPage, nameLink)
+	if idPage == idCurrentPage
+		a.header__link(href=idPage == 'index' ? '#${idCurrentPage}' : `article/${idCurrentPage}/`, aria-current="page") #{nameLink}
+	else
+		a.header__link(href=idPage == 'index' ? `#${idCurrentPage}` : `article/${idCurrentPage}/`) #{nameLink}
+
 mixin zen-video(dataIframe, urlVideo, urlImg)
 	.media-dzen(data-iframe=`${dataIframe}`)
 		a.media-dzen__link(href=`${urlVideo}`, target="_blank", rel="noopener noreferrer")
@@ -54,9 +60,3 @@ mixin zen-video(dataIframe, urlVideo, urlImg)
 
 		button.media-dzen__play(type="button")
 			span.visually-hidden Воспроизвести видео
-
-mixin navLink(idCurrentPage, nameLink)
-	if idPage == idCurrentPage
-		a.header__link(href=idPage == 'index' ? '#${idCurrentPage}' : `article/${idCurrentPage}/`, aria-current="page") #{nameLink}
-	else
-		a.header__link(href=idPage == 'index' ? `#${idCurrentPage}` : `article/${idCurrentPage}/`) #{nameLink}

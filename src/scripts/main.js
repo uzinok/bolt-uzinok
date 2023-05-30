@@ -194,6 +194,7 @@ function mediaDzen(elem) {
 		iframe.setAttribute('frameborder', 0);
 		iframe.setAttribute('scrolling', 'no');
 		iframe.setAttribute('allowfullscreen', '');
+		iframe.title = document.querySelector('h1').innerText;
 
 		elem.append(iframe);
 
