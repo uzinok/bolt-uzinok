@@ -188,13 +188,13 @@ function mediaDzen(elem) {
 	play.addEventListener('click', function() {
 		const iframe = document.createElement('iframe');
 		iframe.src = elem.dataset.iframe;
-		elem.removeAttribute('data-iframe')
+		if (elem.dataset.title)
+			iframe.title = elem.dataset.title;
 		iframe.classList.add('media-dzen__visible');
 		iframe.setAttribute('allow', 'autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media');
 		iframe.setAttribute('frameborder', 0);
 		iframe.setAttribute('scrolling', 'no');
 		iframe.setAttribute('allowfullscreen', '');
-		iframe.title = document.querySelector('h1').innerText;
 
 		elem.append(iframe);
 
