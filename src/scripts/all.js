@@ -16,7 +16,7 @@ function nav() {
 	const toggleText = document.querySelector('.header__nav-toggle span');
 
 	function initNav() {
-		if (window.innerWidth >= 768) {
+		if (window.innerWidth >= 575) {
 			toggle.classList.add('header__nav-toggle--close');
 			headerList.style.display = '';
 			toggle.removeAttribute('aria-controls', 'menu');

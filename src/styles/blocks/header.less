@@ -194,6 +194,21 @@
 		background-color: transparent;
 		border: 0;
 		appearance: none;
+		transition: opacity var(--transition-duration) var(--transition-function);
+
+		&:hover {
+			opacity: 0.7;
+		}
+
+		&:active {
+			opacity: 1;
+
+			&::before,
+			&::after {
+				color: var(--color-active);
+				background-color: var(--color-active);
+			}
+		}
 
 		&::before,
 		&::after {
@@ -205,7 +220,7 @@
 			color: var(--page-body);
 			background-color: var(--page-body);
 			box-shadow: 0 0 0 currentColor;
-			transition: transform var(--transition-duration) var(--transition-function), box-shadow var(--transition-duration) var(--transition-function);
+			transition: transform var(--transition-duration) var(--transition-function), box-shadow var(--transition-duration) var(--transition-function), background-color var(--transition-duration) var(--transition-function), color var(--transition-duration) var(--transition-function);
 		}
 
 		&::before {
@@ -237,9 +252,9 @@
 
 	.header__list {
 		position: fixed;
-		z-index: 1;
 		top: 88px;
 		right: 0;
+		z-index: 1;
 		flex-direction: column;
 		align-items: flex-end;
 		box-sizing: border-box;
@@ -249,16 +264,16 @@
 		transition: transform var(--transition-duration) var(--transition-function);
 
 		&::before {
-			opacity: 0.8;
-			backdrop-filter: blur(10px);
+			content: '';
 			position: absolute;
 			top: 0;
 			left: 0;
+			z-index: -1;
 			width: 100%;
 			height: 100%;
-			content: '';
-			z-index: -1;
 			background-color: var(--page-text);
+			opacity: 0.8;
+			backdrop-filter: blur(10px);
 		}
 
 		& .header__item:last-child {
