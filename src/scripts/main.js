@@ -1,6 +1,3 @@
-const noJs = document.querySelector('.no-js');
-noJs.classList.remove('no-js');
-
 function code(code) {
 	const btn = code.querySelector('.code__copy');
 	const pre = code.querySelector('pre');
@@ -73,15 +70,6 @@ function code(code) {
 					cssClass: 'bolt-chips--danger'
 				});
 			});
-	}
-}
-
-function setYear() {
-	new Date().getFullYear();
-	const yearElem = document.querySelectorAll('.ryear');
-
-	for (let i = 0; i < yearElem.length; i++) {
-		yearElem[i].innerText = new Date().getFullYear();
 	}
 }
 
@@ -206,7 +194,6 @@ function mediaDzen(elem) {
 }
 
 window.addEventListener('load', () => {
-	setYear();
 	if (document.querySelector('.bg-canvas'))
 		bdCanvas();
 
