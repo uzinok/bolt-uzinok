@@ -50,7 +50,7 @@ function nav() {
 		toggleText.innerText = 'Открыть меню';
 		window.setTimeout(function() {
 			headerList.style.display = 'none';
-			toggle.removeAttribute('aria-expanded');
+			toggle.setAttribute('aria-expanded', false);
 		}, 250);
 	}
 
