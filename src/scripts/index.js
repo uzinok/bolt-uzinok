@@ -1,15 +1,3 @@
-const noJs = document.querySelector('.no-js');
-noJs.classList.remove('no-js');
-
-function setYear() {
-	new Date().getFullYear();
-	const yearElem = document.querySelectorAll('.ryear');
-
-	for (let i = 0; i < yearElem.length; i++) {
-		yearElem[i].innerText = new Date().getFullYear();
-	}
-}
-
 // Звёздный фон
 function bdCanvas(canvas) {
 	document
@@ -312,8 +300,6 @@ function topArrow() {
 }
 
 window.addEventListener('load', () => {
-	setYear();
-
 	if (document.querySelector('#bg-canvas'))
 		bdCanvas(document.querySelector('#bg-canvas'));
 
