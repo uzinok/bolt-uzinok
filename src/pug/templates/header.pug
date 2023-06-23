@@ -8,10 +8,10 @@ header.header(class=idPage == 'index' ? 'header--index' : '')
 					use(href="./img/sprite.svg#logo")
 				span Записки верстальщика
 
-			button.header__nav-toggle.header__nav-toggle--close(type="button")
+			button#menubutton.header__nav-toggle.header__nav-toggle--close(type="button")
 				span.visually-hidden Открыть меню
 
-			ul.header__list
+			ul#menu.header__list
 				li.header__item
 					+navLink('css', 'CSS')
 				li.header__item
