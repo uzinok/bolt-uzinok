@@ -119,7 +119,7 @@ body:not(.index) {
 				width: 0.7em;
 				height: 0.7em;
 				vertical-align: middle;
-				background-color: var(--color-hover);
+				background-color: currentColor;
 				mask-image: url(../../img/sprite.svg#link-blank);
 				mask-size: contain;
 				mask-repeat: no-repeat;
@@ -153,12 +153,20 @@ body:not(.index) {
 		& a {
 			transition: color var(--transition-duration) var(--transition-function);
 
+			&:link {
+				color: #0000EE;
+			}
+
+			&:visited {
+				color: #551A8B;
+			}
+
 			&:hover {
 				color: var(--color-hover);
 			}
 
 			&:active {
-				color: var(--color-active);
+				color: #EE0000;
 			}
 		}
 
