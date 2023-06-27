@@ -67,7 +67,7 @@ function nav() {
 	});
 
 	headerList.addEventListener('click', function(e) {
-		if (e.target.nodeName == 'A') {
+		if (e.target.nodeName == 'A' && window.innerWidth <= 575) {
 			closeNav();
 		}
 	});
