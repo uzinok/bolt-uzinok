@@ -231,8 +231,34 @@ iframe[src*="dzen.ru"] {
 	text-shadow: 0 0 1px var(--color-active);
 }
 
+abbr[data-title],
 abbr[title] {
 	text-transform: uppercase;
 	text-decoration: underline dotted;
 	text-decoration-thickness: 1px;
+}
+
+.title-text {
+	position: fixed;
+	opacity: 0;
+	transition: opacity 100ms;
+	pointer-events: none;
+	text-align: center;
+
+	& span {
+		display: inline-block;
+		width: max-content;
+		width: 100%;
+		max-width: 100%;
+		padding: 2px;
+		font-size: 12px;
+		color: #170c0c;
+		background-color: #f9f9f9;
+		border: 1px solid #000;
+	}
+
+}
+
+.title-text-v {
+	opacity: 1;
 }
