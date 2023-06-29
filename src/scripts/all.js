@@ -122,12 +122,13 @@ function abbr() {
 				span.classList.add('title-text-v');
 			}, 0)
 
-			const checkTop = e.clientY + span.offsetHeight;
-			let top = e.clientY
+			const spanHeight = span.offsetHeight;
+			let top = e.target.getBoundingClientRect().top - spanHeight - 2;
 
-			if (checkTop > window.innerHeight) {
-				top = window.innerHeight - span.offsetHeight;
+			if (top < 0) {
+				top = spanHeight;
 			}
+
 			span.style.top = top + "px";
 
 			if ((window.innerWidth - e.clientX) > 200) {
@@ -135,13 +136,17 @@ function abbr() {
 			} else {
 				let left = window.innerWidth - 2 * span.offsetWidth;
 
-				if (left < 0) left = 15;
+				if (left < 10) left = 10;
 
 				span.style.left = left + 2 + "px";
 
 				if (e.clientX - (left + span.offsetWidth) > 0) {
 					span.style.left = left + (e.clientX - (left + span.offsetWidth)) + "px";
 				}
+			}
+
+			if (span.getBoundingClientRect().right >= document.body.clientWidth) {
+				span.style.right = '10px';
 			}
 
 			e.target.addEventListener('mouseout', (e) => {
