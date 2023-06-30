@@ -1,0 +1,133 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+
+	section
+		.container
+			h2.visually-hidden Вступление
+			p Практически у&nbsp;каждого сайта есть элементы с&nbsp;фоном: вся страница, отдельные блоки, кнопки, иконки многое другое. Но&nbsp;на&nbsp;самом деле это свойство скрывает большие возможности.
+
+	section
+		.container
+			h2 Фоновый цвет
+			p Начну с&nbsp;самого простого: фоновый цвет. Это самое простое что, можно сделать) нужно всего одно свойство: #[code background-color]. Ну&nbsp;и&nbsp;значение его&nbsp;&mdash; это цвет. Цвет можно указать разными форматами: ключевые слова #[small (red)], #[abbr(title='Hexidecimal') hex] #[small (#ff0000)], #[abbr(title='hue, saturation, lightness') hsl] #[small (hsl(0, 100%, 50%))], #[abbr(title='Hue, Whiteness, Blackness') hwb] #[small (hwb(0 0%&nbsp;0%))], #[abbr(title='red, green, blue') rgb] #[small (rgb(255, 0, 0))]. Как работают эти форматы не&nbsp;буду рассказывать, но&nbsp;тут не&nbsp;без нюанса: что делать если нужен полупрозрачный фон? Практически все цвета поддерживают полупрозрачность, но&nbsp;есть ещё формат #[abbr(title='red, green, blue, alpha') rgba] #[small (rgba(255, 0, 0, 0.5))]. Где именно последний параметр #[small (0.5)] указывает на&nbsp;прозрачность.
+			p На&nbsp;самом деле у&nbsp;rgb есть несколько форматов, которые позволяют добавлять прозрачность. Подробнее о&nbsp;цветах можно почитать тут: #[a(href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value") &lt;color&gt;].
+			p Отдельно стоит сказать про пару ключевых слов: #[code transparent] и&nbsp;#[code currentColor]
+			p Первое это полностью прозрачный цвет, больше про него и&nbsp;нечего добавить, а&nbsp;вот #[code currentColor] это уже более интересное значение цвета:
+			blockquote(site='https://developer.mozilla.org/en-US/docs/Web/CSS/color_value').
+				Ключевое слово #[code currentColor] представляет значение свойства элемента #[a(href='https://developer.mozilla.org/en-US/docs/Web/CSS/color', target='_blank', rel='noopener noreferrer') color (en-US)]. Это позволяет использовать значение color для свойств, которые не&nbsp;получают его по&nbsp;умолчанию.
+			p То&nbsp;есть, элементу можно задать фоновый цвет currentColor и&nbsp;он&nbsp;будет такого&nbsp;же цвета, как и&nbsp;текст. А&nbsp;рассмотреть это можно на&nbsp;примере кнопки меню.
+			+codeBlock('html', `<button type="button" class="button">Меню</button>`)
+			+codeBlock('css', `.button {\n  display: flex;\n  color: tomato;\n  align-items: center;\n  border: 0;\n  background-color: transparent;\n  line-height: 1;\n}\n\n.button:hover {\n  color: blueviolet;\n}\n\n.button::before {\n  content: '';\n  display: block;\n  width: 24px;\n  height: 24px;\n  margin-right: 6px;\n  background-color: currentColor;\n  mask-image: url(./img/burger-menu-right-svgrepo-com.svg);\n  -webkit-mask-image: url(./img/burger-menu-right-svgrepo-com.svg);\n  mask-size: 24px 24px;\n  -webkit-mask-size: 24px 24px;\n  mask-position: center;\n  -webkit-mask-position: center;\n}`)
+			p Как видно из&nbsp;примера, нет необходимости прописывать дважды фоновый цвет псевдоэлементу в&nbsp;спокойном состоянии кнопки и&nbsp;в&nbsp;состоянии наведения. Он&nbsp;просто меняется вместе с&nbsp;цветом текста кнопки.
+			figure
+				button.button(type='button') Меню
+					style .button{display:flex;color:tomato;align-items:center;border:0;background-color:transparent;line-height:1}.button:hover{color:#8a2be2}.button:before{content:'';display:block;width:24px;height:24px;margin-right:6px;background-color:currentColor;mask-image:url(./img/article/background/burger-menu-right-svgrepo-com.svg);-webkit-mask-image:url(./img/article/background/burger-menu-right-svgrepo-com.svg);mask-size:24px 24px;-webkit-mask-size:24px 24px;mask-position:center;-webkit-mask-position:center}
+				figcaption Пример кнопки с использованием #[code background-color: currentColor;]
+
+	section
+		.container
+			h2 Фоновая картинка
+			p Если нужно добавить фон картинкой, нужно подготовить эту картинку и&nbsp;знать #[a(href='https://dzen.ru/video/watch/63b2e50e7fc57c5d5d99ae89', target='_blank', rel='noopener noreferrer') как прописать путь до&nbsp;картинки]. Далее добавляем свойство #[code background-image: url(pictyre. png);].
+			p Если фоновая картинка паттерн&nbsp;&mdash; то&nbsp;всё&nbsp;ок, а&nbsp;если нам не&nbsp;нужно чтобы картинка повторялась&nbsp;&mdash; повтор можно отключить: #[code background-repeat: no-repeat;]. У&nbsp;этого свойства есть и&nbsp;другие значения: #[code repeat-x] и&nbsp;#[code repeat-y]. Эти значения включат повтор картинок либо по&nbsp;оси &laquo;x&raquo;, либо по&nbsp;оси &laquo;y&raquo;. Так&nbsp;же можно повторять картинку, например, по&nbsp;оси &laquo;x&raquo; таким образом: #[code background-repeat: repeat no-repeat];
+			p У&nbsp;#[code background-repeat] есть ещё значение: #[code space].
+			blockquote(site='https://developer.mozilla.org/en-US/docs/Web/CSS/background-repeat').
+				Изображение повторяется в&nbsp;заданном направлении столько раз, сколько необходимо, чтобы покрыть большую часть области рисования фонового изображения, не&nbsp;обрезая изображение. Оставшееся незакрытое пространство равномерно распределено между изображениями. Первое и&nbsp;последнее изображения касаются края элемента.
+			p Есть ещё значение #[code round]. Это значение работает примерно так же как и #[code space], но может изменять размер фоновых картинок.
+			p Эти два свойства лучше использовать с&nbsp;осторожностью, иногда они работают не&nbsp;очевидно.
+			p В&nbsp;качестве примера можно показать случай со&nbsp;звёздами:
+			+codeBlock('html', `<div class="star star-4"></div>`)
+			+codeBlock('css', `.star {\n  height: 17px;\n  width: 105px;\n}\n\n.star::before {\n  content: '';\n  display: block;\n  height: 17px;\n  background-image: url(./img/star.svg);\n  background-repeat: space no-repeat;\n  background-size: contain;\n}\n\n.star-4::before {\n  width: 85px;\n}`)
+			figure
+				.star.star-4
+					style .star{height:17px;width:105px}.star:before{content:'';display:block;height:17px;background-image:url(./img/article/background/star.svg);background-repeat:space no-repeat;background-size:contain}.star-4:before{width:85px}
+				figcaption Пример фона со свойством #[code background-repeat:space]
+			p В&nbsp;этом случае звёзды повторяются только по&nbsp;оси &laquo;x&raquo;, причем не&nbsp;слипаются, а&nbsp;заполняют всё доступное расстояние. #[code background-size: contain;] я&nbsp;добавил для того, что&nbsp;бы звезда всегда была вписана в&nbsp;контейнер по&nbsp;высоте.
+			p Так&nbsp;же, фоновую картинку можно и&nbsp;позиционировать внутри контейнера: #[code background-position]. В&nbsp;значении этого свойства можно указать как ключевые слова (top, right, bottom, left), так и&nbsp;единицы измерения (px, em, rem, %...). При этом стоит помнить следующее: если мы&nbsp;задаём позиционирование фоновой картинки так: #[code background-position: 10px 20px;] первое значение (10px) смещение по&nbsp;оси &laquo;x&raquo;, а&nbsp;второе (20px)&nbsp;&mdash; по&nbsp;оси &laquo;y&raquo;. Если что&nbsp;бы картинка смещалась, к&nbsp;примеру, на&nbsp;10px относительно правого края, можно прописать свойство так: #[code background-position: right 10px 20px;]. Особенно часто это использую при добавлении кастомной стрелки элементу #[code &laquo;select&raquo;].
+			+codeBlock('html', `<select name="name" class="select">\n  <option>пример</option>\n</select>`)
+			+codeBlock('css', `.select {\n  appearance: none;\n  background-image: url(./img/select.svg);\n  background-repeat: no-repeat;\n  background-position: right 10px center;\n  padding-right: 30px;\n}`)
+			figure
+				select.select
+					option пример
+				style .select{appearance:none;background-image:url(./img/article/background/select.svg);background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;}
+				figcaption Пример работы свойства #[code background-position:right 10px center;]
+			p Если у&nbsp;блока есть фоновая картинка и&nbsp;текст, то&nbsp;принято задавать фоновый цвет этому блоку. Причём этот цвет должен быть преобладающим на&nbsp;картинке. Это необходимо на&nbsp;случай если картинка не&nbsp;загрузится. У&nbsp;нас останется фоновый цвет и&nbsp;текст будет виден. Так&nbsp;же, тут&nbsp;же, лучше прописать и&nbsp;цвет текста, максимально контрастный с&nbsp;фоновым цветом. Как правило, его добавляет дизайнер сразу.
+			+codeBlock('html', `<div class="bg">\n  <pre>\nЩипцами брюки разлохмачу,\nГребёнкой волосы взъерошу.\nЭффектно ожидать удачу\nДо самой смерти я не брошу!\n  </pre>\n</div>`)
+			+codeBlock('css', `.bg {\n  width: 240px;\n  height: 240px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 16px;\n  background-image: url(./img/bg.jpg);\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-color: #131112;\n  color: #ffffff;\n  padding: 20px;\n}`)
+			figure
+				.bg
+					pre.
+						Щипцами брюки разлохмачу,
+						Гребёнкой волосы взъерошу.
+						Эффектно ожидать удачу
+						До самой смерти я не брошу!
+					style .bg{width:240px;height:240px;display:flex;align-items:center;justify-content:center;font-size:16px;background-image:url(./img/article/background/bg.jpg);background-position:center;background-repeat:no-repeat;background-size:cover;background-color:#131112;color:#fff;padding:20px}
+				figcaption Пример вывода фоновой картинки с фоновым цветом и цветом текста.
+			p В&nbsp;инспекторе можете убрать фоновую картинку, чтобы увидеть работу такого подхода.
+			p Со&nbsp;свойством #[code background-image] часто добавляется ещё и&nbsp;#[code background-size]. Принимает в&nbsp;качестве значения как ключевые слова (contain, cover...) так и&nbsp;более точные размеры (px, %...). Contain вписывает картинку в&nbsp;блок, оставляя пустые места, а&nbsp;cover полностью заливает картинкой всю доступную область. Особенно удобно использовать ключевые слова когда размеры блока могут меняться.
+			p На&nbsp;самом деле background-image может принимать не&nbsp;только url картинок, но&nbsp;и, к&nbsp;примеру, градиенты. Подробнее можно почитать #[a(href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_images/Using_CSS_gradients", target='_blank', rel='noopener noreferrer') тут]
+			p Так&nbsp;же #[code background-image] может принимать несколько картинок.
+			p Прописать несколько картинок проще простого: #[code background-image: url(./img/frame.png), url(./img/rabbit.jpg);]
+			+codeBlock('html', `<div class="rabbit"></div>`)
+			+codeBlock('css', `.rabbit {\n  width: 280px;\n  height: 280px;\n  background-image: url(./img/frame.png), url(./img/rabbit.jpg);\n  background-size: contain, cover;\n  background-position: center;\n  background-repeat: no-repeat;\n}`)
+			figure
+				.rabbit(title="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Продолжил переписывается города по всей, до, путь текста страну над моей несколько безопасную, о власти обеспечивает! Подзаголовок обеспечивает даль взобравшись маленький.")
+					style .rabbit{width:280px;height:280px;background-image:url(./img/article/background/frame.png),url(./img/article/background/rabbit.jpg);background-size:contain,cover;background-position:center;background-repeat:no-repeat}
+				figcaption Пример вывода двух фоновых картинок.
+			p Не&nbsp;стоит забывать про порядок фоновых картинок и&nbsp;порядок значений других свойств.
+			p #[code background-size: contain, cover;] означает что первая картинка (рамка) будет вписана в&nbsp;размер блока, а&nbsp;вторая зальёт собой всё доступное пространство.
+			p #[code background-position: center;] и&nbsp;#[code background-repeat: no-repeat;] будет одинаковым для двух фоновых картинок.
+
+	section
+		.container
+			h2 Фон у&nbsp;border и&nbsp;не&nbsp;только
+			p Допустим у&nbsp;нас есть такая кнопка:
+			+codeBlock('html', `<button type="button" class="clip">Кнопка</button>`)
+			+codeBlock('css', `.clip {\n  appearance: none;\n  padding: 2px 4px;\n  background-color: #ff6347;\n  color: #000000;\n  border: 3px solid rgba(255, 99, 71, 0.5);\n  font-family: inherit;\n  font-size: inherit;\n}`)
+			figure
+				button.clip(type='button') Кнопка
+					style .clip{appearance:none;padding:2px 4px;background-color:tomato;color:#000;border:3px solid rgba(255,99,71,.5);font-family:inherit;font-size:inherit}
+				figcaption Пример кнопки у которой обводка без прозрачности.
+			p На&nbsp;первый взгляд всё хорошо, но&nbsp;в&nbsp;стилях border прописан с&nbsp;прозрачностью, то&nbsp;есть он&nbsp;должен быть светлее. Но&nbsp;почему он&nbsp;сливается с&nbsp;общим фоном? По&nbsp;тому что фоновый цвет кнопки так&nbsp;же заливает и&nbsp;border. Исправить такую ситуацию поможет #[code background-clip]. В&nbsp;нашем случае #[code background-clip: padding-box;] Есть и&nbsp;другие значения этого #[a(href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip", target="_blank", rel="noopener noreferrer") свойства].
+			+codeBlock('css', `.clip {\n  appearance: none;\n  padding: 2px 4px;\n  background-color: #ff6347;\n  background-clip: padding-box;\n  color: #000000;\n  border: 3px solid rgba(255, 99, 71, 0.5);\n  font-family: inherit;\n  font-size: inherit;\n}`)
+			figure
+				button.clip1(type='button') Кнопка
+					style .clip1{appearance:none;padding:2px 4px;background-color:tomato;background-clip:padding-box;color:#000;border:3px solid rgba(255,99,71,.5);font-family:inherit;font-size:inherit}
+				figcaption Пример кнопки с фоновым цветом и прозрачной обводкой.
+
+	section
+		.container
+			h2 Анимация фона
+			p background анимируется плохо, но&nbsp;можно анимировать #[code background-position] и&nbsp;#[code background-color]. Первый пример можно посмотреть на&nbsp;главной странице этого&nbsp;же сайта, там &laquo;плывут&raquo; облака, ну&nbsp;а&nbsp;анимация фонового цвета&nbsp;&mdash; практически любая кнопка на&nbsp;этой&nbsp;же странице.
+
+	section
+		.container
+			h2 Короткая запись
+			p В&nbsp;своих примерах, в&nbsp;этой статье, я&nbsp;всегда прописываю несколько свойств, но&nbsp;можно практически всё прописать и&nbsp;в&nbsp;одну строку: #[code background: #131112 url(./img/bg.jpg) no-repeat center;] Как правило я&nbsp;не&nbsp;использую такой подход, и&nbsp;в&nbsp;этом есть причина: стоит этому&nbsp;же элементу поменять одно из&nbsp;свойств, например при адаптивной вёрстке, то&nbsp;все остальные могут сломаться... Более того, когда все свойства прописаны отдельно, код более удобен для разработки.
+
+	section
+		.container
+			h2 Итог
+			p Фон это не только одна строка кода с фоновым цветом или картинкой. Это набор правил позволяющий гибко настроить фон без дополнительных html элементов. Осталось только правильно прописать пути до картинок, о чём у меня есть #[a(href="https://dzen.ru/video/watch/63b2e50e7fc57c5d5d99ae89", target="_blank", rel="noopener noreferrer") видео].
+
+
+
+
+
+	//- section
+	//- 	.container
+	//- 		h2.visually-hidden видео
+	//- 		+zen-video("https://dzen.ru/embed/vzRAuyE3pQ1o?from_block=partner&from=zen&backoffice=1&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/6498308ed69a2816cb213d7f", "img/article/css_counter/video-1")
+
+
+
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
