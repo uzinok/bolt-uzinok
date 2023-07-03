@@ -1,0 +1,18 @@
+extends ../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	- var pageTitle = "Архивы Demo"
+	- var desc = 'Набор демо с использованием различных технологий без описания.'
+	- var heading = 'Архивы Demo'
+	- var subHeading = 'Набор демо с использованием различных технологий без описания.'
+	- var idPage = 'demo'
+	- var group = 'other'
+	- var nameGroup = 'Demo';
+	- var url = 'article/demo/'
+
+
+block main
+	.container.container--group
+		h2.visually-hidden Статьи
+		include css_filter_color/card.pug

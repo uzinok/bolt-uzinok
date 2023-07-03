@@ -1,0 +1,12 @@
+section#demo
+		.container
+			h2
+				a(href="article/demo/") Демо
+			.slider(aria-roledescription="carousel")
+
+				ul.slider__list
+					li.slider__item(aria-live="off", aria-roledescription="slide")
+						.slider__content
+							include ../article/demo/css_filter_color/card.pug
+
+				.slider__pagination-wrap
