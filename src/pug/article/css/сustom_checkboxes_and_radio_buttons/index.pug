@@ -15,9 +15,20 @@ block main
 			h2 Чекбоксы и&nbsp;радиокнопки на&nbsp;спанах.
 			p Не забываем про семантику и добавим в разметку два чекбокса и две радиокнопки:
 			+codeBlock('html', `<label class="label">\n  <input type="checkbox" class="checkbox" name="name" id="checkbox-1" checked>\n  <span class="checkbox-view"></span>\n  Кнопка 1\n</label>\n<label class="label">\n  <input type="checkbox" class="checkbox" name="name" id="checkbox-2">\n  <span class="checkbox-view"></span>\n  Кнопка 2\n</label>\n\n<label class="label">\n  <input type="radio" class="radio" name="name" id="radio-1" checked>\n  <span class="radio-view"></span>\n  Кнопка 3\n</label>\n<label class="label">\n  <input type="radio" class="radio" name="name" id="radio-2">\n  <span class="radio-view"></span>\n  Кнопка 4\n</label>`)
+			figure
+				picture
+					source(srcset="img/article/сustom_checkboxes_and_radio_buttons/img-1.avif", type="image/avif")
+					source(srcset="img/article/сustom_checkboxes_and_radio_buttons/img-1.webp", type="image/webp")
+					img(src="img/article/сustom_checkboxes_and_radio_buttons/img-1.png", alt='внешний вид чекбоксов и радиокнопок в браузере', width="870", height="52", loading="lazy")
+				figcaption Внешний вид кнопок по-умолчанию
 			p В&nbsp;данном случае #[code input] находится внутри #[code label], и&nbsp;для удобства стилизации сразу после #[code input] я&nbsp;добавил #[code span] для визуализации кнопок. На&nbsp;самом деле, с&nbsp;таким подходом, #[code input] и&nbsp;#[code span] можно вынести за&nbsp;пределы #[code label], но&nbsp;при этом необходимо связать инпут и&nbsp;#[code label] при помощи #[code id]&nbsp;и&nbsp;атрибута #[code for] для #[code label]. Это нужно для того, что&nbsp;бы можно было кликнуть по&nbsp;подписи к&nbsp;инпуту и&nbsp;не&nbsp;нужно было целиться в&nbsp;маленькую кнопку. Кроме того, пользователи скринридера при попадании на&nbsp;кнопку услышат подпись в&nbsp;#[code label], к&nbsp;которому привязана кнопка.
 			p Для начала нужно стилизовать кнопки в&nbsp;спокойном состоянии:
 			+codeBlock('css', `.checkbox-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}\n\n.radio-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}`)
+			figure
+				picture
+					source(srcset="img/article/сustom_checkboxes_and_radio_buttons/img-2.avif", type="image/avif")
+					img(src="img/article/сustom_checkboxes_and_radio_buttons/img-2.png", alt='внешний вид чекбоксов и радиокнопок в браузере со стилизованным span', width="834", height="61", loading="lazy")
+				figcaption Внешний вид кнопок по-умолчанию со стилизованным #[code span]
 			p Ничего особого, #[code display: inline-block;] я&nbsp;добавил чтобы можно было добавить размеры элементу, #[code position: relative;] для позиционирования псевдоэлементов, а&nbsp;остальное и&nbsp;так понятно.
 	section
 		.container
@@ -27,6 +38,12 @@ block main
 			p Для этого я&nbsp;использовал псевдокласс, соседний элемент и&nbsp;псевдоэлементы. Причём без дополнительной графики.
 			p Галочку сделал двумя бордерами у&nbsp;псевдоэлемента и&nbsp;повернул её&nbsp;при помощи трансформ. Ну&nbsp;а&nbsp;радиокнопка это просто псевдоэлементменьшего размера.
 			p Так&nbsp;же я&nbsp;использовал #[a(href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword", target="_blank", rel="noopener noreferrer") #[code currentColor]] для обозначения фонового цвета. Это для более удобной смены фонового и&nbsp;цвета бордера.
+			figure
+				picture
+					source(srcset="img/article/сustom_checkboxes_and_radio_buttons/img-3.avif", type="image/avif")
+					source(srcset="img/article/сustom_checkboxes_and_radio_buttons/img-3.webp", type="image/webp")
+					img(src="img/article/сustom_checkboxes_and_radio_buttons/img-3.png", alt='внешний вид чекбоксов и радиокнопок в браузере со стилизованным span и отмеченными кнопками', width="834", height="61", loading="lazy")
+				figcaption Внешний вид кнопок по-умолчанию со стилизованным #[code span] и отмеченными кнопками
 	section
 		.container
 			h2 Идём дальше: состояния событий.
