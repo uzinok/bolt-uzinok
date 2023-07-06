@@ -1,0 +1,99 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+
+	section
+		.container
+			h2.visually-hidden Вступление
+			p Браузерные чекбоксы и&nbsp;радиокнопки в&nbsp;разных браузерах могут выглядеть по-разному. Кроме того, внешний вид этих элементов практически всегда выбивается из&nbsp;стиля сайта. А&nbsp;как их&nbsp;стилизовать? Как у&nbsp;чекбокса поменять рамку с&nbsp;галочкой а&nbsp;радиокнопку сделать квадратной? Есть два варианта, у&nbsp;каждого есть свои плюсы и&nbsp;минусы. Но&nbsp;в&nbsp;зависимости от&nbsp;тех или иных требований к&nbsp;проекту один из&nbsp;вариантов может не&nbsp;подойти. Для меня оба варианта по&nbsp;сложности одинаковы, но&nbsp;начну с&nbsp;того, что будет легче для менее опытных верстальщиков.
+	section
+		.container
+			h2 Чекбоксы и&nbsp;радиокнопки на&nbsp;спанах.
+			p Не забываем про семантику и добавим в разметку два чекбокса и две радиокнопки:
+			+codeBlock('html', `<label class="label">\n  <input type="checkbox" class="checkbox" name="name" id="checkbox-1" checked>\n  <span class="checkbox-view"></span>\n  Кнопка 1\n</label>\n<label class="label">\n  <input type="checkbox" class="checkbox" name="name" id="checkbox-2">\n  <span class="checkbox-view"></span>\n  Кнопка 2\n</label>\n\n<label class="label">\n  <input type="radio" class="radio" name="name" id="radio-1" checked>\n  <span class="radio-view"></span>\n  Кнопка 3\n</label>\n<label class="label">\n  <input type="radio" class="radio" name="name" id="radio-2">\n  <span class="radio-view"></span>\n  Кнопка 4\n</label>`)
+			p В&nbsp;данном случае #[code input] находится внутри #[code label], и&nbsp;для удобства стилизации сразу после #[code input] я&nbsp;добавил #[code span] для визуализации кнопок. На&nbsp;самом деле, с&nbsp;таким подходом, #[code input] и&nbsp;#[code span] можно вынести за&nbsp;пределы #[code label], но&nbsp;при этом необходимо связать инпут и&nbsp;#[code label] при помощи #[code id]&nbsp;и&nbsp;атрибута #[code for] для #[code label]. Это нужно для того, что&nbsp;бы можно было кликнуть по&nbsp;подписи к&nbsp;инпуту и&nbsp;не&nbsp;нужно было целится в&nbsp;маленькую кнопку. Кроме того, пользователи скринридера при попадании на&nbsp;кнопку услышат подпись в&nbsp;#[code label], к&nbsp;которому привязана кнопка.
+			p Для начала нужно стилизовать кнопки в&nbsp;спокойном состоянии:
+			+codeBlock('css', `.checkbox-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}\n\n.radio-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}`)
+			p Ничего особого, #[code display: inline-block;] я&nbsp;добавил что-бы можно было добавить размеры элементу, #[code position: relative;] для позиционирования псевдоэлементов, а&nbsp;остальное и&nbsp;так понятно.
+	section
+		.container
+			h2 Помечаем отмеченные кнопки.
+			p Далее необходимо пометить точкой и&nbsp;галочкой отмеченные кнопки.
+			+codeBlock('css', `.checkbox-view {\n  position: relative;\n}\n\n.checkbox:checked+.checkbox-view::before {\n  content: '';\n  position: absolute;\n  width: 5px;\n  height: 14px;\n  border-right: 2px solid currentColor;\n  border-bottom: 2px solid currentColor;\n  transform: rotate(25deg);\n  left: 6px;\n  top: 1px;\n}\n\n.radio-view {\n  position: relative;\n}\n\n.radio:checked+.radio-view::before {\n  content: '';\n  position: absolute;\n  background-color: currentColor;\n  width: 10px;\n  height: 10px;\n  border-radius: 5px;\n  top: 5px;\n  left: 5px;\n}`)
+			p Для этого я&nbsp;использовал псевдокласс, соседний элемент и&nbsp;псевдоэлементы. Причём без дополнительной графики.
+			p Галочку сделал двумя бордерами у&nbsp;псевдоэлемента и&nbsp;повернул её&nbsp;при помощи трансформ. Ну&nbsp;а&nbsp;радиокнопка это просто псевдоэлементменьшего размера.
+			p Так&nbsp;же я&nbsp;использовал #[a(href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword", target="_blank", rel="noopener noreferrer") #[code currentColor]] для обозначения фонового цвета. Это для более удобной смены фонового и&nbsp;цвета бордера.
+	section
+		.container
+			h2 Идём дальше: состояния событий.
+			p Важно заметить следующее: уже при наведении курсора на&nbsp;текст подписи у&nbsp;#[code input] появляется эффект #[code :hover]. По&nbsp;этой пичине отслеживаю #[code :hover] у&nbsp;#[code label] и&nbsp;для #[code span] добавляю стили наведения:
+			+codeBlock('css', `.label:hover .checkbox-view:not(:active),\n.label:hover .radio-view:not(:active) {\n  opacity: 0.7;\n}`)
+			p Псевдокласс: #[code not(:active)] необходим для того, чтобы в&nbsp;состоянии #[code :active] не&nbsp;было прозрачности при клике курсором мышы.
+			p Ну&nbsp;а&nbsp;фокус, пропишу селектором, похожим на&nbsp;отмеченную кнопку.
+			+codeBlock('css', `.checkbox:focus-visible+.checkbox-view,\n.radio:focus-visible+.radio-view {\n  outline: 2px solid #000000;\n  outline-offset: 2px;\n}`)
+			p В&nbsp;данном случае я&nbsp;использую #[code :focus-visible], что-бы фокус отображался только у&nbsp;пользователей клавиатуры.
+			p Ну&nbsp;и&nbsp;состояние #[code :active] уже добавляю на&nbsp;сам спан, так как по&nbsp;умолчанию это состояние работает именно на&nbsp;кнопку. Так как в&nbsp;качестве цвета я&nbsp;использовал ключевое слово #[code currentColor], я&nbsp;без труда могу поменять цвет всем элементам нашего #[code span].
+			+codeBlock('css', `.checkbox-view:active,\n.radio-view:active {\n  color: #d52b1e;\n}`)
+			p Последний штрих: нужно скрыть инпуты, причем доступно скрыть! То&nbsp;есть мы&nbsp;не&nbsp;можем добавить #[code display: none;] и&nbsp;успокоиться. С&nbsp;таким подходом пользователям скринридера и&nbsp;тем кто активно пользуется клавиатурой будет очень сложно пользоваться интерфейсом, по&nbsp;этому необходимо использовать класс&nbsp;#[code .visually-hidden]
+			+codeBlock('html', `<label class="label">\n  <input type="checkbox" class="checkbox visually-hidden" name="name" id="checkbox-1" checked>\n  <span class="checkbox-view"></span>\n  Кнопка 1\n</label>\n<label class="label">\n  <input type="checkbox" class="checkbox visually-hidden" name="name" id="checkbox-2">\n  <span class="checkbox-view"></span>\n  Кнопка 2\n</label>\n\n<label class="label">\n  <input type="radio" class="radio visually-hidden" name="name" id="radio-1" checked>\n  <span class="radio-view"></span>\n  Кнопка 3\n</label>\n<label class="label">\n  <input type="radio" class="radio visually-hidden" name="name" id="radio-2">\n  <span class="radio-view"></span>\n  Кнопка 4\n</label>`)
+			+codeBlock('css', `.checkbox-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}\n\n.radio-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}\n\n.checkbox:checked+.checkbox-view::before {\n  content: '';\n  position: absolute;\n  width: 5px;\n  height: 14px;\n  border-right: 2px solid currentColor;\n  border-bottom: 2px solid currentColor;\n  transform: rotate(25deg);\n  left: 6px;\n  top: 1px;\n}\n\n.radio:checked+.radio-view::before {\n  content: '';\n  position: absolute;\n  background-color: currentColor;\n  width: 10px;\n  height: 10px;\n  border-radius: 5px;\n  top: 5px;\n  left: 5px;\n}\n\n.label:hover .checkbox-view:not(:active),\n.label:hover .radio-view:not(:active) {\n  opacity: 0.7;\n}\n\n.checkbox:focus-visible+.checkbox-view,\n.radio:focus-visible+.radio-view {\n  outline: 2px solid #000000;\n  outline-offset: 2px;\n}\n\n.checkbox-view:active,\n.radio-view:active {\n  color: #d52b1e;\n}\n\n.visually-hidden {\n  position: absolute;\n  width: 0;\n  height: 0;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  border: none;}`)
+			p Бесспорно сейчас внешний вид кнопок не&nbsp;очень, но&nbsp;есть все необходимые события. По&nbsp;чекбоксам можно ходить табом, а&nbsp;радиокнопки переключаются стрелками. Есть все события при взаимодействии с&nbsp;элементами. Осталось найти подходящий макет и&nbsp;подогнать под него кнопки.
+	section
+		.container
+			h2 Чекбоксы и&nbsp;радиокнопки на&nbsp;псевдоэлементах.
+			p #[code Html] необходимо поправить, причем значительно: #[code input] необходимо добавлять перед #[code label], связать с&nbsp;#[code label] и&nbsp;убрать лишние #[code span]. Проще написать новый код)
+			+codeBlock('html', `<input type="checkbox" class="checkbox-1" name="name-1" id="checkbox-3" checked>\n<label class="label-1" for="checkbox-3">\n  Кнопка 5\n</label>\n<input type="checkbox" class="checkbox-1" name="name-1" id="checkbox-4">\n<label class="label-1" for="checkbox-4">\n  Кнопка 6\n</label>\n\n<input type="radio" class="radio-1" name="name-1" id="radio-3" checked>\n<label class="label-1" for="radio-3">\n  Кнопка 7\n</label>\n<input type="radio" class="radio-1" name="name-1" id="radio-4">\n<label class="label-1" for="radio-4">\n  Кнопка 8\n</label>`)
+	section
+		.container
+			h2 Основные стили.
+			p Для начала необходимо создать псевдоэлементы для визуализации неотмеченых кнопок:
+			+codeBlock('css', `.label-1::before {\n  content: '';\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}`)
+			p Правила тут такие как и&nbsp;у&nbsp;#[code span], только добавлено обязательное свойство для псевдоэлементов #[code content: '';].
+
+			h3 Радиокнопки на&nbsp;псевдоэлементах.
+			p Тут я&nbsp;пропишу сначала для радиокнопок стили, а&nbsp;потом для чекбоксов так как будет немного разный подход.
+			+codeBlock('css', `.radio-1+.label-1::before {\n  box-sizing: border-box;\n  width: 24px;\n  height: 24px;\n  padding: 6px;\n}\n\n.radio-1:checked+.label-1::before {\n  background-color: currentColor;\n  background-clip: content-box;\n}`)
+			p Есть один минус: нет возможности точку сделать круглой. Этот вариант я&nbsp;добавил что&nbsp;бы увидеть интересный подход)). Но&nbsp;используя подход как у&nbsp;следующих чекбоксов&nbsp;&mdash; это можно поправить!)
+
+			h3 чекбоксы на&nbsp;псевдоэлементах.
+			p В&nbsp;данном случае нам понадобятся две картинки. Возьму их&nbsp;из&nbsp;одного учебного проекта:
+			+codeBlock('svg', `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.62 1.62a.96.96 0 0 1 .68-.29h8.95a.67.67 0 1 0 0-1.33H2.3A2.3 2.3 0 0 0 0 2.3v11.4A2.3 2.3 0 0 0 2.3 16h11.4a2.3 2.3 0 0 0 2.3-2.3V8a.67.67 0 0 0-1.34 0v5.7a.96.96 0 0 1-.96.97H2.3a.96.96 0 0 1-.97-.97V2.3c0-.26.1-.5.29-.68Zm14.2.32a.67.67 0 1 0-.97-.92L7.6 8.66 5.78 6.73a.67.67 0 0 0-.97.91l2.32 2.45a.67.67 0 0 0 .97 0l7.72-8.15Z" fill="#2D3440"/>\n</svg>`)
+			+codeBlock('svg', `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">\n  <path fill-rule="evenodd" clip-rule="evenodd" d="M1.62 1.62a.96.96 0 0 1 .68-.29h11.4c.24 0 .34.03.4.06a1 1 0 0 1 .28.23c.21.2.29.43.29.68V13.7a.96.96 0 0 1-.97.96H2.3a.96.96 0 0 1-.97-.96V2.3c0-.26.1-.5.29-.68Zm14.22 12.92A2.3 2.3 0 0 1 13.7 16H2.3A2.3 2.3 0 0 1 0 13.7V2.3A2.3 2.3 0 0 1 1.46.16c.11-.1.27-.16.43-.16H13.7c.34 0 .65.04.94.17.28.12.5.31.69.5.48.48.67 1.06.67 1.63v11.8c0 .18-.06.33-.16.44Z" fill="#2D3440"/>\n</svg>`)
+			p Далее идем простым путём: обнуляем бордер и&nbsp;фоном добавляем картинку, а&nbsp;при выбранной кнопке мы&nbsp;меняем картинку:
+			+codeBlock('css', `.checkbox-1 + .label-1::before {\n  border: 0;\n  border-radius: 0;\n  background-image: url(./img/checkbox.svg);\n  background-size: contain;\n  background-repeat: no-repeat;\n}\n\n.checkbox-1:checked + .label-1::before {\n  background-image: url(./img/checkbox-checked.svg);\n}`)
+	section
+		.container
+			h2 Состояние кнопок в&nbsp;разных событиях.
+			p Всё по&nbsp;аналогии с&nbsp;примером на&nbsp;#[code span]:
+			+codeBlock('css', `.label-1:hover:not(:active)::before {\n  opacity: 0.7;\n}\n\n.checkbox-1:focus-visible + .label-1::before,\n.radio-1:focus-visible + .label-1::before {\n  outline: 2px solid #000000;\n  outline-offset: 2px;\n}\n\n.label-1:active::before {\n  color: #d52b1e;\n}`)
+			p Но&nbsp;есть один минус: в&nbsp;состоянии актива у&nbsp;чекбокса не&nbsp;меняется цвет. Это можно поправить маской&nbsp;&mdash; но&nbsp;тогда не&nbsp;будет обводки при фокусе. Можно добавить фильтр, но&nbsp;в&nbsp;таком случае будет сложнее получить нужный цвет)) При смене фоновых картинок, при медленном интернете, может маргать чекбокс, для решения этого вопроса поможет сервис #[a(href="https://denis-creative.com/svg-to-bg/", target="_blank", rel="noopener noreferrer") denis-creative.com/svg-to-bg/]. С&nbsp;анимацией тоже есть неприятная история, но&nbsp;тут можно добавить второй псевдоэлемент и&nbsp;с&nbsp;анимацией их&nbsp;менять.
+			p Не&nbsp;забываем скрыть доступно кнопи и&nbsp;всё готово.
+	section
+		.container
+			h2 Итоги.
+			p Вот такими не&nbsp;хитрыми способами можно кастомизировать чекбоксы и&nbsp;радиокнопки. А&nbsp;если комбинировать все описанные мной подходы (и&nbsp;не&nbsp;только), можно сделать много красивого. Гавное следить за&nbsp;доступностью и&nbsp;аккуратно прописывать селекторы #[small (мои ошибки в&nbsp;начале карьеры)].
+
+
+
+
+
+
+	//- section
+	//- 	.container
+	//- 		h2.visually-hidden видео
+	//- 		+zen-video("https://dzen.ru/embed/v01VVZIouXSE?from_block=partner&from=zen&mute=1&autoplay=1&tv=0", "https://dzen.ru/video/watch/64a0d08d0801f045062f7fc0", "img/article/background/video-1")
+
+
+
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
