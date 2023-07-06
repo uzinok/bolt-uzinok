@@ -31,6 +31,7 @@ img {
 	padding: 0;
 	overflow: hidden;
 	border: none;
+	outline: 0;
 }
 
 h1,
@@ -52,7 +53,7 @@ textarea {
 
 a[href]:not([tabindex='-1']),
 area[href]:not([tabindex='-1']),
-input:not([disabled]):not([tabindex='-1']),
+input:not([disabled]):not([tabindex='-1']):not(.visually-hidden	),
 select:not([disabled]):not([tabindex='-1']),
 textarea:not([disabled]):not([tabindex='-1']),
 button:not([disabled]):not([tabindex='-1']),

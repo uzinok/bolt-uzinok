@@ -50,6 +50,13 @@ block main
 			p Важно заметить следующее: уже при наведении курсора на&nbsp;текст подписи у&nbsp;#[code input] появляется эффект #[code :hover]. По&nbsp;этой причине отслеживаю #[code :hover] у&nbsp;#[code label] и&nbsp;для #[code span] добавляю стили наведения:
 			+codeBlock('css', `.label:hover .checkbox-view:not(:active),\n.label:hover .radio-view:not(:active) {\n  opacity: 0.7;\n}`)
 			p Псевдокласс: #[code not(:active)] необходим для того, чтобы в&nbsp;состоянии #[code :active] не&nbsp;было прозрачности при клике курсором мыши.
+
+			figure
+				video(playsinline="playsinline", controls="controls", poster="img/article/сustom_checkboxes_and_radio_buttons/poster-1.webp", width="854", height="68", preload="metadata", loop="loop")
+					source(src="video/сustom_checkboxes_and_radio_buttons/video-1.webm", type="video/webm")
+					source(src="video/сustom_checkboxes_and_radio_buttons/video-1.mp4", type="video/mp4")
+				figcaption При наведении курсора на подпись, у кнопок срабатывает событие #[code :hover]
+
 			p Ну&nbsp;а&nbsp;фокус, пропишу селектором, похожим на&nbsp;отмеченную кнопку.
 			+codeBlock('css', `.checkbox:focus-visible+.checkbox-view,\n.radio:focus-visible+.radio-view {\n  outline: 2px solid #000000;\n  outline-offset: 2px;\n}`)
 			p В&nbsp;данном случае я&nbsp;использую #[code :focus-visible], чтобы фокус отображался только у&nbsp;пользователей клавиатуры.
@@ -59,6 +66,24 @@ block main
 			+codeBlock('html', `<label class="label">\n  <input type="checkbox" class="checkbox visually-hidden" name="name" id="checkbox-1" checked>\n  <span class="checkbox-view"></span>\n  Кнопка 1\n</label>\n<label class="label">\n  <input type="checkbox" class="checkbox visually-hidden" name="name" id="checkbox-2">\n  <span class="checkbox-view"></span>\n  Кнопка 2\n</label>\n\n<label class="label">\n  <input type="radio" class="radio visually-hidden" name="name" id="radio-1" checked>\n  <span class="radio-view"></span>\n  Кнопка 3\n</label>\n<label class="label">\n  <input type="radio" class="radio visually-hidden" name="name" id="radio-2">\n  <span class="radio-view"></span>\n  Кнопка 4\n</label>`)
 			+codeBlock('css', `.checkbox-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}\n\n.radio-view {\n  position: relative;\n  display: inline-block;\n  width: 20px;\n  height: 20px;\n  border-radius: 8px;\n  border: 2px solid currentColor;\n}\n\n.checkbox:checked+.checkbox-view::before {\n  content: '';\n  position: absolute;\n  width: 5px;\n  height: 14px;\n  border-right: 2px solid currentColor;\n  border-bottom: 2px solid currentColor;\n  transform: rotate(25deg);\n  left: 6px;\n  top: 1px;\n}\n\n.radio:checked+.radio-view::before {\n  content: '';\n  position: absolute;\n  background-color: currentColor;\n  width: 10px;\n  height: 10px;\n  border-radius: 5px;\n  top: 5px;\n  left: 5px;\n}\n\n.label:hover .checkbox-view:not(:active),\n.label:hover .radio-view:not(:active) {\n  opacity: 0.7;\n}\n\n.checkbox:focus-visible+.checkbox-view,\n.radio:focus-visible+.radio-view {\n  outline: 2px solid #000000;\n  outline-offset: 2px;\n}\n\n.checkbox-view:active,\n.radio-view:active {\n  color: #d52b1e;\n}\n\n.visually-hidden {\n  position: absolute;\n  width: 0;\n  height: 0;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  border: none;}`)
 			p Бесспорно сейчас внешний вид кнопок не&nbsp;очень, но&nbsp;есть все необходимые события. По&nbsp;чекбоксам можно ходить табом, а&nbsp;радиокнопки переключаются стрелками. Есть все события при взаимодействии с&nbsp;элементами. Осталось найти подходящий макет и&nbsp;подогнать под него кнопки.
+			p ну а наш результат таков:
+			label.label
+				input.checkbox.visually-hidden#checkbox-1(type='checkbox', name='name', checked)
+				span.checkbox-view
+				| Кнопка 1
+			label.label
+				input.checkbox.visually-hidden#checkbox-2(type='checkbox', name='name')
+				span.checkbox-view
+				| Кнопка 2
+			label.label
+				input.radio.visually-hidden#radio-1(type='radio', name='name', checked)
+				span.radio-view
+				| Кнопка 3
+			label.label
+				input.radio.visually-hidden#radio-2(type='radio', name='name')
+				span.radio-view
+				| Кнопка 4
+			style .checkbox-view{position:relative;display:inline-block;width:20px;height:20px;border-radius:8px;border:2px solid currentColor}.radio-view{position:relative;display:inline-block;width:20px;height:20px;border-radius:8px;border:2px solid currentColor}.checkbox:checked+.checkbox-view:before{content:'';position:absolute;width:5px;height:14px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(25deg);left:6px;top:1px}.radio:checked+.radio-view:before{content:'';position:absolute;background-color:currentColor;width:10px;height:10px;border-radius:5px;top:5px;left:5px}.label:hover .checkbox-view:not(:active),.label:hover .radio-view:not(:active){opacity:.7}.checkbox:focus-visible+.checkbox-view,.radio:focus-visible+.radio-view{outline:2px solid #000;outline-offset:2px}.checkbox-view:active,.radio-view:active{color:#d52b1e}.visually-hidden{position:absolute;width:0;height:0;margin:0;padding:0;overflow:hidden;border:none}
 	section
 		.container
 			h2 Чекбоксы и&nbsp;радиокнопки на&nbsp;псевдоэлементах.
@@ -89,6 +114,15 @@ block main
 			+codeBlock('css', `.label-1:hover:not(:active)::before {\n  opacity: 0.7;\n}\n\n.checkbox-1:focus-visible + .label-1::before,\n.radio-1:focus-visible + .label-1::before {\n  outline: 2px solid #000000;\n  outline-offset: 2px;\n}\n\n.label-1:active::before {\n  color: #d52b1e;\n}`)
 			p Но&nbsp;есть один минус: в&nbsp;состоянии актива у&nbsp;чекбокса не&nbsp;меняется цвет. Это можно поправить маской&nbsp;&mdash; но&nbsp;тогда не&nbsp;будет обводки при фокусе. Можно добавить фильтр, но&nbsp;в&nbsp;таком случае будет сложнее получить нужный цвет)) При смене фоновых картинок, при медленном интернете, может моргать чекбокс, для решения этого вопроса поможет сервис #[a(href="https://denis-creative.com/svg-to-bg/", target="_blank", rel="noopener noreferrer") denis-creative.com/svg-to-bg/]. С&nbsp;анимацией тоже есть неприятная история, но&nbsp;тут можно добавить второй псевдоэлемент и&nbsp;с&nbsp;анимацией их&nbsp;менять.
 			p Не&nbsp;забываем скрыть доступно кнопки и&nbsp;всё готово.
+			style .label-1:before{content:'';position:relative;display:inline-block;width:20px;height:20px;border-radius:8px}.radio-1+.label-1:before{border:2px solid currentColor;box-sizing:border-box;width:24px;height:24px;padding:6px}.radio-1:checked+.label-1:before{background-color:currentColor;background-clip:content-box}.label-1:hover:not(:active):before{opacity:.7}.checkbox-1:focus-visible+.label-1:before,.radio-1:focus-visible+.label-1:before{outline:2px solid #000;outline-offset:2px}.label-1:active:before{color:#d52b1e}.checkbox-1+.label-1:before{border:0;border-radius:0;background-image:url(img/article/сustom_checkboxes_and_radio_buttons/checkbox.svg);background-size:contain;background-repeat:no-repeat}.checkbox-1:checked+.label-1:before{background-image:url(img/article/сustom_checkboxes_and_radio_buttons/checkbox-checked.svg)}
+			input.checkbox-1.visually-hidden#checkbox-3(type='checkbox', name='name-1', checked)
+			label.label-1(for='checkbox-3') Кнопка 5
+			input.checkbox-1.visually-hidden#checkbox-4(type='checkbox', name='name-1')
+			label.label-1(for='checkbox-4') Кнопка 6
+			input.radio-1.visually-hidden#radio-3(type='radio', name='name-1', checked)
+			label.label-1(for='radio-3') Кнопка 7
+			input.radio-1.visually-hidden#radio-4(type='radio', name='name-1')
+			label.label-1(for='radio-4') Кнопка 8
 	section
 		.container
 			h2 Итоги.
