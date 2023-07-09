@@ -1,0 +1,63 @@
+extends ../../../templates/template.pug
+
+block variables
+	//- переменная для template.pug
+	include var.pug
+
+block main
+	section
+		.container
+			h2 CSS
+			+codeBlock('css', `img {\n  filter: hue-rotate(0);\n  transition: filter 0.25s ease-in-out;\n}\n\n[data-color="img1"] {\n  filter: hue-rotate(0deg);\n}\n\n[data-color="img2"] {\n  filter: hue-rotate(90deg);\n}\n\n[data-color="img3"] {\n  filter: hue-rotate(180deg);\n}\n\n[data-color="img4"] {\n  filter: hue-rotate(240deg);\n}`)
+			+codeBlock('html', `<img src="./5.png" alt="#" data-color="img1">\n\n<div>\n  <input type="radio" name="color-car" value="img1" checked>\n  <input type="radio" name="color-car" value="img2">\n  <input type="radio" name="color-car" value="img3">\n  <input type="radio" name="color-car" value="img4">\n</div>`)
+			+codeBlock('js', `const img = document.querySelector('img');\nconst radio = document.querySelectorAll('input');\n\nfor (let i = 0; i < radio.length; i++) {\n  const element = radio[i];\n  element.addEventListener('click', function () {\n    img.dataset.color = this.value;\n  })\n}`)
+			style.
+
+				.demo_img {
+							filter: hue-rotate(0);
+							transition: filter 0.25s ease-in-out;
+							border: 0!important;
+						}
+
+						[value='img1'],
+						[data-color="img1"] {
+							filter: hue-rotate(0deg);
+						}
+
+						[value='img2'],
+						[data-color="img2"] {
+							filter: hue-rotate(90deg);
+						}
+
+						[value='img3'],
+						[data-color="img3"] {
+							filter: hue-rotate(180deg);
+						}
+
+						[value='img4'],
+						[data-color="img4"] {
+							filter: hue-rotate(240deg);
+						}
+
+			img.demo_img(src='./img/article/css_filter_color/demo.png', alt='#', data-color='img1')
+			div.demo
+				input(type='radio', name='color-car', value='img1', checked)
+				input(type='radio', name='color-car', value='img2')
+				input(type='radio', name='color-car', value='img3')
+				input(type='radio', name='color-car', value='img4')
+			script.
+
+				const img = document.querySelector('img');
+						const radio = document.querySelectorAll('input');
+
+						for (let i = 0; i < radio.length; i++) {
+							const element = radio[i];
+							element.addEventListener('click', function () {
+								img.dataset.color = this.value;
+							})
+						}
+
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
+			//- +codeBlock('', ``)
